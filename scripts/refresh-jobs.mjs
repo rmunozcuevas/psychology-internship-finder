@@ -1,9 +1,9 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const OUT = new URL('../opportunities.json', import.meta.url);
-const TERMS = /(intern|internship|summer student|research assistant|co-?op|fellow)/i;
+const TERMS = /(intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavioral health technician|psychiatric aide|case management assistant|crisis support|youth mentor|after-school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition)/i;
 const PSYCH = /(psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development)/i;
-const ADJACENT_TITLE = /(research assistant|research intern|social science|consumer insights|ux research|user research|people analytics|human resources|clinical research|health economics|health outcomes|medical writing|community|social impact|human factors|public health)/i;
+const ADJACENT_TITLE = /(research assistant|research intern|lab assistant|survey research|social science|consumer insights|ux research|user research|people analytics|human resources|\bHR\b|recruiting coordinator|employee engagement|people operations|talent acquisition|clinical research|health economics|health outcomes|medical writing|community|social impact|human factors|public health|behavioral health technician|psychiatric aide|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|market research assistant)/i;
 const ADJACENT_CONTEXT = /(behavioral science|organizational psychology|human factors|consumer behavior|consumer research|public health|social impact|health economics|health outcomes)/i;
 const OUT_OF_SCOPE = /(engineer|engineering|software|technology|technical|\bIT\b|machine learning|market design|business operations|marketing|ecommerce|product development|test kitchen|industrial design|environmental health\s*(?:&|and)\s*safety)/i;
 const NOT_INTERN = /(senior|director|manager|vice president|physician|therapist|licensed|postdoctoral|postdoc|professor|faculty|phd candidate)/i;
