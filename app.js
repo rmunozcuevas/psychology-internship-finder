@@ -14,7 +14,65 @@ const skillAliases={"research methods":["research","study","participant","method
 const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];
 function allRoles(){return liveFeedLoaded?liveRoles.map((r,i)=>({id:'live-'+i,title:r.title,org:r.org,mark:(r.org||'').slice(0,2),logo:r.type==='psychology'?'purple':'orange',type:r.type,focus:r.focus||'Research',place:r.location||'See source for location',duration:'Summer 2027',pay:r.pay||'See posting',deadline:r.deadline||'See posting',match:r.match||75,skills:r.skills?.length?r.skills:['Research methods','Communication'],desc:`${r.description||''} · Source: ${r.source||'Employer careers page'}. Last refreshed ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString(): 'recently'}.` ,url:r.url,source:r.source})):opportunities}
 function filteredRoles(){let rows=allRoles().filter(o=>state.category==='all'||o.type===state.category);if(state.query){const q=state.query.toLowerCase();rows=rows.filter(o=>(o.title+' '+o.org+' '+o.focus+' '+o.skills.join(' ')).toLowerCase().includes(q))}if(state.location){const q=state.location.toLowerCase();rows=rows.filter(o=>o.place.toLowerCase().includes(q))}if(state.remote)rows=rows.filter(o=>/remote|hybrid/i.test(o.place));if(state.focus!=='all')rows=rows.filter(o=>o.focus===state.focus);if(state.paid)rows=rows.filter(o=>!o.pay.toLowerCase().includes('unpaid'));const sort=$('#sort-select')?.value||'recommended';if(sort==='deadline')rows.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));else if(sort==='match')rows.sort((a,b)=>b.match-a.match);else rows.sort((a,b)=>(a.type==='psychology'?-1:1)-(b.type==='psychology'?-1:1)||String(a.id).localeCompare(String(b.id)));return rows}
-function render(){const rows=filteredRoles();const sourceSet=liveFeedLoaded;$('#role-list').innerHTML=rows.length?rows.map(o=>`<article class="role-card" data-id="${o.id}"><div class="role-main"><div class="org-logo logo-${o.logo}">${o.mark}</div><div class="role-info"><div class="role-title-row"><span class="role-title">${o.title}</span><span class="category-badge ${o.type==='psychology'?'psych-badge':'adjacent-badge'}">${o.type==='psychology'?'PSYCHOLOGY':'ADJACENT'}</span><span class="match-pill">${o.match}% fit</span></div><div class="org-name">${o.org}</div><div class="role-meta"><span>⌖ ${o.place}</span><span>◷ ${o.duration}</span><span>＄ ${o.pay}</span><span>◷ Apply by ${o.deadline}</span></div></div></div><div class="role-bottom"><div class="skill-tags"><span class="skill-label">Skills you’ll use</span>${o.skills.map(s=>`<span class="skill-tag ${state.resumeSkills.has(s.toLowerCase())?'matched':''}">${state.resumeSkills.has(s.toLowerCase())?'✦ ':''}${s}</span>`).join('')}</div><div class="role-actions"><button class="save-button ${state.saved.has(o.id)?'saved':''}" aria-label="${state.saved.has(o.id)?'Unsave':'Save'} ${o.title}" title="Save role">${state.saved.has(o.id)?'♥':'♡'}</button><button class="details-button">View details ↗</button></div></div><div class="role-description">${o.desc} <a href="${o.url||'#'}" target="_blank" rel="noopener noreferrer" class="apply-link" data-id="${o.id}">Visit ${sourceSet?'original job posting':'opportunity source'} ↗</a><br><small>${sourceSet?`Source: ${o.source||'Employer careers page'}. Last checked ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString():'during last refresh'}. Verify the posting is still open.`:'Sample listing for prototype — verify dates and availability with the organization.'}</small></div></article>`).join(''):'<div class="empty-state"><strong>${liveFeedError?'Listings feed unavailable':sourceSet?'No verified Summer 2027 roles found yet':'No roles found just yet'}</strong>${liveFeedError?'Current listings could not be loaded. Please refresh the page later.':sourceSet?'The connected employer boards did not return any open internships matching psychology or adjacent experience. New postings are checked daily.':'Try a broader search or clear a filter to see more opportunities.'}</div>';$('#feed-notice').classList.toggle('hidden',sourceSet);$('#result-count').textContent=rows.length;$('#showing-count').textContent=rows.length;$('#side-count').textContent=rows.length;const base=sourceSet?liveRoles:opportunities;$('#psych-stat').textContent=base.filter(o=>o.type==='psychology').length;$('#adjacent-stat').textContent=base.filter(o=>o.type==='adjacent').length;$('#saved-count').textContent=state.saved.size;$('#saved-stat').textContent=state.saved.size;$('#refresh-status').textContent=liveFeedError?'Feed unavailable':sourceSet?`Updated ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString():'from live feed'}`:'Demo listings';$('#filter-indicator').classList.toggle('visible',state.remote||state.focus!=='all'||state.paid);$$('.chip').forEach(b=>{b.classList.toggle('active',b.dataset.filter===state.category);b.querySelector('span').textContent=b.dataset.filter==='all'?base.length:base.filter(o=>o.type===b.dataset.filter).length})}
+function render() {
+  const rows = filteredRoles();
+  const sourceSet = liveFeedLoaded;
+  const list = $('#role-list');
+
+  if (rows.length) {
+    list.innerHTML = rows.map(o => `
+      <article class="role-card" data-id="${o.id}">
+        <div class="role-main">
+          <div class="org-logo logo-${o.logo}">${o.mark}</div>
+          <div class="role-info">
+            <div class="role-title-row">
+              <span class="role-title">${o.title}</span>
+              <span class="category-badge ${o.type === 'psychology' ? 'psych-badge' : 'adjacent-badge'}">${o.type === 'psychology' ? 'PSYCHOLOGY' : 'ADJACENT'}</span>
+              <span class="match-pill">${o.match}% fit</span>
+            </div>
+            <div class="org-name">${o.org}</div>
+            <div class="role-meta">
+              <span>⌖ ${o.place}</span><span>◷ ${o.duration}</span><span>＄ ${o.pay}</span><span>◷ Apply by ${o.deadline}</span>
+            </div>
+          </div>
+        </div>
+        <div class="role-bottom">
+          <div class="skill-tags"><span class="skill-label">Skills you’ll use</span>${o.skills.map(skill => `<span class="skill-tag ${state.resumeSkills.has(skill.toLowerCase()) ? 'matched' : ''}">${state.resumeSkills.has(skill.toLowerCase()) ? '✦ ' : ''}${skill}</span>`).join('')}</div>
+          <div class="role-actions">
+            <button class="save-button ${state.saved.has(o.id) ? 'saved' : ''}" aria-label="${state.saved.has(o.id) ? 'Unsave' : 'Save'} ${o.title}" title="Save role">${state.saved.has(o.id) ? '♥' : '♡'}</button>
+            <button class="details-button">View details ↗</button>
+          </div>
+        </div>
+        <div class="role-description">${o.desc} <a href="${o.url || '#'}" target="_blank" rel="noopener noreferrer" class="apply-link" data-id="${o.id}">Visit ${sourceSet ? 'original job posting' : 'opportunity source'} ↗</a><br>
+          <small>${sourceSet ? `Source: ${o.source || 'Employer careers page'}. Last checked ${feedUpdatedAt ? new Date(feedUpdatedAt).toLocaleString() : 'during last refresh'}. Verify the posting is still open.` : 'Sample listing for prototype — verify dates and availability with the organization.'}</small>
+        </div>
+      </article>`).join('');
+  } else {
+    const title = liveFeedError ? 'Listings feed unavailable' : sourceSet ? 'No verified Summer 2027 roles found yet' : 'No roles found just yet';
+    const message = liveFeedError
+      ? 'Current listings could not be loaded. Please refresh the page later.'
+      : sourceSet
+        ? 'The connected employer boards did not return any open internships matching psychology or adjacent experience. New postings are checked daily.'
+        : 'Try a broader search or clear a filter to see more opportunities.';
+    list.innerHTML = `<div class="empty-state"><strong>${title}</strong>${message}</div>`;
+  }
+
+  $('#feed-notice').classList.toggle('hidden', sourceSet);
+  $('#result-count').textContent = rows.length;
+  $('#showing-count').textContent = rows.length;
+  $('#side-count').textContent = rows.length;
+  const base = sourceSet ? liveRoles : opportunities;
+  $('#psych-stat').textContent = base.filter(o => o.type === 'psychology').length;
+  $('#adjacent-stat').textContent = base.filter(o => o.type === 'adjacent').length;
+  $('#saved-count').textContent = state.saved.size;
+  $('#saved-stat').textContent = state.saved.size;
+  $('#refresh-status').textContent = liveFeedError ? 'Feed unavailable' : sourceSet ? `Updated ${feedUpdatedAt ? new Date(feedUpdatedAt).toLocaleString() : 'from live feed'}` : 'Demo listings';
+  $('#filter-indicator').classList.toggle('visible', state.remote || state.focus !== 'all' || state.paid);
+  $$('.chip').forEach(button => {
+    button.classList.toggle('active', button.dataset.filter === state.category);
+    button.querySelector('span').textContent = button.dataset.filter === 'all' ? base.length : base.filter(o => o.type === button.dataset.filter).length;
+  });
+}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2500)}
 $$('.chip').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.filter;render()}));$('#search-input').addEventListener('input',e=>{state.query=e.target.value.trim();render()});$('#location-input').addEventListener('input',e=>{state.location=e.target.value.trim();render()});$('#search-button').addEventListener('click',()=>{state.query=$('#search-input').value.trim();state.location=$('#location-input').value.trim();render()});$('#sort-select').addEventListener('change',render);$('#filter-toggle').addEventListener('click',()=>$('#extra-filters').classList.toggle('hidden'));$('#remote-filter').addEventListener('change',e=>{state.remote=e.target.checked;render()});$('#focus-filter').addEventListener('change',e=>{state.focus=e.target.value;render()});$('#paid-filter').addEventListener('change',e=>{state.paid=e.target.checked;render()});$('#clear-filters').addEventListener('click',()=>{state.category='all';state.query='';state.location='';state.remote=false;state.focus='all';state.paid=false;$('#search-input').value='';$('#location-input').value='';$('#remote-filter').checked=false;$('#focus-filter').value='all';$('#paid-filter').checked=false;render()});$('#load-more').addEventListener('click',()=>toast('You’re all caught up. New roles are added as Summer ’27 listings open.'));$('#role-list').addEventListener('click',e=>{const card=e.target.closest('.role-card');if(!card)return;const id=Number(card.dataset.id);if(e.target.closest('.save-button')){state.saved.has(id)?state.saved.delete(id):state.saved.add(id);render()}else if(e.target.closest('.details-button'))card.classList.toggle('expanded');else if(e.target.closest('.apply-link')){e.preventDefault();toast('Sample listing: check the organization’s careers page for current openings.')}});
 $('#upload-button').addEventListener('click',()=>$('#resume-input').click());$('#resume-input').addEventListener('change',e=>e.target.files[0]&&processResume(e.target.files[0]));const drop=$('#upload-card');drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('dragging')});drop.addEventListener('dragleave',()=>drop.classList.remove('dragging'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('dragging');const f=e.dataTransfer.files[0];if(f)processResume(f)});
