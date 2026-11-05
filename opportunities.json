@@ -1,8 +1,10 @@
 {
-  "updatedAt": "2026-11-05T05:08:54.742Z",
+  "updatedAt": "2026-11-05T05:12:01.748Z",
   "source": "Approved public career-board APIs",
   "total": 0,
   "refreshed": 0,
   "roles": [],
-  "errors": []
+  "errors": [
+    "Greenhouse springhealth66: 404 https://boards-api.greenhouse.io/v1/boards/springhealth66/jobs?content=true"
+  ]
 }
