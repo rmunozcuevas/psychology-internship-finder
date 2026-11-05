@@ -15,7 +15,7 @@ jobs:
           node-version: 20
       - run: node scripts/refresh-jobs.mjs
         env:
-          GREENHOUSE_BOARDS: ${{ vars.GREENHOUSE_BOARDS || 'talkspace,modernhealth,mergeworld,criminaljusticeagency' }}
+          GREENHOUSE_BOARDS: ${{ vars.GREENHOUSE_BOARDS || 'talkspace,modernhealth,hs,springhealth66,mergeworld,criminaljusticeagency' }}
           LEVER_SITES: ${{ vars.LEVER_SITES || 'profoundresearch' }}
           ASHBY_BOARDS: ${{ vars.ASHBY_BOARDS }}
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
