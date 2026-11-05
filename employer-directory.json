@@ -1,0 +1,34 @@
+{
+  "description": "Employer tiers used for ATS-board discovery. Public postings are fetched from employer/ATS sources and filtered for psychology-related internships and early-career experience.",
+  "psychologyFirst": [
+    {"name":"Talkspace","boards":{"greenhouse":"talkspace"},"atsPatterns":["https://boards.greenhouse.io/talkspace/jobs/*","https://jobs.lever.co/talkspace/*","https://jobs.ashbyhq.com/talkspace/*"]},
+    {"name":"Headspace","boards":{"greenhouse":"hs"},"atsPatterns":["https://boards.greenhouse.io/hs/jobs/*","https://jobs.lever.co/headspace/*"]},
+    {"name":"Modern Health","boards":{"greenhouse":"modernhealth"},"atsPatterns":["https://boards.greenhouse.io/modernhealth/jobs/*","https://jobs.lever.co/modernhealth/*"]},
+    {"name":"Lyra Health","atsPatterns":["https://boards.greenhouse.io/lyrahealth/jobs/*","https://jobs.lever.co/lyrahealth/*","https://jobs.ashbyhq.com/lyrahealth/*"]},
+    {"name":"Spring Health","atsPatterns":["https://boards.greenhouse.io/springhealth/jobs/*","https://jobs.lever.co/springhealth/*","https://jobs.ashbyhq.com/springhealth/*"]},
+    {"name":"Talkiatry","atsPatterns":["https://boards.greenhouse.io/talkiatry/jobs/*","https://jobs.lever.co/talkiatry/*"]},
+    {"name":"BetterHelp","atsPatterns":["https://boards.greenhouse.io/betterhelp/jobs/*","https://jobs.lever.co/betterhelp/*"]},
+    {"name":"Rula","atsPatterns":["https://boards.greenhouse.io/rula/jobs/*","https://jobs.lever.co/rula/*","https://jobs.ashbyhq.com/rula/*"]},
+    {"name":"Ginger","atsPatterns":["https://boards.greenhouse.io/ginger/jobs/*","https://jobs.lever.co/ginger/*"]},
+    {"name":"Cerebral","atsPatterns":["https://boards.greenhouse.io/cerebral/jobs/*","https://jobs.lever.co/cerebral/*"]},
+    {"name":"WVU Psychology","atsPatterns":["https://boards.greenhouse.io/*/jobs/*","https://jobs.lever.co/*/*"]},
+    {"name":"Fred Hutch","atsPatterns":["https://boards.greenhouse.io/fredhutch/jobs/*","https://jobs.lever.co/fredhutch/*"]},
+    {"name":"Precision AQ","boards":{"greenhouse":"precisionaq"},"atsPatterns":["https://boards.greenhouse.io/precisionaq/jobs/*","https://jobs.lever.co/precisionaq/*"]},
+    {"name":"TPG","boards":{"greenhouse":"tpgcareers"},"atsPatterns":["https://boards.greenhouse.io/tpgcareers/jobs/*"]},
+    {"name":"NYISO","boards":{"greenhouse":"nyisointernships"},"atsPatterns":["https://boards.greenhouse.io/nyisointernships/jobs/*"]}
+  ],
+  "largeEmployers": [
+    {"name":"CVS Health","atsPatterns":["https://boards.greenhouse.io/cvshealth/jobs/*","https://jobs.lever.co/cvshealth/*"]},
+    {"name":"UnitedHealth Group","atsPatterns":["https://boards.greenhouse.io/unitedhealthgroup/jobs/*","https://jobs.lever.co/uhg/*"]},
+    {"name":"Cigna","atsPatterns":["https://boards.greenhouse.io/cigna/jobs/*","https://jobs.lever.co/cigna/*"]},
+    {"name":"Elevance Health","atsPatterns":["https://boards.greenhouse.io/elevancehealth/jobs/*","https://jobs.lever.co/elevancehealth/*"]},
+    {"name":"Kaiser Permanente","atsPatterns":["https://boards.greenhouse.io/kaiserpermanente/jobs/*","https://jobs.lever.co/kaiserpermanente/*"]},
+    {"name":"Amazon","atsPatterns":["https://boards.greenhouse.io/amazon/jobs/*","https://jobs.lever.co/amazon/*"]},
+    {"name":"Walmart","atsPatterns":["https://boards.greenhouse.io/walmart/jobs/*","https://jobs.lever.co/walmart/*"]},
+    {"name":"Target","atsPatterns":["https://boards.greenhouse.io/target/jobs/*","https://jobs.lever.co/target/*"]},
+    {"name":"Boeing","atsPatterns":["https://boards.greenhouse.io/boeing/jobs/*","https://jobs.lever.co/boeing/*"]},
+    {"name":"T-Mobile","atsPatterns":["https://boards.greenhouse.io/tmobile/jobs/*","https://jobs.lever.co/tmobile/*"]},
+    {"name":"Dow Jones","atsPatterns":["https://boards.greenhouse.io/dowjones/jobs/*","https://jobs.lever.co/dowjones/*"]},
+    {"name":"Amplify","atsPatterns":["https://jobs.ashbyhq.com/amplify/*","https://boards.greenhouse.io/amplify/jobs/*"]}
+  ]
+}
