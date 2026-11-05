@@ -1,0 +1,19 @@
+{
+  "description": "Starter allowlist of public employer job board identifiers. Listing a board does not guarantee a current Summer 2027 internship; roles are fetched live and filtered by the refresh script.",
+  "greenhouse": [
+    { "id": "talkspace", "employer": "Talkspace", "evidence": "Employer careers page links its current openings to the Greenhouse Job Board.", "url": "https://www.talkspace.com/careers" },
+    { "id": "modernhealth", "employer": "Modern Health", "evidence": "Public Greenhouse job board.", "url": "https://job-boards.greenhouse.io/modernhealth" },
+    { "id": "mergeworld", "employer": "MERGE", "evidence": "Employer careers page links to its Greenhouse job board.", "url": "https://merge.ai/careers" },
+    { "id": "criminaljusticeagency", "employer": "New York City Criminal Justice Agency", "evidence": "Greenhouse job URL published by the employer in a job description.", "url": "https://boards.greenhouse.io/criminaljusticeagency" }
+  ],
+  "lever": [
+    { "id": "profoundresearch", "employer": "Profound Research", "evidence": "Public Lever postings API; current results include clinical research internship talent communities for 2027–2028.", "url": "https://jobs.lever.co/profoundresearch" }
+  ],
+  "ashby": [],
+  "usaJobs": {
+    "enabledWhenKeyIsConfigured": true,
+    "registrationUrl": "https://developer.usajobs.gov/apirequest/index",
+    "requiredGitHubSecret": "USAJOBS_API_KEY",
+    "requiredRepositoryVariable": "USAJOBS_EMAIL"
+  }
+}
