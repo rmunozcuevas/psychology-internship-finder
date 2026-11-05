@@ -25,6 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Configure public API address
+        env:
+          API_BASE: ${{ vars.API_BASE }}
+        run: printf "window.FIELDNOTE_API_URL='%s';\n" "$API_BASE" > config.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

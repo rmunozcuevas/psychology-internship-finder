@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: psych-internship-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: psych-internship-db
+          property: connectionString
+databases:
+  - name: psych-internship-db
+    plan: free
+    databaseName: internships
+    user: internships
