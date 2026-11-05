@@ -18,6 +18,10 @@ jobs:
           GREENHOUSE_BOARDS: ${{ vars.GREENHOUSE_BOARDS || 'talkspace,modernhealth,hs,mergeworld,criminaljusticeagency,nyisointernships,sharkninjaoperatingllc,tpgcareers,precisionaq' }}
           LEVER_SITES: ${{ vars.LEVER_SITES || 'profoundresearch' }}
           ASHBY_BOARDS: ${{ vars.ASHBY_BOARDS }}
+          SMARTRECRUITERS_COMPANIES: ${{ vars.SMARTRECRUITERS_COMPANIES }}
+          BAMBOOHR_BOARDS: ${{ vars.BAMBOOHR_BOARDS }}
+          WORKDAY_BOARDS: ${{ vars.WORKDAY_BOARDS }}
+          DISCOVER_ATS_BOARDS: 'true'
       - name: Commit refreshed feed
         run: |
           git config user.name github-actions[bot]
