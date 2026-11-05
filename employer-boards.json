@@ -5,7 +5,11 @@
     { "id": "modernhealth", "employer": "Modern Health", "evidence": "Public Greenhouse job board.", "url": "https://job-boards.greenhouse.io/modernhealth" },
     { "id": "hs", "employer": "Headspace", "evidence": "Employer careers page exposes the Greenhouse job board token.", "url": "https://job-boards.greenhouse.io/hs" },
     { "id": "mergeworld", "employer": "MERGE", "evidence": "Employer careers page links to its Greenhouse job board.", "url": "https://merge.ai/careers" },
-    { "id": "criminaljusticeagency", "employer": "New York City Criminal Justice Agency", "evidence": "Greenhouse job URL published by the employer in a job description.", "url": "https://boards.greenhouse.io/criminaljusticeagency" }
+    { "id": "criminaljusticeagency", "employer": "New York City Criminal Justice Agency", "evidence": "Greenhouse job URL published by the employer in a job description.", "url": "https://boards.greenhouse.io/criminaljusticeagency" },
+    { "id": "nyisointernships", "employer": "New York Independent System Operator", "evidence": "Official Greenhouse board has a Summer 2027 human resources internship listing that names organizational psychology as relevant experience.", "url": "https://job-boards.greenhouse.io/nyisointernships" },
+    { "id": "sharkninjaoperatingllc", "employer": "SharkNinja", "evidence": "Official Greenhouse board has a Spring 2027 Consumer Insights co-op listing welcoming psychology coursework.", "url": "https://job-boards.greenhouse.io/sharkninjaoperatingllc" },
+    { "id": "tpgcareers", "employer": "TPG", "evidence": "Official Greenhouse board has a 2027 Health and Social Impact Research Assistant internship open to advanced undergraduates.", "url": "https://job-boards.greenhouse.io/tpgcareers" },
+    { "id": "precisionaq", "employer": "Precision AQ", "evidence": "Official Greenhouse board has a paid Summer 2027 internship in healthcare research and market access.", "url": "https://job-boards.greenhouse.io/precisionaq" }
   ],
   "lever": [
     { "id": "profoundresearch", "employer": "Profound Research", "evidence": "Public Lever postings API; current results include clinical research internship talent communities for 2027–2028.", "url": "https://jobs.lever.co/profoundresearch" }
