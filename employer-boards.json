@@ -4,7 +4,6 @@
     { "id": "talkspace", "employer": "Talkspace", "evidence": "Employer careers page links its current openings to the Greenhouse Job Board.", "url": "https://www.talkspace.com/careers" },
     { "id": "modernhealth", "employer": "Modern Health", "evidence": "Public Greenhouse job board.", "url": "https://job-boards.greenhouse.io/modernhealth" },
     { "id": "hs", "employer": "Headspace", "evidence": "Employer careers page exposes the Greenhouse job board token.", "url": "https://job-boards.greenhouse.io/hs" },
-    { "id": "springhealth66", "employer": "Spring Health", "evidence": "Public Greenhouse job board linked from a current employer job posting.", "url": "https://job-boards.greenhouse.io/springhealth66" },
     { "id": "mergeworld", "employer": "MERGE", "evidence": "Employer careers page links to its Greenhouse job board.", "url": "https://merge.ai/careers" },
     { "id": "criminaljusticeagency", "employer": "New York City Criminal Justice Agency", "evidence": "Greenhouse job URL published by the employer in a job description.", "url": "https://boards.greenhouse.io/criminaljusticeagency" }
   ],

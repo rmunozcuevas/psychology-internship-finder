@@ -1,0 +1,34 @@
+name: Suggest an employer board
+description: Suggest a public employer careers board for psychology or adjacent internships
+title: "Add employer board: "
+body:
+  - type: markdown
+    attributes:
+      value: "Suggest the employer's own public careers board. Do not submit copied listings or personal information."
+  - type: input
+    id: employer
+    attributes:
+      label: Employer or program
+      placeholder: Organization name
+    validations:
+      required: true
+  - type: input
+    id: careers_url
+    attributes:
+      label: Official careers page
+      description: Link to the employer or university page, not a third-party repost.
+      placeholder: https://example.org/careers
+    validations:
+      required: true
+  - type: input
+    id: board_url
+    attributes:
+      label: Public job board URL, if known
+      placeholder: https://job-boards.greenhouse.io/example
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Why it fits
+      description: Mention the relevant internship, research, behavioral health, community, or people work.
+    validations:
+      required: true
