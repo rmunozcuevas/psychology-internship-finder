@@ -1,8 +1,441 @@
 {
-  "updatedAt": "2026-11-05T04:59:40.067Z",
+  "updatedAt": "2026-11-05T05:06:16.393Z",
   "source": "Approved public career-board APIs",
-  "total": 0,
-  "refreshed": 0,
-  "roles": [],
+  "total": 23,
+  "refreshed": 23,
+  "roles": [
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8868924002",
+      "title": " Clinical Case Manager II - ICM",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens, New York",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8868924002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;auto&quot;&gt;CLINICAL CASE MANAGER II&lt;/span&gt;&lt;/strong&gt;&amp;nbsp;- &lt;strong&gt;ICM&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;INTENSIVE CASE MANAGEMENT&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;auto&quot;&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/span&gt;&lt;/strong&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;335559740&amp;quot;:240}&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Posted: 10/23/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;335559740&amp;quot;:240}&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;u&gt;&amp;nbsp;&lt;/u&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice. CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof. CJA utilizes procedural justice practices to provide pretrial services to over 100,000 persons arrested annually in New York City. Information collected about these arrestees and ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Child development",
+        "Documentation",
+        "Communication",
+        "Writing",
+        "Interviewing"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-23T15:15:03-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8907097002",
+      "title": "Behavioral Health Specialist - ICM",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8907097002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;BEHAVIORAL HEALTH SPECIALIST&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;INTENSIVE CASE MANAGEMENT&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;QUEENS SUPERVISED RELEASE&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;POSTED: 10/21/2026&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;em&gt;Join our team of professionals seeking to improve the experience of justice involved individuals in the NYC Courts!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;ABOUT CJA&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 100,000 persons arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteristics, case processing and court outcomes, and on issues and potential reforms to criminal justice policy in New York City. CJA’s programs operate in the criminal courts and detention facilities 24 hours a day seven days a week within ",
+      "skills": [
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-21T16:08:34-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://www.talkspace.com/careers/job",
+      "title": "Business Development & Growth Associate, Pharma",
+      "org": "Talkspace",
+      "location": "New York, NY (Remote)",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://www.talkspace.com/careers/job?gh_jid=6207977004",
+      "description": "&lt;p&gt;&lt;span style=&quot;font-weight: 400; font-family: helvetica, arial, sans-serif; font-size: 12pt;&quot;&gt;At Talkspace, we are committed to fostering a diverse, equitable, inclusive, and belonging-centered workplace where everyone can thrive while making a difference in mental health. Want to help over two million people receive quality mental healthcare? Come join our mission of getting therapy in the hands of everyone!&lt;br&gt;&lt;/span&gt;&lt;/p&gt; &lt;p&gt;&lt;span style=&quot;font-weight: 400; font-family: helvetica, arial, sans-serif; font-size: 12pt;&quot;&gt;We are looking for a &lt;strong&gt;Business Development &amp;amp; Growth Associate, Pharma&lt;/strong&gt;&lt;span style=&quot;color: #e03e2d;&quot;&gt;&amp;nbsp;&lt;/span&gt;to join our Wisdo Health team. This role would be responsible for supporting the continued growth of our pharma business. Working directly with Wisdo’s President, this person will play a hands-on role in identifying prospective clients, executing outreach campaigns, supporting business-development activities, and helping expand relationships across the pharmaceutical industry.&amp;nbsp;This role is ideal for someone who is resourceful, technology-savvy, and comfortable using AI and a variety of digital tools to work quickly and independently. You may be researching a pharmaceutical brand and building a prospect list, launching a LinkedIn campaign, preparing for a client meeting, working in our CRM, or using AI to accelerate research and content development.&amp;nbsp;Prospecting, outreach, and consistent follow-up are central to the role. You’ll also help turn what you learn about prospective clients into stronger campaigns and sales materials.&amp;nbsp;The right person enjoys figuring things out, learning new tools, and turn",
+      "skills": [
+        "Communication",
+        "Outreach",
+        "Writing"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-26T12:00:39-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8545838002",
+      "title": "Clinical Case Manager",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens, New York",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8545838002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;CLINICAL CASE MANAGER&lt;/strong&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Posted: 5/12/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 200,000 persons arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteristics, case processing and court outcomes, and on issues and potential reforms to criminal justice policy in New York City. CJA’s programs operate in the criminal courts and detention facilities 24 hours a day seven days a week within the 5 boroughs of NYC, employing over 300 employees, citywide.&lt;/p&gt; &lt;p&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;­­­­­­­­­­­&lt;/span&gt;&lt;strong&gt;&lt;u&gt;PROGRAM SUMMARY&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;CJA operates a Supervised Release Program in Queens Criminal Court. The program, which operates during the day and night court in Queens, screens targeted defendants for release at criminal court arraignment, subject to specific cond",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Child development",
+        "Documentation",
+        "Communication",
+        "Writing"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8680021002",
+      "title": "Clinical Case Manager",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens, New York",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8680021002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;CLINICAL CASE MANAGER&lt;/strong&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Posted: 8/4/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 200,000 persons arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteristics, case processing and court outcomes, and on issues and potential reforms to criminal justice policy in New York City. CJA’s programs operate in the criminal courts and detention facilities 24 hours a day seven days a week within the 5 boroughs of NYC, employing over 300 employees, citywide.&lt;/p&gt; &lt;p&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;­­­­­­­­­­­&lt;/span&gt;&lt;strong&gt;&lt;u&gt;PROGRAM SUMMARY&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;CJA operates a Supervised Release Program in Queens Criminal Court. The program, which operates during the day and night court in Queens, screens targeted defendants for release at criminal court arraignment, subject to specific condi",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Child development",
+        "Documentation",
+        "Communication",
+        "Writing"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8694872002",
+      "title": "Clinical Case Manager I - ICM",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens, New York",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8694872002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;auto&quot;&gt;CLINICAL CASE MANAGER I&lt;/span&gt;&lt;/strong&gt;&amp;nbsp;- &lt;strong&gt;ICM&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;INTENSIVE CASE MANAGEMENT&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;auto&quot;&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/span&gt;&lt;/strong&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;335559740&amp;quot;:240}&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Posted: 8/10/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;335559740&amp;quot;:240}&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;u&gt;&amp;nbsp;&lt;/u&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice. CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof. CJA utilizes procedural justice practices to provide pretrial services to over 100,000 persons arrested annually in New York City. Information collected about these arrestees and su",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Child development",
+        "Documentation",
+        "Communication",
+        "Writing"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8917550002",
+      "title": "Court Representative (Night Shift) ",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens, New York ",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8917550002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;COURT REPRESENTATIVE&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;POSTED: 10/26/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 100,000 arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteristics, case processing and court outcomes, and on issues and potential reforms to criminal justice policy in New York City. CJA’s programs operate in the criminal courts and detention facilities 24 hours a day seven days a week within the 5 boroughs of NYC, employing over 300 employees, citywide.&lt;/p&gt; &lt;p&gt;&lt;u&gt;­­­­­­­­­­­­­­&lt;strong&gt;PROGRAM SUMMARY&lt;/strong&gt;&lt;/u&gt;&lt;/p&gt; &lt;p&gt;The Queens Supervised Release Program is the first program launched by the City of New York’s Supervised Release Initiative in 2009 and is the model for which Supervised Release Programs have evolved citywide.&lt;/p&gt; &lt;p&gt;CJA operates the QSRP in Queens Criminal Court seven",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Documentation",
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-26T13:37:36-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8885380002",
+      "title": "Director of Clinical Services",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens ",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8885380002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;DIRECTOR OF CLINICAL SERVICES&lt;/strong&gt;&lt;strong&gt; &lt;/strong&gt;&amp;nbsp;&lt;br&gt;&lt;strong&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/strong&gt;&amp;nbsp;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Posted: 10/14/26&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;em&gt;Join our team of professionals seeking to improve the experience of justice involved individuals in the NYC Courts!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;About CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor&#39;s Office of Criminal Justice. CJA is the City&#39;s main pretrial services agency, combining operations, pilot projects, and research under one roof. CJA utilizes procedural justice practices to provide pretrial services to over 100,000 persons arrested annually in New York City.&lt;/p&gt; &lt;p&gt;CJA works to reduce jail overcrowding and unnecessary detention in New York City. CJA is the City&#39;s main pretrial services agency, combining operations, pilot projects and research under one roof. The Queens Supervised Release Program (QSRP) operates in Queens Criminal Court and serves individuals of all ages who are charged with felonies and misdemeanors, and who present a substantial likelihood of detention but are at risk of failing to appear in court if released on recognizance. It provides pretrial supervision and voluntary referrals for social services, including job training, employment, drug treatment, and mental health counseling. Participants remain in the communi",
+      "skills": [
+        "Research methods",
+        "Data analysis"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8698393002",
+      "title": "Peer Specialist ",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8698393002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;none&quot;&gt;PEER SPECIALIST&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;none&quot;&gt;QUEENS SUPERVISED RELEASE PROGRAM&lt;/span&gt;&lt;/strong&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;335559740&amp;quot;:240}&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Posted: 8/11/2026&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&lt;span data-contrast=&quot;none&quot;&gt;CJA&#39;s work seeks to reduce jail overcrowding and unnecessary detention in New York City&lt;/span&gt;&lt;/strong&gt;&lt;span data-contrast=&quot;none&quot;&gt;.&lt;/span&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;335559740&amp;quot;:240}&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;em&gt;&lt;span data-contrast=&quot;none&quot;&gt;Are you a certified Peer Specialist who is interested in assisting program participants in your community?&lt;/span&gt;&lt;/em&gt;&lt;span data-ccp-props=&quot;{&amp;quot;134233117&amp;quot;:true,&amp;quot;134233118&amp;quot;:true,&amp;quot;201341983&amp;quot;:0,&amp;quot;335551550&amp;quot;:2,&amp;quot;335551620&amp;quot;:2,&amp;quot;335559739&amp;quot;:160,&amp;quot;3355",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Child development",
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T16:14:46-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8819340002",
+      "title": "Pretrial Associate- (Day Shift) Queens ",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens ",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8819340002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;PRETRIAL ASSOCIATE- Day Shift (Queens)&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;strong&gt;New York City Criminal Justice Agency (CJA)&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;strong&gt;Posted: 9/18/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;Do you have a passion and desire to help New York City reduce jail overcrowding and unnecessary detention?&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;Can you make a commitment to helping justice-involved people through the complex court system?&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;Join our team of professionals seeking to improve the experience of justice involved individuals in the NYC Courts!&lt;/p&gt; &lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 100,000 arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteristics",
+      "skills": [
+        "Teamwork",
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8819359002",
+      "title": "Pretrial Associate- Queens (Midnight Shift) ",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Queens ",
+      "type": "psychology",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8819359002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;PRETRIAL ASSOCIATE-Midnight Shift (Queens)&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;strong&gt;New York City Criminal Justice Agency (CJA)&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;strong&gt;Posted: 9/21/2026&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;Do you have a passion and desire to help New York City reduce jail overcrowding and unnecessary detention?&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;Can you make a commitment to helping justice-involved people through the complex court system?&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;Join our team of professionals seeking to improve the experience of justice involved individuals in the NYC Courts!&lt;/p&gt; &lt;p style=&quot;text-align: left;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 100,000 arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteris",
+      "skills": [
+        "Teamwork",
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/cbf08199-abfa-4437-82c2-bc7f9dc52854",
+      "title": "*Entry Level Clinical Research Candidates-Talent Community",
+      "org": "Site Operations",
+      "location": "Hybrid",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/cbf08199-abfa-4437-82c2-bc7f9dc52854",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of recent graduates and entry-level professionals who have a foundation in clinical research and are ready to begin or continue building their careers in the field. This includes individuals who have gained clinical research experience through internships, academic programs, hands-on research experience, or completion of a clinical research fast-track program. This is a talent community and expression of interest — not a current job opening. By joining the Profound Research Entry-Level Clinical Research Talent ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:00:26.505Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/d9006a23-6b66-4275-9d8c-6e8f09924f34",
+      "title": "*Entry Level Clinical Research Candidates-Talent Community (Detroit, MI)",
+      "org": "Site Operations",
+      "location": "Detroit, MI",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/d9006a23-6b66-4275-9d8c-6e8f09924f34",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of recent graduates and entry-level professionals who have a foundation in clinical research and are ready to begin or continue building their careers in the field. This includes individuals who have gained clinical research experience through internships, academic programs, hands-on research experience, or completion of a clinical research fast-track program. This is a talent community and expression of interest — not a current job opening. By joining the Profound Research Entry-Level Clinical Research Talent ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:16:46.217Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/900e2449-af5c-4116-99a9-b5669aded469",
+      "title": "*Entry Level Clinical Research Candidates-Talent Community (Las Vegas, NV)",
+      "org": "Site Operations",
+      "location": "Las Vegas, NV",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/900e2449-af5c-4116-99a9-b5669aded469",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of recent graduates and entry-level professionals who have a foundation in clinical research and are ready to begin or continue building their careers in the field. This includes individuals who have gained clinical research experience through internships, academic programs, hands-on research experience, or completion of a clinical research fast-track program. This is a talent community and expression of interest — not a current job opening. By joining the Profound Research Entry-Level Clinical Research Talent ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:11:24.984Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/6acf8b43-ce97-436b-9194-b8288aefd550",
+      "title": "*Entry Level Clinical Research Candidates-Talent Community (Munster, IN)",
+      "org": "Site Operations",
+      "location": "Munster, IN",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/6acf8b43-ce97-436b-9194-b8288aefd550",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of recent graduates and entry-level professionals who have a foundation in clinical research and are ready to begin or continue building their careers in the field. This includes individuals who have gained clinical research experience through internships, academic programs, hands-on research experience, or completion of a clinical research fast-track program. This is a talent community and expression of interest — not a current job opening. By joining the Profound Research Entry-Level Clinical Research Talent ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:17:25.882Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/c815fc98-8c04-46e1-be95-898f05f353e0",
+      "title": "*Entry Level Clinical Research Candidates-Talent Community (Southern California)",
+      "org": "Site Operations",
+      "location": "Southern California",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/c815fc98-8c04-46e1-be95-898f05f353e0",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of recent graduates and entry-level professionals who have a foundation in clinical research and are ready to begin or continue building their careers in the field. This includes individuals who have gained clinical research experience through internships, academic programs, hands-on research experience, or completion of a clinical research fast-track program. This is a talent community and expression of interest — not a current job opening. By joining the Profound Research Entry-Level Clinical Research Talent ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:10:58.805Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/19e10f23-6047-46b7-9cfa-8f1e62ebaa6d",
+      "title": "*Internship Clinical Research -Talent Community Graduates for 2027-2028",
+      "org": "Site Operations",
+      "location": "Hybrid",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/19e10f23-6047-46b7-9cfa-8f1e62ebaa6d",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of students who are in the final stages of completing their degree programs who are interested in learning, connecting, and exploring future opportunities in clinical research. This is a talent community and expression of interest — not a current job or internship opening. By joining the Profound Research Clinical Research Internship Talent Community, you'll have the opportunity to introduce yourself to our team and be part of our network of emerging clinical research talent. As future internship opportunities ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T17:40:39.353Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/5d3fac93-31f3-455a-94e3-322fa2262d4b",
+      "title": "*Internship Clinical Research -Talent Community Graduates for 2027-2028 (Detroit, MI)",
+      "org": "Site Operations",
+      "location": "Detroit, MI",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/5d3fac93-31f3-455a-94e3-322fa2262d4b",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of students who are in the final stages of completing their degree programs who are interested in learning, connecting, and exploring future opportunities in clinical research. This is a talent community and expression of interest — not a current job or internship opening. By joining the Profound Research Clinical Research Internship Talent Community, you'll have the opportunity to introduce yourself to our team and be part of our network of emerging clinical research talent. As future internship opportunities ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:07:59.859Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/ecc569d2-630f-49ad-ac2c-ebd315664871",
+      "title": "*Internship Clinical Research -Talent Community Graduates for 2027-2028 (Las Vegas, NV)",
+      "org": "Site Operations",
+      "location": "Las Vegas, NV",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/ecc569d2-630f-49ad-ac2c-ebd315664871",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of students who are in the final stages of completing their degree programs who are interested in learning, connecting, and exploring future opportunities in clinical research. This is a talent community and expression of interest — not a current job or internship opening. By joining the Profound Research Clinical Research Internship Talent Community, you'll have the opportunity to introduce yourself to our team and be part of our network of emerging clinical research talent. As future internship opportunities ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:03:13.006Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/a99bf3f2-493e-40fe-a9d7-4983ac580a4b",
+      "title": "*Internship Clinical Research -Talent Community Graduates for 2027-2028 (Munster, IN)",
+      "org": "Site Operations",
+      "location": "Munster, IN",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/a99bf3f2-493e-40fe-a9d7-4983ac580a4b",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of students who are in the final stages of completing their degree programs who are interested in learning, connecting, and exploring future opportunities in clinical research. This is a talent community and expression of interest — not a current job or internship opening. By joining the Profound Research Clinical Research Internship Talent Community, you'll have the opportunity to introduce yourself to our team and be part of our network of emerging clinical research talent. As future internship opportunities ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:05:21.123Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://jobs.lever.co/profoundresearch/76dc9e92-41e4-4257-9409-2141ca03e3ae",
+      "title": "*Internship Clinical Research -Talent Community Graduates for 2027-2028 (Southern California)",
+      "org": "Site Operations",
+      "location": "Southern California",
+      "type": "adjacent",
+      "source": "Lever",
+      "url": "https://jobs.lever.co/profoundresearch/76dc9e92-41e4-4257-9409-2141ca03e3ae",
+      "description": "About Profound Research Profound Research partners with community physicians to offer clinical trials as a therapeutic option for their patients. We handle all infrastructure, regulatory compliance, and administrative operations so physicians can focus on patient care. Our model gives patients access to the newest therapies while maintaining the trusted patient-physician relationship. Our Mission: Improving Lives by Providing Advanced Therapeutic Options Our Vision: Creating the Absolute Best Patient-Physician Experience in Clinical Research Our Values: Compassion: We prioritize the patient-physician relationship, ensuring every interaction is service-oriented and patient-centered. Urgency: We work hard and practice selflessness, acting swiftly and decisively to meet the needs of our patients, partners, and colleagues. Solution Orientation: We embrace challenges with a positive mindset, communicate directly, and identify and implement effective solutions with efficiency. Excellence: We insist on excellence, holding ourselves accountable and empowering each other to deliver best-in-class service while maintaining the highest ethical and scientific standards. Join Our Talent Community: Build Your Future in Clinical Research Profound Research is building a community of students who are in the final stages of completing their degree programs who are interested in learning, connecting, and exploring future opportunities in clinical research. This is a talent community and expression of interest — not a current job or internship opening. By joining the Profound Research Clinical Research Internship Talent Community, you'll have the opportunity to introduce yourself to our team and be part of our network of emerging clinical research talent. As future internship opportunities ",
+      "skills": [
+        "Research methods",
+        "Data analysis",
+        "Empathy",
+        "Documentation"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-07T18:04:24.987Z",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8653971002",
+      "title": "Director of Software Engineering ",
+      "org": "NYC Criminal Justice Agency",
+      "location": "Manhattan, New York",
+      "type": "adjacent",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/criminaljusticeagency/jobs/8653971002",
+      "description": "&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Director of Software Engineering&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Information Technology&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;POSTED: 7/28/2026&lt;/strong&gt;&lt;/p&gt; &lt;p style=&quot;text-align: left;&quot;&gt;&lt;strong&gt;&lt;u&gt;ABOUT CJA&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The New York City Criminal Justice Agency (CJA) is a not-for-profit service and research organization that operates in partnership with the New York City Mayor’s Office of Criminal Justice.&amp;nbsp; CJA is the City’s main pretrial services agency, combining operations, pilot projects, and research under one roof.&amp;nbsp; CJA utilizes procedural justice practices to provide pretrial services to over 100,000 arrested annually in New York City. Information collected about these arrestees and subsequent case processing is maintained in the agency’s internal and externally shared database systems, which are used to conduct descriptive and evaluation research on arrestee characteristics, case processing and court outcomes, and on issues and potential reforms to criminal justice policy in New York City. CJA’s programs operate in the criminal courts and detention facilities 24 hours a day seven days a week within the 5 boroughs of NYC, employing over 300 employees, citywide.&lt;/p&gt; &lt;p&gt;&lt;strong&gt;&lt;u&gt;DEPARTMENT SUMMARY&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;NYCJA’s Information Technology team provides strategic vision, leadership, and innovative solutions so that CJA’s internal and external stakeholders have the trusted data and applications they need to deliver high-quality IT solutions to support pretrial s",
+      "skills": [
+        "Data analysis",
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-14T13:03:24-04:00",
+      "season": "Summer 2027"
+    },
+    {
+      "id": "https://job-boards.greenhouse.io/mergeworld/jobs/8257356",
+      "title": "Manager, Paid Search",
+      "org": "MERGE",
+      "location": "HYBRID - Atlanta, GA; Boston, MA; Chicago, IL; Denver, CO; Kansas City, MO; New York City, NY; Raleigh, NC; St. Louis, MO",
+      "type": "adjacent",
+      "source": "Greenhouse",
+      "url": "https://job-boards.greenhouse.io/mergeworld/jobs/8257356",
+      "description": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;At MERGE, we are &lt;strong&gt;Built Different&lt;/strong&gt;. We are a marketing and technology agency purpose-built for the intersection of health and wellness—where human impact matters most. By weaving storytelling through technology, we move beyond traditional engagement to Whole Human Marketing. This approach recognizes that humans are multidimensional and complex, and uses AI to ensure every brand interaction feels natural, contextual, and relevant.&lt;/p&gt; &lt;p&gt;This commitment to human-first innovation is what brings us together and propels us forward. We are united by our North Star: to unite people and brands to empower healthier, happier lives.&lt;/p&gt; &lt;p&gt;&lt;strong&gt;Emerge to the Top of Your Career&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;At MERGE, we strive to create a superior work experience where talented and ambitious people grow. An experience that encourages people to think higher and feel deeper. An experience where people engage their minds and hearts to do the best work of their careers.&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;As our Manager, Paid Search, you will…&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Support MERGE&#39;s practice in creating, optimizing, and executing top-tier client paid search campaigns. As a hands-on player and coach, you will guide and mentor our paid search specialists while overseeing keyword research, campaign builds, client recommendations, QA processes, and performance reporting. Bring your passion, natural curiosity, and collaborative spirit to drive real impact for our clients while keeping a strong focus on agility, technical ability, and humble leadership.&lt;/p&gt; &lt;p&gt;&lt;strong&gt;What You’ll Do&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;Strateg",
+      "skills": [
+        "Data analysis",
+        "Communication"
+      ],
+      "firstSeen": "2026-11-05",
+      "datePosted": "2026-10-22T15:15:37-04:00",
+      "season": "Summer 2027"
+    }
+  ],
   "errors": []
 }
