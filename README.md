@@ -16,14 +16,13 @@ Open `index.html` in a browser. No build step is required.
 
 ## Live listing refresh
 
-The browser UI reads `opportunities.json`; sample listings remain as a fallback until the file has live results. `scripts/refresh-jobs.mjs` imports Summer 2027 roles from employer-published Greenhouse, Lever, and Ashby job boards, and optionally USAJOBS. The GitHub Actions workflow is scheduled daily at 10:17 UTC and can also be run manually. It updates the feed and commits it to the repository. Once configured, the UI shows the feed refresh time and links each role to its employer posting.
+The browser UI reads `opportunities.json`; sample listings remain as a fallback until the file has live results. `scripts/refresh-jobs.mjs` imports Summer 2027 roles from employer-published Greenhouse, Lever, and Ashby job boards. The GitHub Actions workflow is scheduled daily at 10:17 UTC and can also be run manually. It updates the feed and commits it to the repository. Once configured, the UI shows the feed refresh time and links each role to its employer posting.
 
 To configure, add these Actions repository variables as comma-separated employer board identifiers (not URLs):
 
 - `GREENHOUSE_BOARDS`: public Greenhouse board tokens.
 - `LEVER_SITES`: public Lever site names.
 - `ASHBY_BOARDS`: public Ashby board names.
-- `USAJOBS_EMAIL` and secret `USAJOBS_API_KEY`: optional; request credentials from the USAJOBS developer portal.
 
 Starter employer identifiers are listed in [`employer-boards.json`](employer-boards.json) and are preconfigured as workflow defaults. They are discovery sources, not a promise of a relevant Summer 2027 opening. Add or remove source identifiers in GitHub Actions repository variables as the curated set grows.
 

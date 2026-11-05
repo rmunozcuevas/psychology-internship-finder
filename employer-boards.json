@@ -11,11 +11,5 @@
   "lever": [
     { "id": "profoundresearch", "employer": "Profound Research", "evidence": "Public Lever postings API; current results include clinical research internship talent communities for 2027–2028.", "url": "https://jobs.lever.co/profoundresearch" }
   ],
-  "ashby": [],
-  "usaJobs": {
-    "enabledWhenKeyIsConfigured": true,
-    "registrationUrl": "https://developer.usajobs.gov/apirequest/index",
-    "requiredGitHubSecret": "USAJOBS_API_KEY",
-    "requiredRepositoryVariable": "USAJOBS_EMAIL"
-  }
+  "ashby": []
 }

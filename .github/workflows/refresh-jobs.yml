@@ -18,8 +18,6 @@ jobs:
           GREENHOUSE_BOARDS: ${{ vars.GREENHOUSE_BOARDS || 'talkspace,modernhealth,hs,springhealth66,mergeworld,criminaljusticeagency' }}
           LEVER_SITES: ${{ vars.LEVER_SITES || 'profoundresearch' }}
           ASHBY_BOARDS: ${{ vars.ASHBY_BOARDS }}
-          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
-          USAJOBS_EMAIL: ${{ vars.USAJOBS_EMAIL }}
       - name: Commit refreshed feed
         run: |
           git config user.name github-actions[bot]

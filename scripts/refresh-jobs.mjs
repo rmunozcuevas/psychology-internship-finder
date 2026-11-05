@@ -1,7 +1,16 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
+// Load local .env values for manual runs without adding a runtime dependency.
+try {
+  const envText = await readFile(new URL('../.env', import.meta.url), 'utf8');
+  for (const line of envText.split(/\r?\n/)) {
+    const match = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/);
+    if (!match || match[1] in process.env) continue;
+    process.env[match[1]] = match[2].replace(/^(['"])(.*)\1$/, '$2');
+  }
+} catch {}
+
 const OUT = new URL('../opportunities.json', import.meta.url);
-const QUERIES = ['psychology intern summer 2027', 'behavioral health intern summer 2027', 'research assistant psychology intern', 'mental health program intern', 'user research intern behavioral science', 'people analytics intern'];
 const TERMS = /(intern|internship|summer student|research assistant|co-?op|fellow)/i;
 const SUMMER = /(summer\s*(?:'|’)?\s*2027|2027\s+summer|summer student)/i;
 const PSYCH = /(psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development)/i;
@@ -10,8 +19,7 @@ const SKILLS = ['Research methods','Data analysis','Child development','Empathy'
 const SOURCES = [
   {name:'Greenhouse public career boards', url:'https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true', kind:'greenhouse'},
   {name:'Lever public postings', url:'https://api.lever.co/v0/postings/{site}?mode=json', kind:'lever'},
-  {name:'Ashby public job boards', url:'https://api.ashbyhq.com/posting-api/job-board/{board}', kind:'ashby'},
-  {name:'USAJOBS (requires key)', url:'https://data.usajobs.gov/api/Search', kind:'usajobs'}
+  {name:'Ashby public job boards', url:'https://api.ashbyhq.com/posting-api/job-board/{board}', kind:'ashby'}
 ];
 const boards = (process.env.GREENHOUSE_BOARDS || '').split(',').map(s=>s.trim()).filter(Boolean);
 const leverSites = (process.env.LEVER_SITES || '').split(',').map(s=>s.trim()).filter(Boolean);
@@ -26,10 +34,8 @@ function add({title,company,location='',url='',description='',date='',source=''}
 for (const token of boards) try { const data=await get(`https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(token)}/jobs?content=true`);for(const j of data.jobs||[])add({title:j.title,company:j.company_name||token,location:j.location?.name||'',url:j.absolute_url,description:j.content||'',date:j.updated_at||j.first_published,source:'Greenhouse'}); } catch(e) {errors.push(`Greenhouse ${token}: ${e.message}`)}
 for (const site of leverSites) try { const data=await get(`https://api.lever.co/v0/postings/${encodeURIComponent(site)}?mode=json`);for(const j of data||[])add({title:j.text,company:j.categories?.team||site,location:j.categories?.location||'',url:j.hostedUrl,description:j.descriptionPlain||j.description||'',date:j.createdAt?new Date(j.createdAt).toISOString():null,source:'Lever'}); } catch(e) {errors.push(`Lever ${site}: ${e.message}`)}
 for (const board of ashbyBoards) try { const data=await get(`https://api.ashbyhq.com/posting-api/job-board/${encodeURIComponent(board)}`);for(const j of data.jobs||[])add({title:j.title,company:board,location:j.location||'',url:j.jobUrl,description:j.descriptionPlain||j.descriptionHtml||'',date:j.publishedAt,source:'Ashby'}); } catch(e) {errors.push(`Ashby ${board}: ${e.message}`)}
-const usaKey=process.env.USAJOBS_API_KEY;
-if(usaKey) for(const q of QUERIES.slice(0,4)) try { const data=await get(`https://data.usajobs.gov/api/Search?Keyword=${encodeURIComponent(q)}&ResultsPerPage=250`,{headers:{'Host':'data.usajobs.gov','User-Agent':process.env.USAJOBS_EMAIL||'fieldnote-project@example.invalid','Authorization-Key':usaKey}});for(const j of data.SearchResult?.SearchResultItems||[]){const a=j.MatchedObjectDescriptor;add({title:a.PositionTitle,company:a.OrganizationName,location:a.PositionLocationDisplay,url:a.PositionURI,description:a.UserArea?.Details?.JobSummary||a.QualificationSummary||'',date:a.PublicationStartDate,source:'USAJOBS'});} } catch(e) {errors.push(`USAJOBS: ${e.message}`);break;}
 const retained=(old.roles||[]).filter(oldRole=>classify(oldRole.title,oldRole.description)&&!roles.some(r=>r.url===oldRole.url));
 const merged=[...roles,...retained].sort((a,b)=>(a.type==='psychology'?-1:1)-(b.type==='psychology'?-1:1)||a.title.localeCompare(b.title));
 await writeFile(OUT,JSON.stringify({updatedAt:new Date().toISOString(),source:'Approved public career-board APIs',total:merged.length,refreshed:roles.length,roles:merged,errors},null,2)+'\n');
 console.log(`Refresh complete: ${roles.length} fresh Summer 2027 roles, ${merged.length} retained total, ${errors.length} source errors.`);
-if(!boards.length&&!leverSites.length&&!ashbyBoards.length&&!usaKey)console.log('No source configuration found. Set GREENHOUSE_BOARDS, LEVER_SITES, ASHBY_BOARDS, and/or USAJOBS_API_KEY.');
+if(!boards.length&&!leverSites.length&&!ashbyBoards.length)console.log('No source configuration found. Set GREENHOUSE_BOARDS, LEVER_SITES, and/or ASHBY_BOARDS.');
