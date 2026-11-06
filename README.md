@@ -28,7 +28,7 @@ Then open `http://localhost:8000`. Resume matching accepts TXT, PDF and DOCX. PD
 
 ## Daily refresh
 
-“Refresh internship listings” runs every day at **10:17 UTC**: 5:17 a.m. Eastern standard time or 6:17 a.m. daylight time. GitHub can delay scheduled runs. It can also be started manually from Actions.
+“Refresh internship listings” starts every day at **12:00 p.m. Eastern time**, using `America/New_York` so it stays at noon during both EST and EDT. Collection runs first, then the website publishes the updated snapshot. GitHub can delay scheduled starts, so this is a noon refresh start rather than a guarantee that the new snapshot is visible at exactly noon. It can also be started manually from Actions.
 
 1. Run the source parsing, deduplication and eligibility checks.
 2. Discover up to 2,700 supported employer boards from the public [job-board-directory](https://kalebconfer-sys.github.io/job-board-directory/), prioritizing health, human services, research, education and larger employers with HR/people functions.
