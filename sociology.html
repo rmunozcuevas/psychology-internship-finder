@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261106-ninerpath-1" />
-  <link rel="stylesheet" href="sociology.css?v=20261106-ninerpath-1" />
+  <link rel="stylesheet" href="styles.css?v=20261106-resume-review-1" />
+  <link rel="stylesheet" href="sociology.css?v=20261106-resume-review-1" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js" defer></script>
 </head>
@@ -39,7 +39,7 @@
         <section class="summary-row"><div class="section-heading"><div><h2>Made for your path</h2><p id="catalog-summary" aria-live="polite">Loading catalogue totals…</p></div><button class="text-button" id="clear-filters">Reset filters <span>↗</span></button></div>
           <div class="stats-grid"><article class="stat-card"><div class="stat-icon lilac">✳</div><div><strong id="psych-stat">…</strong><span id="psych-stat-label">internships &amp; student placements</span></div><span class="stat-trend">FIRST IN LINE</span></article><article class="stat-card"><div class="stat-icon peach">↗</div><div><strong id="adjacent-stat">…</strong><span id="adjacent-stat-label">entry-level experience roles</span></div><span class="stat-trend warm">MORE WAYS IN</span></article><article class="stat-card"><div class="stat-icon mint">♡</div><div><strong id="saved-stat">0</strong><span>saved for later</span></div><span class="stat-trend green">YOUR SHORTLIST</span></article></div>
         </section>
-        <section class="roles-section"><div class="roles-head"><div class="section-heading compact"><div><h2 id="focused-heading">Sociology research, policy &amp; community opportunities</h2><p><span id="result-count">…</span> screened opportunity candidates · <span id="refresh-status">Loading today’s listings…</span></p></div></div><div class="view-actions"><label class="sort-label" for="sort-select">Sort by</label><select id="sort-select"><option value="recommended">Internships first</option><option value="deadline">Deadline soon</option><option value="match">Resume skill overlap</option></select><button class="filter-button" id="filter-toggle" type="button">☷ <span>Filters</span><b id="filter-indicator"></b></button></div></div>
+        <section class="roles-section"><div class="roles-head"><div class="section-heading compact"><div><h2 id="focused-heading">Sociology research, policy &amp; community opportunities</h2><p><span id="result-count">…</span> screened opportunity candidates · <span id="refresh-status">Loading today’s listings…</span></p></div></div><div class="view-actions"><label class="sort-label" for="sort-select">Sort by</label><select id="sort-select"><option value="recommended">Internships first</option><option value="deadline">Deadline soon</option><option value="match">Listed skills found</option></select><button class="filter-button" id="filter-toggle" type="button">☷ <span>Filters</span><b id="filter-indicator"></b></button></div></div>
           <label class="sort-label" for="season-filter">Season</label> <select id="season-filter"><option value="all">All seasons — Summer 2027 first</option><option>Summer 2027</option><option>Spring 2027</option><option>Season not specified</option></select> <label class="sort-label" for="career-path-filter">Career path</label> <select id="career-path-filter"><option value="all">All sociology career paths</option><option>Social research &amp; evaluation</option><option>Policy, justice &amp; advocacy</option><option>Community &amp; social services</option><option>HR &amp; organizations</option><option>Related experience</option></select> <label class="sort-label" for="opportunity-kind">Opportunity type</label> <select id="opportunity-kind"><option value="internship">Internships &amp; student placements</option><option value="entry-level">Entry-level experience</option><option value="all" selected>All student roles — internships first</option></select><div class="filter-chips" id="filter-chips"><button class="chip active" data-filter="all">All focused opportunities <span>…</span></button><button class="chip" data-filter="sociology">Sociology &amp; community <span>…</span></button><button class="chip" data-filter="adjacent">Adjacent fields <span>…</span></button><span class="filter-note"><span>✳</span> Internships first · sociology pathways</span></div><div class="feed-notice hidden" id="feed-notice"></div>
           <div class="extra-filters hidden" id="extra-filters"><p>Search by title, organization, skill, or location. Explore social research, policy, community work and organizational experience.</p></div>
           <div class="role-list" id="role-list"></div><nav id="pagination" aria-label="Opportunity pages"></nav>
@@ -53,13 +53,29 @@
 </div></section>
 <section class="upcoming-section" id="upcoming" hidden><div class="section-heading"><div><h2>Upcoming Summer 2027 programs for external students</h2><p>Verified program pages, application dates, and direct links.</p></div></div><div class="program-list" id="program-list"></div></section>
         <section class="saved-section hidden" id="saved"><div class="section-heading"><div><h2>Your saved roles</h2><p>Saved privately in this browser. No account needed.</p></div><button class="text-button" id="show-all-roles">Browse all roles ↗</button></div><div class="saved-list" id="saved-list"></div></section>
-        <section class="resume-section" id="profile"><div class="resume-copy"><div class="resume-kicker">YOUR EXPERIENCE, SEEN CLEARLY</div><h2>Good experience comes<br>in <em>many forms.</em></h2><p>Share a resume to see how your skills connect to these roles. Your file stays right here in your browser.</p><div class="privacy-note"><span>⌑</span> Private by design · analyzed on your device</div></div><div class="upload-card" id="upload-card"><input type="file" id="resume-input" accept=".pdf,.doc,.docx,.txt" hidden /><div class="upload-icon">↑</div><div class="upload-title" id="upload-title">Drop your resume here</div><div class="upload-sub" id="upload-sub">PDF, Word, or text · up to 10 MB</div><button class="upload-button" id="upload-button">Choose a file</button><div class="upload-status" id="upload-status" aria-live="polite"></div></div></section>
+        <section class="resume-section" id="profile"><div class="resume-copy"><div class="resume-kicker">YOUR EXPERIENCE, SEEN CLEARLY</div><h2>Good experience comes<br>in <em>many forms.</em></h2><p>Add a resume to review role requirements, supporting evidence, and details to confirm. Your file stays in your browser.</p><div class="privacy-note"><span>⌑</span> Private by design · analyzed on your device</div></div><div class="upload-card" id="upload-card"><input type="file" id="resume-input" accept=".pdf,.docx,.txt" hidden /><div class="upload-icon">↑</div><div class="upload-title" id="upload-title">Drop your resume here</div><div class="upload-sub" id="upload-sub">PDF, DOCX or text · up to 10 MB</div><button class="upload-button" id="upload-button">Choose a file</button><div class="upload-status" id="upload-status" aria-live="polite"></div></div></section>
+        <section id="resume-review-fields" class="resume-review-fields hidden" aria-labelledby="resume-review-title">
+          <h2 id="resume-review-title">Confirm your application profile</h2>
+          <p>Optional details help compare explicit requirements. Review detected facts before applying them. Leave anything unknown blank. Nothing here is uploaded or saved after a reload.</p>
+          <form id="resume-profile-form" class="resume-profile-form">
+            <label>Major<select name="major"><option value="">Unknown / not provided</option><option value="psychology">Psychology</option><option value="sociology">Sociology</option><option value="other">Another major — confirm acceptance</option></select></label>
+            <label>University<input name="school" placeholder="e.g. UNC Charlotte" maxlength="120" /></label>
+            <label>Current enrollment<select name="enrollment"><option value="">Unknown / not provided</option><option value="enrolled">Currently enrolled</option><option value="not-enrolled">Not currently enrolled</option></select></label>
+            <label>Expected graduation<input type="month" name="graduation" min="2020-01" max="2040-12" /></label>
+            <label>Cumulative GPA (4.0 scale)<input type="number" name="gpa" min="0" max="4" step="0.001" placeholder="e.g. 3.25" /></label>
+            <label>Availability<input name="availability" placeholder="e.g. May–August 2027, 40 hours/week" maxlength="200" /></label>
+            <label>Current certifications<input name="certifications" placeholder="e.g. CPR, BLS, RBT; or none" maxlength="200" /></label>
+            <div class="resume-profile-actions"><button type="submit" class="posting-button">Apply profile to role reviews</button><button type="button" id="clear-resume" class="filter-button">Clear resume &amp; profile</button></div>
+          </form>
+          <p id="profile-status" role="status"></p>
+          <p class="review-explainer">GPA and simple graduation windows can be compared directly. Dates, hours, school access and experience need your review. Skills not found in a resume are unknown, not proof of ineligibility.</p>
+        </section>
         <footer class="page-footer"><span>Free, open, and usable without an account.</span><a href="https://github.com/rmunozcuevas/psychology-sociology-internship-finder" target="_blank" rel="noopener noreferrer">Help improve the directory ↗</a></footer>
       </div>
     </main>
   </div>
   <div class="toast" id="toast" role="status"></div>
   <script src="config.js?v=20261105-database-1"></script>
-  <script type="module" src="app.js?v=20261106-ninerpath-1"></script>
+  <script type="module" src="app.js?v=20261106-resume-review-1"></script>
 </body>
 </html>

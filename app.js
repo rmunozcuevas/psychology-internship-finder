@@ -1,9 +1,12 @@
 import { opportunityKind, careerPath } from './eligibility.mjs';
+import { assessRole, skillEvidence, resumeFacts } from './resume-fit.mjs';
 const isSociology=document.body?.dataset?.discipline==='sociology';
 const PROFILE=isSociology?{primaryType:'sociology',rulesUrl:'./sociology-rules.json',feedUrl:'./sociology-opportunities.json',focusedPrefix:'Sociology research, policy & community'}:{primaryType:'psychology',rulesUrl:'./opportunity-rules.json',feedUrl:'./opportunities.json',focusedPrefix:'Clinical, research & HR/I/O'};
 const savedStorageKey=isSociology?'fieldnote-saved-sociology':'fieldnote-saved';
 let eligibilityRules=null;let programEligibility={};let feedCoverage=null;
 let storedSaved=[];try{storedSaved=JSON.parse(localStorage.getItem(savedStorageKey)||'[]')}catch{}
+let resumeRequest=0;
+let resumeText='',resumeEvidence={},resumeProfile={},resumeAnalysisCache=new Map();
 const state={season:'all',path:'all',kind:isSociology?'all':'internship',category:'all',query:'',location:'',remote:false,focus:'all',paid:false,saved:new Set(storedSaved),resumeSkills:new Set(),broadPage:1,page:1,pageSize:20};
 const programs=isSociology?[]:[
   {title:'Summer Undergraduate Psychology Experience in Research (SUPER)',org:'American Psychological Association',place:'Remote mentorship with a faculty host',status:'2027 applications expected late November or early December 2026 · deadline March 1, 2027',date:'Summer 2027',url:'https://www.apa.org/science/programs/super-fellowship',type:'Psychology research fellowship'},
@@ -20,7 +23,7 @@ const programs=isSociology?[]:[
   ,{title:'Summer Research Programs / SYNAPSE',org:'Princeton Neuroscience Institute',place:'Princeton, NJ',status:'Applications open; students are matched with research labs. Check current deadline and eligibility.',date:'May 31 – July 30, 2027',url:'https://pni.princeton.edu/apply/undergraduate-summer-interns',type:'Psychology lab / research program'}
 ];
 let liveRoles=[];let feedUpdatedAt=null;let liveFeedLoaded=false;let liveFeedError=false;
-const skillAliases={"research methods":["research","study","participant","method","experiment","literature review"],"data analysis":["data","excel","spss","r studio","python","statistics","statistical"],"child development":["child","youth","development","pediatric"],"empathy":["empathy","empathetic","support","care","active listening"],"documentation":["documentation","document","records","notes","writing case"],"teamwork":["teamwork","collaborat","team","cross-functional"],"survey design":["survey","questionnaire","qualtrics","feedback"],"communication":["communication","communicat","presentation","interpersonal"],"outreach":["outreach","community","volunteer","engagement"],"writing":["writing","written","editing","content"],"interviewing":["interview","interviewing","qualitative","focus group"],"neuroscience":["neuroscience","neuropsych","cognitive","brain"]};
+const skillAliases={"research methods":["research","study","participant","method","experiment","literature review"],"data analysis":["data","excel","spss","r studio","python","statistics","statistical"],"child development":["child development","youth development","pediatric","early childhood"],"empathy":["empathy","empathetic","support","care","active listening"],"documentation":["documentation","document","records","notes","writing case"],"teamwork":["teamwork","collaborat","team","cross-functional"],"survey design":["survey","questionnaire","qualtrics","feedback"],"communication":["communication","communicat","presentation","interpersonal"],"outreach":["outreach","community","volunteer","engagement"],"writing":["writing","written","editing","content"],"interviewing":["interview","interviewing","qualitative","focus group"],"neuroscience":["neuroscience","neuropsych","cognitive","brain"]};
 if(isSociology){
  delete skillAliases.neuroscience;
  Object.assign(skillAliases,{'policy analysis':['policy','legislation','advocacy','legislative'],'program evaluation':['program evaluation','impact evaluation','outcomes','assessment'],'community outreach':['outreach','community','organizing','engagement'],'research methods':['sociology','social science','qualitative','quantitative','research','methods'],'data analysis':['statistics','statistical','data','excel','spss','stata','python','r studio']});
@@ -28,9 +31,15 @@ if(isSociology){
 const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const safeUrl=value=>{try{const url=new URL(value);return url.protocol==='https:'?url.href:'#'}catch{return '#'}};
-function roleMatch(role){if(!state.resumeSkills.size)return null;const skills=(role.skills||[]).map(s=>s.toLowerCase());const matched=[...state.resumeSkills].filter(s=>skills.includes(s));return Math.round(matched.length/state.resumeSkills.size*100)}
-function allRoles(){return liveRoles.map((r,i)=>{const match=roleMatch(r);return {checkedAt:r.verification==='community-index'?r.observedAt:(r.lastSeen||r.last_seen_at),verification:r.verification||'employer-api',careerPath:r.careerPath||careerPath(r.title,eligibilityRules),opportunityKind:r.opportunityKind,id:r.id||r.url||'live-'+i,title:r.title,org:r.org,mark:(r.org||'').slice(0,2),logo:r.type===PROFILE.primaryType?'purple':'orange',type:r.type,focus:r.focus||r.careerPath||careerPath(r.title,eligibilityRules),place:r.location||'See source for location',duration:r.season||'Season not specified',pay:r.pay||'See posting',deadline:r.deadline||'See posting',match,skills:r.skills?.length?r.skills:['Skills not specified'],desc:`${r.description||''} · Source: ${r.source||'Employer careers page'}. Catalogue updated ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString(): 'recently'}.` ,url:r.url,source:r.source}})}
+function roleAssessment(role){if(!resumeText)return null;const key=role.id||role.url;if(!resumeAnalysisCache.has(key))resumeAnalysisCache.set(key,assessRole(role,{text:resumeText,profile:resumeProfile,skills:resumeEvidence}));return resumeAnalysisCache.get(key)}
+function roleMatch(role){if(!state.resumeSkills.size)return null;const skills=(role.skills||[]).map(s=>s.toLowerCase());const matched=[...state.resumeSkills].filter(s=>skills.includes(s));return skills.length?Math.round(matched.length/skills.length*100):null}
+function allRoles(){return liveRoles.map((r,i)=>{const match=roleMatch(r);return {assessment:roleAssessment(r),checkedAt:r.verification==='community-index'?r.observedAt:(r.lastSeen||r.last_seen_at),verification:r.verification||'employer-api',careerPath:r.careerPath||careerPath(r.title,eligibilityRules),opportunityKind:r.opportunityKind,id:r.id||r.url||'live-'+i,title:r.title,org:r.org,mark:(r.org||'').slice(0,2),logo:r.type===PROFILE.primaryType?'purple':'orange',type:r.type,focus:r.focus||r.careerPath||careerPath(r.title,eligibilityRules),place:r.location||'See source for location',duration:r.season||'Season not specified',pay:r.pay||'See posting',deadline:r.deadline||'See posting',match,skills:r.skills?.length?r.skills:['Skills not specified'],desc:`${r.description||''} · Source: ${r.source||'Employer careers page'}. Catalogue updated ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString(): 'recently'}.` ,url:r.url,source:r.source}})}
 function filteredRoles(){let rows=allRoles().filter(o=>o.careerPath!=='Broader management / leadership').filter(o=>state.season==='all'||o.duration===state.season).filter(o=>state.path==='all'||o.careerPath===state.path).filter(o=>state.kind==='all'||o.opportunityKind===state.kind).filter(o=>state.category==='all'||o.type===state.category);if(state.query){const q=state.query.toLowerCase();rows=rows.filter(o=>(o.title+' '+o.org+' '+o.focus+' '+o.skills.join(' ')).toLowerCase().includes(q))}if(state.location){const q=state.location.toLowerCase();rows=rows.filter(o=>o.place.toLowerCase().includes(q))}const sort=$('#sort-select')?.value||'recommended';if(sort==='deadline')rows.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));else if(sort==='match')rows.sort((a,b)=>(b.match??-1)-(a.match??-1));else rows.sort((a,b)=>(a.opportunityKind==='internship'?0:1)-(b.opportunityKind==='internship'?0:1)||(a.duration==='Summer 2027'?0:1)-(b.duration==='Summer 2027'?0:1)||(a.type===PROFILE.primaryType?-1:1)-(b.type===PROFILE.primaryType?-1:1)||String(a.id).localeCompare(String(b.id)));return rows}
+function assessmentHTML(result){
+ if(!result)return '<a class="eligibility-start" href="#profile">Add your resume to review requirements ↗</a>';
+ const groups=[['met','Evidence found'],['gap','Potential gaps'],['unknown','Needs confirmation']];
+ return `<details class="eligibility-review"><summary>Resume &amp; requirements review · ${result.requiredGaps?result.requiredGaps+' required-condition gap(s)':result.noRequirements?'Confirm employer requirements':result.unknown+' to confirm'}</summary><p class="review-explainer">Evidence checks, not an eligibility decision or hiring prediction. Only the employer can confirm eligibility. Skills found: keywords, not proof of proficiency.</p>${result.incomplete?'<p class="review-caution">The available description may be incomplete. Compare these checks with the full employer posting.</p>':''}${result.noRequirements?'<p class="review-caution">No explicit mandatory requirements were identified in the available text. This does not mean the role has no requirements.</p>':''}${groups.map(([status,label])=>{const checks=result.checks.filter(c=>c.status===status);return `<section class="review-group review-${status}"><h4>${label} (${checks.length})</h4>${checks.length?checks.map(c=>`<div class="review-check"><strong>${esc(c.area==='skill'?'Listed skill':c.area[0].toUpperCase()+c.area.slice(1))}</strong> <span class="requirement-kind">${esc(c.kind==='skill'?'Skill mention':c.kind==='unspecified'?'Requirement strength unclear':c.kind)}</span><blockquote>${esc(c.requirement)}</blockquote>${c.evidence?`<p>${esc(c.evidence)}</p>`:''}<small>${esc(c.note)}</small></div>`).join(''):'<p>No checks in this group.</p>'}</section>`}).join('')}</details>`;
+}
 function roleCard(o){return `
       <article class="role-card" data-id="${esc(o.id)}">
         <div class="role-main">
@@ -39,7 +48,7 @@ function roleCard(o){return `
             <div class="role-title-row">
               <span class="role-title">${esc(o.title)}</span>
               <span class="category-badge ${o.type === PROFILE.primaryType ? 'psych-badge' : 'adjacent-badge'}">${esc(o.careerPath)}</span>
-              ${o.match===null?'':`<span class="match-pill">${o.match}% skill overlap</span>`}
+              ${o.match===null?'':`<span class="match-pill">${o.match}% listed skills found</span>`}
             </div>
             <div class="org-name">${esc(o.org)}${o.verification==='community-index'?' · Community candidate — confirm with employer':''} · ${o.opportunityKind==='internship'?'Internship / student placement':'Entry-level experience'}</div>
             <div class="role-meta">
@@ -55,6 +64,7 @@ function roleCard(o){return `
             <a class="posting-button" href="${safeUrl(o.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc('Open posting for '+o.title)}">Open posting <span aria-hidden="true">↗</span></a>
           </div>
         </div>
+        ${assessmentHTML(o.assessment)}
         <div class="role-description">${esc(o.desc)} <a href="${safeUrl(o.url)}" target="_blank" rel="noopener noreferrer" class="apply-link" data-id="${esc(o.id)}">Visit original job posting ↗</a><br>
           <small>${o.verification==='community-index'?'Community-index candidate: confirm the full qualifications, availability and application status with the employer. ':''}Source: ${esc(o.source || 'Employer careers page')}. Last source observation ${o.checkedAt ? esc(new Date(o.checkedAt).toLocaleString()) : 'not recorded'}. Verify the posting is still open.</small>
         </div>
@@ -145,8 +155,46 @@ if(API_BASE && Number.isFinite(data.total)){
  while(combined.length<data.total){const response=await fetch(`${API_BASE.replace(/\/$/,'')}/opportunities?limit=2000&offset=${combined.length}`,{cache:'no-store'});if(!response.ok)throw Error('Incomplete API feed');const page=await response.json();if(!page.roles?.length)throw Error('Incomplete API feed');combined.push(...page.roles);}
  data.roles=combined;
 }
-liveRoles=(data.roles||[]).map(r=>({...r,opportunityKind:opportunityKind(r.title,r.description||'',eligibilityRules)})).filter(r=>r.opportunityKind);feedUpdatedAt=data.updatedAt||new Date().toISOString();feedCoverage=data.sourceCoverage||null;liveFeedLoaded=true;render()}).catch(()=>{liveFeedLoaded=true;liveFeedError=true;render()});
-async function processResume(file){if(file.size>10*1024*1024){$('#upload-status').textContent='That file is over 10 MB. Please choose a smaller one.';return}$('#upload-title').textContent=file.name;$('#upload-sub').textContent='Reading your skills on this device…';$('#upload-status').textContent='';let text='';try{if(file.type==='text/plain'||file.name.endsWith('.txt'))text=await file.text();else if(file.type==='application/pdf'||file.name.endsWith('.pdf')){if(window.pdfjsLib){const data=new Uint8Array(await file.arrayBuffer());const pdf=await pdfjsLib.getDocument({data}).promise;for(let p=1;p<=pdf.numPages;p++){const page=await pdf.getPage(p);const content=await page.getTextContent();text+=' '+content.items.map(i=>i.str).join(' ')}}else text=await file.text()}else if(file.name.endsWith('.docx')){if(window.mammoth){const result=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});text=result.value}else text=await file.text()}else text=await file.text()}catch(err){text=''}if(!text.trim()){const ext=file.name.split('.').pop().toUpperCase();$('#upload-sub').textContent=`${ext} selected`;$('#upload-status').textContent='Preview parser unavailable for this format here. Try a .txt resume for skill matching.';return}const normalized=text.toLowerCase();state.resumeSkills=new Set(Object.entries(skillAliases).filter(([skill,words])=>words.some(word=>normalized.includes(word))).map(([skill])=>skill.toLowerCase()));render();$('#upload-sub').textContent=`${(file.size/1024).toFixed(0)} KB · analyzed locally`;$('#upload-status').textContent=state.resumeSkills.size?`${state.resumeSkills.size} skill areas highlighted in matching roles`:'Resume ready. Add details with a text resume for a richer match.';toast(state.resumeSkills.size?`Highlighted ${state.resumeSkills.size} skill areas from the resume.`:'Resume added. No skill keywords found yet.')}
+resumeAnalysisCache.clear();liveRoles=(data.roles||[]).map(r=>({...r,opportunityKind:opportunityKind(r.title,r.description||'',eligibilityRules)})).filter(r=>r.opportunityKind);feedUpdatedAt=data.updatedAt||new Date().toISOString();feedCoverage=data.sourceCoverage||null;liveFeedLoaded=true;render()}).catch(()=>{liveFeedLoaded=true;liveFeedError=true;render()});
+function clearResume(){
+ resumeRequest++;
+ resumeText='';resumeEvidence={};resumeProfile={};resumeAnalysisCache.clear();state.resumeSkills=new Set();
+ $('#resume-input').value='';$('#resume-profile-form').reset();$('#profile-status').textContent='';$('#resume-review-fields').classList.add('hidden');
+ $('#upload-title').textContent='Drop your resume here';$('#upload-sub').textContent='PDF, DOCX or text · up to 10 MB';$('#upload-status').textContent='Resume and profile cleared from this page.';render();
+}
+$('#clear-resume').addEventListener('click',clearResume);
+$('#resume-profile-form').addEventListener('submit',e=>{
+ e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;
+ resumeProfile=Object.fromEntries(['major','school','enrollment','graduation','gpa','availability','certifications'].map(key=>[key,form.elements.namedItem(key).value.trim()]));
+ resumeAnalysisCache.clear();render();$('#profile-status').textContent='Profile applied to each role’s requirements review. Values stay in this page until you clear or reload it.';
+});
+async function processResume(file){
+ const request=++resumeRequest;
+ const status=$('#upload-status'),ext=file.name.split('.').pop().toLowerCase();
+ if(file.size>10*1024*1024){status.textContent='That file is over 10 MB. Please choose a smaller one.';return}
+ if(!['txt','pdf','docx'].includes(ext)){status.textContent='Please use PDF, DOCX or text. Older .doc files are not supported.';return}
+ status.textContent='Reading your resume on this device…';let text='';
+ try{
+  if(ext==='txt')text=await file.text();
+  else if(ext==='pdf'){
+   if(!window.pdfjsLib)throw Error('The PDF reader is unavailable. Try a text resume.');
+   const pdf=await pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+   try{for(let page=1;page<=pdf.numPages;page++){const content=await (await pdf.getPage(page)).getTextContent();text+='\n'+content.items.map(i=>i.str).join(' ');}}finally{await pdf.destroy();}
+  }else{
+   if(!window.mammoth)throw Error('The DOCX reader is unavailable. Try a text resume.');
+   text=(await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()})).value;
+  }
+  if(!text.trim()||text.replace(/[^a-z]/gi,'').length<30)throw Error('No readable resume text found. Scanned PDFs need a text version or a DOCX file.');
+ }catch(error){if(request!==resumeRequest)return;status.textContent=(error.message||'Could not read this file. Try a text resume.')+(resumeText?' Your previous resume is still active.':'');return}
+ if(request!==resumeRequest)return;
+ resumeText=text;resumeEvidence=skillEvidence(text,skillAliases);state.resumeSkills=new Set(Object.keys(resumeEvidence));resumeProfile={};resumeAnalysisCache.clear();
+ const facts=resumeFacts(text),form=$('#resume-profile-form');form.reset();
+ for(const key of ['major','gpa'])if(facts[key])form.elements.namedItem(key).value=facts[key].value;
+ $('#resume-review-fields').classList.remove('hidden');$('#profile-status').textContent='Review any detected facts and add what the resume cannot establish. Blank fields stay unknown.';
+ $('#upload-title').textContent=file.name;$('#upload-sub').textContent=`${(file.size/1024).toFixed(0)} KB · read locally`;
+ status.textContent=`${state.resumeSkills.size} skill areas found. Requirements reviews are now available on each role. No qualification or acceptance probability is calculated.`;
+ render();
+}
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#search-input').focus()}if(e.key==='Escape'){$('#search-input').blur();$('#location-input').blur()}});render();
 
 fetch('./local-programs.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Local program feed unavailable');return r.json()}).then(data=>{

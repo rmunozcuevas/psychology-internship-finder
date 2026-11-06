@@ -10,6 +10,7 @@ on:
       - 'sociology-opportunities.json'
       - 'app.js'
       - 'eligibility.mjs'
+      - 'resume-fit.mjs'
       - 'opportunity-rules.json'
       - 'program-eligibility.json'
       - 'local-programs.json'

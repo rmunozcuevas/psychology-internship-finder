@@ -2,6 +2,12 @@
 
 A public, no-login directory for UNC Charlotte undergraduates and other psychology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
 
+## Resume requirements review
+
+On either page, add a PDF containing selectable text, DOCX, or text resume (up to 10 MB). The file is parsed in the browser. Each listing gets an expandable review with **Evidence found**, **Potential gaps**, and **Needs confirmation**, including posting excerpts and relevant resume/profile evidence. Major and GPA detected in the resume are prefilled for review; comparisons use the profile only after the user applies it. Optional profile details include enrollment, graduation month, school, availability and current certifications. Clear removes resume text, detected skills and profile from page memory; reloading also discards them. No resume/profile is uploaded or written to browser storage.
+
+The checker compares simple explicit GPA thresholds, major mentions, enrollment conditions, graduation-month windows, and named CPR/BLS/RBT certifications. It keeps alternatives, ambiguous qualifications, school access, schedules, experience duration, and unsupported credentials for confirmation. Preferred conditions are labeled separately; a missing skill keyword is unknown, not a qualification failure. Community descriptions may omit requirements, and all results need comparison with the full employer posting. It does not decide eligibility or predict hiring. The listed-skills percentage is matching skill tags divided by the posting's listed skill tags.
+
 ## Sociology directory
 
 The [blue sociology page](https://rmunozcuevas.github.io/psychology-sociology-internship-finder/sociology.html) has its own feed, career filters, resume skill vocabulary and browser-saved shortlist. Switch fields using the Psychology / Sociology links on either page. Internships appear first, followed by screened undergraduate experience roles. Research/evaluation, policy/advocacy, community services and HR/organizations are separate from broader management internships.
