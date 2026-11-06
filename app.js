@@ -75,7 +75,16 @@ function render() {
   $('#result-count').textContent = rows.length;
   $('#showing-count').textContent = rows.length;
   $('#pagination').innerHTML=rows.length>state.pageSize?`<div class="pagination-controls"><label>Per page <select id="page-size"><option value="20" ${state.pageSize===20?'selected':''}>20</option><option value="50" ${state.pageSize===50?'selected':''}>50</option><option value="100" ${state.pageSize===100?'selected':''}>100</option></select></label><span>Page ${state.page} of ${pageCount} · ${rows.length} roles</span><div><button type="button" data-page="${Math.max(1,state.page-1)}" ${state.page===1?'disabled':''}>← Previous</button><button type="button" data-page="${Math.min(pageCount,state.page+1)}" ${state.page===pageCount?'disabled':''}>Next →</button></div></div>`:'';
-  $('#side-count').textContent = rows.length;
+  const catalogue = liveFeedLoaded ? liveRoles : [];
+  const internshipCount = catalogue.filter(r => r.opportunityKind === 'internship').length;
+  const entryCount = catalogue.filter(r => r.opportunityKind === 'entry-level').length;
+  $('#side-count').textContent = liveFeedLoaded ? catalogue.length : '…';
+  $('#side-count').title = `${catalogue.length} total listings: ${internshipCount} internships/student placements and ${entryCount} entry-level roles. The list uses your selected filters.`;
+  $('#side-count').setAttribute('aria-label', `${catalogue.length} total listings in the catalogue`);
+  const viewLabel = state.kind === 'internship' ? 'internships/student placements' : state.kind === 'entry-level' ? 'entry-level experience' : 'internships and entry-level experience';
+  $('#catalog-summary').textContent = liveFeedError ? 'Catalogue unavailable. Please try again later.' : !liveFeedLoaded ? 'Loading catalogue totals…' : `Full catalogue: ${internshipCount} internships/student placements · ${entryCount} entry-level roles. Viewing ${viewLabel}.`;
+  $('#psych-stat-label').textContent = state.kind === 'internship' ? 'psychology internships' : state.kind === 'entry-level' ? 'psychology entry-level roles' : 'psychology roles';
+  $('#adjacent-stat-label').textContent = state.kind === 'internship' ? 'adjacent internships' : state.kind === 'entry-level' ? 'adjacent entry-level roles' : 'adjacent roles';
   const base = liveFeedLoaded ? liveRoles.filter(r=>state.kind==='all'||r.opportunityKind===state.kind) : [];
   $('#psych-stat').textContent = base.filter(o => o.type === 'psychology').length;
   $('#adjacent-stat').textContent = base.filter(o => o.type === 'adjacent').length;
@@ -87,7 +96,7 @@ function render() {
   $$('.nav-link').forEach(a=>a.classList.toggle('active',a.hash===(location.hash||'#opportunities')));
   $('#saved-list').innerHTML=savedRows.length?savedRows.map(r=>`<div class="saved-item"><span><b>${esc(r.title)}</b><small>${esc(r.org)}</small></span><button type="button" class="saved-open" data-id="${esc(r.id)}">View role ↗</button></div>`).join(''):'<div class="empty-state">No saved roles yet. Use the heart on a listing to keep it here in this browser.</div>';
   $('#program-list').innerHTML=programs.map(p=>`<article class="program-card"><div><span class="program-type">${esc(p.type)}</span><h3>${esc(p.title)}</h3><b>${esc(p.org)}</b><p>${esc(p.place)} · ${esc(p.date)}</p><small>${esc(p.status)}</small></div><a href="${safeUrl(p.url)}" target="_blank" rel="noopener noreferrer">Program details ↗</a></article>`).join('');
-  $('#feed-notice').textContent=liveFeedError?'Live listings are temporarily unavailable. The Summer 2027 program links below remain available.':'Internships are shown by default. Use the opportunity selector for entry-level roles with training or student eligibility signals. Requirements are screened automatically; verify eligibility and Summer 2027 availability with the employer.';
+  $('#feed-notice').textContent=liveFeedError?'Live listings are temporarily unavailable. The Summer 2027 program links below remain available.':`Showing ${rows.length} matches in ${viewLabel}. ${state.kind==='internship' && !base.some(r=>r.type==='psychology') ? 'No direct psychology internships currently pass the screen in the connected employer feed. Adjacent internships are related experience; university program links are listed separately below. ' : ''}Use the opportunity selector to change views. Verify eligibility and Summer 2027 availability with the employer.`;
   $('#filter-indicator').classList.remove('visible');
   $$('.chip').forEach(button => {
     button.classList.toggle('active', button.dataset.filter === state.category);
