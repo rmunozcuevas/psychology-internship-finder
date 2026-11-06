@@ -72,3 +72,8 @@ The default view shows internships and student placements. The opportunity selec
 ### Career path coverage (November 6)
 
 Employer sources now include Eliot Community Human Services for bachelor's-level clinical placements, Busara for behavioral research (international), and dedicated HR/talent internship boards including RF-SMART, Arc Boat Company, National Life Group, Stratolaunch, Trove Brands and Astera Labs Early Career. Live APIs supply the actual listings. Each card labels its clinical/pre-therapy, I/O/workplace, research/human-behavior or related-experience pathway; the career-path selector narrows the live results. I/O roles remain adjacent rather than being relabeled as clinical psychology. Location, eligibility and season must be checked per posting. A board name mentioning 2027 does not by itself confirm the role's season.
+
+
+### UNC Charlotte school eligibility
+
+Live postings are screened for explicit restrictions to another institution. This text screen cannot guarantee that an unmentioned school restriction does not exist. Program cards use `program-eligibility.json`: only programs with verified external-student access are shown, and duplicate URLs are removed. Duke-only and UGA-only programs are excluded. Princeton SYNAPSE remains because its visiting-student route explicitly accepts non-Princeton undergraduates. School access does not establish citizenship, class-year, major, academic-credit, travel or other individual eligibility; cards show the known conditions and source links. Unverified programs are hidden until reviewed.

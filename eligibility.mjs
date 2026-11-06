@@ -2,6 +2,8 @@
 export function opportunityKind(title, description, rules) {
   const matches = (key, text) => new RegExp(rules[key], 'i').test(text);
   const text = `${title} ${description}`;
+  const schoolRestrictions = [...text.matchAll(new RegExp(rules.schoolRestriction, 'gi'))];
+  if (schoolRestrictions.some(m => !/UNC Charlotte|UNCC|University of North Carolina at Charlotte/i.test(m[0]))) return null;
   const graduateOnly = [...text.matchAll(new RegExp(rules.graduateOnly, 'gi'))].some(m => {
     const qualification = text.slice(Math.max(0, m.index - 65), m.index + m[0].length);
     return !(/bachelor|undergraduate/i.test(qualification) && /\bor\b|,/i.test(qualification));

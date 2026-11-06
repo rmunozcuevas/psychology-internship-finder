@@ -1,0 +1,56 @@
+{
+  "https://www.pace.edu/counseling/psychology-training-programs/undergraduate-summer-internship": {
+    "externalStudentsAllowed": true,
+    "notes": "External students accepted; rising seniors only. NYC housing required. Pace students are excluded.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://www.pace.edu/counseling/psychology-training-programs/undergraduate-summer-internship"
+  },
+  "https://pni.princeton.edu/apply/undergraduate-summer-research-programs/application-process": {
+    "externalStudentsAllowed": true,
+    "notes": "SYNAPSE is for non-Princeton undergraduates. Check Leadership Alliance requirements and research preparation.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://pni.princeton.edu/apply/undergraduate-summer-research-programs/application-process"
+  },
+  "https://pni.princeton.edu/apply/undergraduate-summer-interns": {
+    "externalStudentsAllowed": true,
+    "notes": "SYNAPSE accepts visiting undergraduates; use the external-student track, not Princeton-only funding.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://pni.princeton.edu/apply/undergraduate-summer-interns"
+  },
+  "https://www.apa.org/science/programs/super-fellowship": {
+    "externalStudentsAllowed": true,
+    "notes": "Accepts full-time undergraduates at accredited U.S. or Canadian institutions; verify 2027 criteria and faculty-host requirements.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://www.apa.org/science/programs/super-fellowship/super-faq-session-transcript.pdf"
+  },
+  "https://neuroscience.ufl.edu/programs/neuroscience-ufl-edu-training-summer-neuroscience-internship-program/": {
+    "externalStudentsAllowed": true,
+    "notes": "Program recruits undergraduates across U.S. institutions, including international students at U.S. institutions. Check current prerequisites.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://neuroscience.ufl.edu/2025/08/06/ten-years-of-snip-undergraduate-training/"
+  },
+  "https://psychology.wvu.edu/behavior-science-reu": {
+    "externalStudentsAllowed": true,
+    "notes": "External undergraduate applicants are invited. Verify NSF citizenship/residency, academic and research requirements.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://psychology.wvu.edu/behavior-science-reu"
+  },
+  "https://www.fredhutch.org/en/education-training/undergraduate-students/summer-undergraduate-research-program.html": {
+    "externalStudentsAllowed": true,
+    "notes": "External students accepted. U.S. citizen/permanent resident; summer before final undergraduate year/semester required.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://www.fredhutch.org/en/education-training/undergraduate-students/summer-undergraduate-research-program.html"
+  },
+  "https://www.psychology.uga.edu/undergraduate-internship": {
+    "externalStudentsAllowed": false,
+    "notes": "Restricted to UGA psychology majors.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://www.psychology.uga.edu/undergraduate-internship"
+  },
+  "https://experiences.duke.edu/opportunities/summer-neuroscience-program/": {
+    "externalStudentsAllowed": false,
+    "notes": "Restricted to Duke undergraduates.",
+    "verifiedAt": "2026-11-06",
+    "evidenceUrl": "https://experiences.duke.edu/opportunities/summer-neuroscience-program/"
+  }
+}
