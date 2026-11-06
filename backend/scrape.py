@@ -1,11 +1,13 @@
 import json, os, re, hashlib, html
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import requests
 from bs4 import BeautifulSoup
 from api import connect, initialize
 
-TERMS = re.compile(r"intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavioral health technician|psychiatric aide|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition", re.I)
-PSYCH = re.compile(r"psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development", re.I)
+TERMS = re.compile(r"intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavior(?:al)?(?: health)? technician|psychiatric aide|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition", re.I)
+PSYCH = re.compile(r"psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development|behavior(?:al)?(?: health)? technician|registered behavior technician|\bRBT\b", re.I)
 ADJ = re.compile(r"research|lab assistant|survey|consumer insights|ux research|user research|people analytics|human resources|\bHR\b|recruiting|employee engagement|people operations|talent acquisition|clinical|health outcomes|community|social impact|human factors|public health|youth mentor|special education|\bRBT\b|market research", re.I)
 SOURCES = [
  ("SearchTern community listings", "https://raw.githubusercontent.com/KSaifStack/SearchTern-Listings/main/pages/searchtern.json", "json"),
@@ -19,6 +21,7 @@ def clean(s): return re.sub(r"\s+", " ", html.unescape(BeautifulSoup(str(s or ""
 def normalize(row, source):
     title=clean(row.get("role") or row.get("title") or row.get("name")); desc=clean(row.get("description")); text=f"{title} {desc}"
     if not title or not TERMS.search(title): return None
+    if re.search(r"talent community|expression of interest|\bopportunities\s*$", title, re.I): return None
     if re.search(r"senior|director|manager|licensed|postdoctoral|postdoc|professor|faculty|phd candidate",title,re.I): return None
     if not (PSYCH.search(title) or ADJ.search(title) or PSYCH.search(desc) or ADJ.search(desc)): return None
     url=str(row.get("link") or row.get("url") or "").strip()
@@ -29,8 +32,43 @@ def normalize(row, source):
     skills=[k for k,p in [("Research methods",r"research|study|participant"),("Data analysis",r"data|statistics|excel|spss"),("Child development",r"child|youth|pediatric|development"),("Communication",r"communication|interpersonal"),("Survey design",r"survey|questionnaire|qualtrics"),("Outreach",r"outreach|community"),("Writing",r"writing|written|editing")] if re.search(p,text,re.I)]
     return {"id":hashlib.sha256((url.split("?")[0]).encode()).hexdigest(),"title":title,"company":company,"location":location,"url":url,"description":desc[:4000],"type":typ,"season":season,"skills":skills,"source":source}
 
+def employer_jobs(board):
+    kind, entry = board
+    slug = entry["id"]
+    urls = {
+        "greenhouse": f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
+        "lever": f"https://api.lever.co/v0/postings/{slug}?mode=json",
+        "ashby": f"https://api.ashbyhq.com/posting-api/job-board/{slug}",
+    }
+    try:
+        res = requests.get(urls[kind], timeout=35)
+        res.raise_for_status()
+        data = res.json()
+        rows = data if kind == "lever" else data.get("jobs", [])
+        jobs = []
+        for row in rows:
+            location = row.get("location", "")
+            if isinstance(location, dict): location = location.get("name", "")
+            description = row.get("content") or row.get("descriptionPlain") or row.get("descriptionHtml") or row.get("description", "")
+            description += " ".join(str(section.get("content", "")) for section in row.get("lists", []))
+            item = normalize({"title": row.get("title") or row.get("text"),
+                "company": entry["employer"],
+                "location": row.get("categories", {}).get("location", location),
+                "url": row.get("absolute_url") or row.get("hostedUrl") or row.get("jobUrl"),
+                "description": description}, kind.title())
+            if item: jobs.append(item)
+        return jobs, None
+    except Exception as exc:
+        return [], f"{kind} {slug}: {exc}"
+
 def scrape():
     collected=[]; errors=[]
+    registry = json.loads((Path(__file__).resolve().parent.parent / "employer-boards.json").read_text())
+    boards = [(kind, board) for kind in ("greenhouse", "lever", "ashby") for board in registry.get(kind, [])]
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        for jobs, error in pool.map(employer_jobs, boards):
+            collected.extend(jobs)
+            if error: errors.append(error)
     for name,url,kind in SOURCES:
         try:
             res=requests.get(url,timeout=35);res.raise_for_status()

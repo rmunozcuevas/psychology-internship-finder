@@ -8,6 +8,10 @@ on:
       - 'styles.css'
       - 'opportunities.json'
       - '.github/workflows/deploy-pages.yml'
+  workflow_run:
+    workflows: [Refresh internship listings]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,6 +22,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

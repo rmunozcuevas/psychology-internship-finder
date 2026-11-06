@@ -51,3 +51,14 @@ The resume file is processed in the browser and is not sent to an application se
 ## Curated 2027 programs
 
 The Summer 2027 program section links directly to official university or program pages and shows their published dates/application status. Check each source for eligibility, changes, and current availability before applying.
+
+
+### Expanded employer coverage
+
+`employer-boards.json` is the shared registry for the website refresh and PostgreSQL scraper. Both fetch current Greenhouse, Lever and Ashby postings; individual listings are never hand-entered. Repository board variables extend the registry instead of replacing it. Add an employer's public board identifier and name to the appropriate array to expand coverage.
+
+The November 5 expansion adds 14 working boards (24 total), including Cortica, Centria Autism, The Behavior Exchange, Adams Clinical, Acorn Health, Charlie Health, American Institutes for Research, Irvine Clinical Research, Lyra Health and Precision Medicine Group. Notion, Ramp and Duolingo provide potential adjacent HR or research experience. Sources may have no matching roles on a given day.
+
+The first expanded refresh fetched 1,244 matching postings, including 19 internship titles and two explicit Summer 2027 listings. Most results are ongoing behavioral technician positions, often one opening per location. They are useful experience opportunities but are not confirmed undergraduate internships or confirmed summer positions. Check qualifications, required credentials and availability on the employer page.
+
+The daily feed workflow runs at 10:17 UTC. A successful refresh triggers Pages deployment through `workflow_run` because commits made by the Actions token do not trigger another push workflow. Website records unseen for 30 days expire; source failures are included in the feed's `errors` array. Database records also expire after 30 days. Publishing still depends on GitHub Pages accepting deployments; database updates require `DATABASE_URL`.

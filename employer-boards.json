@@ -1,18 +1,181 @@
 {
-  "description": "Starter allowlist of public employer job board identifiers. Listing a board does not guarantee a current Summer 2027 internship; roles are fetched live and filtered by the refresh script.",
+  "description": "Shared employer source registry for the daily website and database refresh. API identifiers are configuration; individual jobs are always fetched dynamically. A working source does not guarantee Summer 2027 internships or undergraduate eligibility.",
   "greenhouse": [
-    { "id": "talkspace", "employer": "Talkspace", "evidence": "Employer careers page links its current openings to the Greenhouse Job Board.", "url": "https://www.talkspace.com/careers" },
-    { "id": "modernhealth", "employer": "Modern Health", "evidence": "Public Greenhouse job board.", "url": "https://job-boards.greenhouse.io/modernhealth" },
-    { "id": "hs", "employer": "Headspace", "evidence": "Employer careers page exposes the Greenhouse job board token.", "url": "https://job-boards.greenhouse.io/hs" },
-    { "id": "mergeworld", "employer": "MERGE", "evidence": "Employer careers page links to its Greenhouse job board.", "url": "https://merge.ai/careers" },
-    { "id": "criminaljusticeagency", "employer": "New York City Criminal Justice Agency", "evidence": "Greenhouse job URL published by the employer in a job description.", "url": "https://boards.greenhouse.io/criminaljusticeagency" },
-    { "id": "nyisointernships", "employer": "New York Independent System Operator", "evidence": "Official Greenhouse board has a Summer 2027 human resources internship listing that names organizational psychology as relevant experience.", "url": "https://job-boards.greenhouse.io/nyisointernships" },
-    { "id": "sharkninjaoperatingllc", "employer": "SharkNinja", "evidence": "Official Greenhouse board has a Spring 2027 Consumer Insights co-op listing welcoming psychology coursework.", "url": "https://job-boards.greenhouse.io/sharkninjaoperatingllc" },
-    { "id": "tpgcareers", "employer": "TPG", "evidence": "Official Greenhouse board has a 2027 Health and Social Impact Research Assistant internship open to advanced undergraduates.", "url": "https://job-boards.greenhouse.io/tpgcareers" },
-    { "id": "precisionaq", "employer": "Precision AQ", "evidence": "Official Greenhouse board has a paid Summer 2027 internship in healthcare research and market access.", "url": "https://job-boards.greenhouse.io/precisionaq" }
+    {
+      "id": "talkspace",
+      "employer": "Talkspace",
+      "evidence": "Employer careers page links its current openings to the Greenhouse Job Board.",
+      "url": "https://www.talkspace.com/careers"
+    },
+    {
+      "id": "modernhealth",
+      "employer": "Modern Health",
+      "evidence": "Public Greenhouse job board.",
+      "url": "https://job-boards.greenhouse.io/modernhealth"
+    },
+    {
+      "id": "hs",
+      "employer": "Headspace",
+      "evidence": "Employer careers page exposes the Greenhouse job board token.",
+      "url": "https://job-boards.greenhouse.io/hs"
+    },
+    {
+      "id": "mergeworld",
+      "employer": "MERGE",
+      "evidence": "Employer careers page links to its Greenhouse job board.",
+      "url": "https://merge.ai/careers"
+    },
+    {
+      "id": "criminaljusticeagency",
+      "employer": "New York City Criminal Justice Agency",
+      "evidence": "Greenhouse job URL published by the employer in a job description.",
+      "url": "https://boards.greenhouse.io/criminaljusticeagency"
+    },
+    {
+      "id": "nyisointernships",
+      "employer": "New York Independent System Operator",
+      "evidence": "Official Greenhouse board has a Summer 2027 human resources internship listing that names organizational psychology as relevant experience.",
+      "url": "https://job-boards.greenhouse.io/nyisointernships"
+    },
+    {
+      "id": "sharkninjaoperatingllc",
+      "employer": "SharkNinja",
+      "evidence": "Official Greenhouse board has a Spring 2027 Consumer Insights co-op listing welcoming psychology coursework.",
+      "url": "https://job-boards.greenhouse.io/sharkninjaoperatingllc"
+    },
+    {
+      "id": "tpgcareers",
+      "employer": "TPG",
+      "evidence": "Official Greenhouse board has a 2027 Health and Social Impact Research Assistant internship open to advanced undergraduates.",
+      "url": "https://job-boards.greenhouse.io/tpgcareers"
+    },
+    {
+      "id": "precisionaq",
+      "employer": "Precision AQ",
+      "evidence": "Official Greenhouse board has a paid Summer 2027 internship in healthcare research and market access.",
+      "url": "https://job-boards.greenhouse.io/precisionaq"
+    },
+    {
+      "id": "cortica",
+      "employer": "Cortica",
+      "url": "https://boards-api.greenhouse.io/v1/boards/cortica/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "centriaautism",
+      "employer": "Centria Autism",
+      "url": "https://boards-api.greenhouse.io/v1/boards/centriaautism/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "thebehaviorexchange",
+      "employer": "The Behavior Exchange",
+      "url": "https://boards-api.greenhouse.io/v1/boards/thebehaviorexchange/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "adamsclinical",
+      "employer": "Adams Clinical",
+      "url": "https://boards-api.greenhouse.io/v1/boards/adamsclinical/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "charliehealth",
+      "employer": "Charlie Health",
+      "url": "https://boards-api.greenhouse.io/v1/boards/charliehealth/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "acornhealth",
+      "employer": "Acorn Health",
+      "url": "https://boards-api.greenhouse.io/v1/boards/acornhealth/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "americaninstitutesforresearch",
+      "employer": "American Institutes for Research",
+      "url": "https://boards-api.greenhouse.io/v1/boards/americaninstitutesforresearch/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "precisionmedicinegroup",
+      "employer": "Precision Medicine Group",
+      "url": "https://boards-api.greenhouse.io/v1/boards/precisionmedicinegroup/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "duolingo",
+      "employer": "Duolingo",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    }
   ],
   "lever": [
-    { "id": "profoundresearch", "employer": "Profound Research", "evidence": "Public Lever postings API; current results include clinical research internship talent communities for 2027–2028.", "url": "https://jobs.lever.co/profoundresearch" }
+    {
+      "id": "profoundresearch",
+      "employer": "Profound Research",
+      "evidence": "Public Lever postings API; current results include clinical research internship talent communities for 2027\u20132028.",
+      "url": "https://jobs.lever.co/profoundresearch"
+    },
+    {
+      "id": "irvine-clinical",
+      "employer": "Irvine Clinical Research",
+      "url": "https://api.lever.co/v0/postings/irvine-clinical?mode=json",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "lyrahealth",
+      "employer": "Lyra Health",
+      "url": "https://api.lever.co/v0/postings/lyrahealth?mode=json",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    }
   ],
-  "ashby": []
+  "ashby": [
+    {
+      "id": "headway",
+      "employer": "Headway",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/headway",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "notion",
+      "employer": "Notion",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/notion",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "ramp",
+      "employer": "Ramp",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/ramp",
+      "evidence": "Public postings API returned a valid jobs list during source verification.",
+      "verifiedAt": "2026-11-05",
+      "category": "Psychology, research, behavioral health or adjacent HR experience"
+    }
+  ]
 }

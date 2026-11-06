@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: node scripts/refresh-jobs.mjs
         env:
           GREENHOUSE_BOARDS: ${{ vars.GREENHOUSE_BOARDS || 'talkspace,modernhealth,hs,mergeworld,criminaljusticeagency,nyisointernships,sharkninjaoperatingllc,tpgcareers,precisionaq' }}
@@ -21,7 +21,7 @@ jobs:
           SMARTRECRUITERS_COMPANIES: ${{ vars.SMARTRECRUITERS_COMPANIES }}
           BAMBOOHR_BOARDS: ${{ vars.BAMBOOHR_BOARDS }}
           WORKDAY_BOARDS: ${{ vars.WORKDAY_BOARDS }}
-          DISCOVER_ATS_BOARDS: 'true'
+          DISCOVER_ATS_BOARDS: 'false'
       - name: Commit refreshed feed
         run: |
           git config user.name github-actions[bot]
