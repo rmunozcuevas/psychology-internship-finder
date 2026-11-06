@@ -6,8 +6,10 @@ import requests
 from bs4 import BeautifulSoup
 from api import connect, initialize
 from eligibility import opportunity_kind, RULES
+from workday import collect_workday
+from smartrecruiters import collect_smartrecruiters
 
-TERMS = re.compile(r"intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavior(?:al)?(?: health)? technician|psychiatric aide|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition", re.I)
+TERMS = re.compile(r"intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavior(?:al)?(?: health)? technician|psychiatric aide|mental health technician|psychiatric technician|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition", re.I)
 PSYCH = re.compile(r"psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development|behavior(?:al)?(?: health)? technician|registered behavior technician|\bRBT\b", re.I)
 ADJ = re.compile(r"research|lab assistant|survey|consumer insights|ux research|user research|people analytics|human resources|\bHR\b|recruiting|employee engagement|people operations|talent acquisition|clinical|health outcomes|community|social impact|human factors|public health|youth mentor|special education|\bRBT\b|market research", re.I)
 SOURCES = [
@@ -31,7 +33,7 @@ def normalize(row, source):
     location=clean(row.get("location")); typ="psychology" if (PSYCH.search(title) or re.search(RULES["clinicalTitle"],title,re.I)) else "adjacent"
     season="Summer 2027" if re.search(r"summer\s*2027|2027\s+summer",text,re.I) else "Spring 2027" if re.search(r"spring\s*2027",text,re.I) else "Season not specified"
     skills=[k for k,p in [("Research methods",r"research|study|participant"),("Data analysis",r"data|statistics|excel|spss"),("Child development",r"child|youth|pediatric|development"),("Communication",r"communication|interpersonal"),("Survey design",r"survey|questionnaire|qualtrics"),("Outreach",r"outreach|community"),("Writing",r"writing|written|editing")] if re.search(p,text,re.I)]
-    return {"id":hashlib.sha256((url.split("?")[0]).encode()).hexdigest(),"title":title,"company":company,"location":location,"url":url,"description":desc[:4000],"type":typ,"season":season,"skills":skills,"source":source}
+    return {"id":hashlib.sha256((url.split("?")[0]).encode()).hexdigest(),"title":title,"company":company,"location":location,"url":url,"description":desc[:4000],"type":typ,"season":season,"skills":skills,"source":source,"deadline":row.get("deadline")}
 
 def employer_jobs(board):
     kind, entry = board
@@ -70,6 +72,24 @@ def scrape():
         for jobs, error in pool.map(employer_jobs, boards):
             collected.extend(jobs)
             if error: errors.append(error)
+    for entry in registry.get('workday', []):
+        try:
+            rows, source_errors = collect_workday(entry)
+            errors.extend(source_errors)
+            for row in rows:
+                item = normalize(row, 'Workday')
+                if item: collected.append(item)
+        except Exception as exc:
+            errors.append(f"Workday {entry['employer']}: {exc}")
+    for entry in registry.get('smartrecruiters', []):
+        try:
+            rows, source_errors = collect_smartrecruiters(entry)
+            errors.extend(source_errors)
+            for row in rows:
+                item = normalize(row, 'SmartRecruiters')
+                if item: collected.append(item)
+        except Exception as exc:
+            errors.append(f"SmartRecruiters {entry['employer']}: {exc}")
     for name,url,kind in SOURCES:
         try:
             res=requests.get(url,timeout=35);res.raise_for_status()
@@ -95,9 +115,9 @@ def scrape():
     initialize()
     with connect() as conn:
         for j in jobs:
-            conn.execute("""INSERT INTO internships(id,title,company,location,url,description,type,season,skills,source,last_seen)
-              VALUES(%(id)s,%(title)s,%(company)s,%(location)s,%(url)s,%(description)s,%(type)s,%(season)s,%(skills)s,%(source)s,now())
-              ON CONFLICT(id) DO UPDATE SET title=excluded.title,company=excluded.company,location=excluded.location,url=excluded.url,description=excluded.description,type=excluded.type,season=excluded.season,skills=excluded.skills,source=excluded.source,last_seen=now()""",{**j,"skills":json.dumps(j["skills"])})
+            conn.execute("""INSERT INTO internships(id,title,company,location,url,description,type,season,skills,source,closes_at,last_seen)
+              VALUES(%(id)s,%(title)s,%(company)s,%(location)s,%(url)s,%(description)s,%(type)s,%(season)s,%(skills)s,%(source)s,%(deadline)s,now())
+              ON CONFLICT(id) DO UPDATE SET title=excluded.title,company=excluded.company,location=excluded.location,url=excluded.url,description=excluded.description,type=excluded.type,season=excluded.season,skills=excluded.skills,source=excluded.source,closes_at=excluded.closes_at,last_seen=now()""",{**j,"skills":json.dumps(j["skills"])})
         # Expire records unseen for 30 days so temporary source outages don't delete the catalog.
         conn.execute("DELETE FROM internships WHERE last_seen < now() - interval '30 days'")
     print(f"Upserted {len(jobs)} relevant jobs. Source errors: {len(errors)}")

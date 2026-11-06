@@ -210,6 +210,132 @@
       "url": "https://boards-api.greenhouse.io/v1/boards/usafacts/jobs?content=true",
       "verifiedAt": "2026-11-06",
       "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "aclu",
+      "employer": "ACLU",
+      "url": "https://boards-api.greenhouse.io/v1/boards/aclu/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "abilitypath",
+      "employer": "AbilityPath",
+      "url": "https://boards-api.greenhouse.io/v1/boards/abilitypath/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "instacart",
+      "employer": "Instacart",
+      "url": "https://boards-api.greenhouse.io/v1/boards/instacart/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "pinterest",
+      "employer": "Pinterest",
+      "url": "https://boards-api.greenhouse.io/v1/boards/pinterest/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "robinhood",
+      "employer": "Robinhood",
+      "url": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "figma",
+      "employer": "Figma",
+      "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "mongodb",
+      "employer": "MongoDB",
+      "url": "https://boards-api.greenhouse.io/v1/boards/mongodb/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "datadog",
+      "employer": "Datadog",
+      "url": "https://boards-api.greenhouse.io/v1/boards/datadog/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "cloudflare",
+      "employer": "Cloudflare",
+      "url": "https://boards-api.greenhouse.io/v1/boards/cloudflare/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "stripe",
+      "employer": "Stripe",
+      "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "airbnb",
+      "employer": "Airbnb",
+      "url": "https://boards-api.greenhouse.io/v1/boards/airbnb/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "roblox",
+      "employer": "Roblox",
+      "url": "https://boards-api.greenhouse.io/v1/boards/roblox/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "discord",
+      "employer": "Discord",
+      "url": "https://boards-api.greenhouse.io/v1/boards/discord/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "reddit",
+      "employer": "Reddit",
+      "url": "https://boards-api.greenhouse.io/v1/boards/reddit/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "toast",
+      "employer": "Toast",
+      "url": "https://boards-api.greenhouse.io/v1/boards/toast/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "chime",
+      "employer": "Chime",
+      "url": "https://boards-api.greenhouse.io/v1/boards/chime/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "asana",
+      "employer": "Asana",
+      "url": "https://boards-api.greenhouse.io/v1/boards/asana/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "anthropic",
+      "employer": "Anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
     }
   ],
   "lever": [
@@ -267,6 +393,153 @@
       "evidence": "Public postings API returned a valid jobs list during source verification.",
       "verifiedAt": "2026-11-05",
       "category": "Psychology, research, behavioral health or adjacent HR experience"
+    }
+  ],
+  "workday": [
+    {
+      "id": "theirc.wd1.myworkdayjobs.com|theirc|External_Careers",
+      "employer": "International Rescue Committee",
+      "url": "https://theirc.wd1.myworkdayjobs.com/en-US/External_Careers",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified employer API with full job descriptions, application state and closing dates; undergraduate case-management, youth and community-health internships."
+    },
+    {
+      "id": "axiomspace.wd5.myworkdayjobs.com|axiomspace|External_Career_Site",
+      "employer": "Axiom Space",
+      "url": "https://axiomspace.wd5.myworkdayjobs.com/en-US/External_Career_Site",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 156
+    },
+    {
+      "id": "aah.wd5.myworkdayjobs.com|aah|external",
+      "employer": "Advocate Health",
+      "url": "https://aah.wd5.myworkdayjobs.com/en-US/external",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 1012
+    },
+    {
+      "id": "lifefitness.wd1.myworkdayjobs.com|lifefitness|searchLFN",
+      "employer": "Life Fitness",
+      "url": "https://lifefitness.wd1.myworkdayjobs.com/en-US/searchLFN",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 34
+    },
+    {
+      "id": "geaerospace.wd5.myworkdayjobs.com|geaerospace|GE_ExternalSite",
+      "employer": "GE Aerospace",
+      "url": "https://geaerospace.wd5.myworkdayjobs.com/en-US/GE_ExternalSite",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 313
+    },
+    {
+      "id": "diamondbackenergy.wd12.myworkdayjobs.com|diamondbackenergy|DBE",
+      "employer": "Diamondback Energy",
+      "url": "https://diamondbackenergy.wd12.myworkdayjobs.com/en-US/DBE",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 8
+    },
+    {
+      "id": "ijm.wd5.myworkdayjobs.com|ijm|careers-ijm",
+      "employer": "International Justice Mission",
+      "url": "https://ijm.wd5.myworkdayjobs.com/en-US/careers-ijm",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 27
+    },
+    {
+      "id": "globalfoundries.wd1.myworkdayjobs.com|globalfoundries|External",
+      "employer": "GlobalFoundries",
+      "url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 465
+    },
+    {
+      "id": "athene.wd5.myworkdayjobs.com|athene|athene_careers",
+      "employer": "Athene",
+      "url": "https://athene.wd5.myworkdayjobs.com/en-US/athene_careers",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 13
+    },
+    {
+      "id": "primient.wd1.myworkdayjobs.com|primient|External_Careers",
+      "employer": "Primient",
+      "url": "https://primient.wd1.myworkdayjobs.com/en-US/External_Careers",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 18
+    },
+    {
+      "id": "rb.wd5.myworkdayjobs.com|rb|FRS",
+      "employer": "Federal Reserve System",
+      "url": "https://rb.wd5.myworkdayjobs.com/en-US/FRS",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Official employer Workday board verified via public internship search API.",
+      "count": 155
+    }
+  ],
+  "smartrecruiters": [
+    {
+      "id": "BoschGroup",
+      "employer": "Bosch",
+      "url": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "AECOM2",
+      "employer": "AECOM",
+      "url": "https://api.smartrecruiters.com/v1/companies/AECOM2/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "AbbVie",
+      "employer": "AbbVie",
+      "url": "https://api.smartrecruiters.com/v1/companies/AbbVie/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "Eurofins",
+      "employer": "Eurofins",
+      "url": "https://api.smartrecruiters.com/v1/companies/Eurofins/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "NielsenIQ",
+      "employer": "NielsenIQ",
+      "url": "https://api.smartrecruiters.com/v1/companies/NielsenIQ/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "KIPP",
+      "employer": "KIPP",
+      "url": "https://api.smartrecruiters.com/v1/companies/KIPP/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "Dungarvin",
+      "employer": "Dungarvin",
+      "url": "https://api.smartrecruiters.com/v1/companies/Dungarvin/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
+    },
+    {
+      "id": "AHRCNYC",
+      "employer": "AHRC NYC",
+      "url": "https://api.smartrecruiters.com/v1/companies/AHRCNYC/postings?limit=1",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Public employer API returned current postings. Filtered for psychology-aligned undergraduate internships; a working board need not have a matching role."
     }
   ]
 }

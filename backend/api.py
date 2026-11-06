@@ -20,8 +20,9 @@ def initialize():
           location TEXT NOT NULL DEFAULT '', url TEXT NOT NULL, description TEXT NOT NULL DEFAULT '',
           type TEXT NOT NULL, season TEXT NOT NULL DEFAULT 'Season not specified',
           skills JSONB NOT NULL DEFAULT '[]', source TEXT NOT NULL,
-          first_seen TIMESTAMPTZ NOT NULL DEFAULT now(), last_seen TIMESTAMPTZ NOT NULL DEFAULT now()
+          first_seen TIMESTAMPTZ NOT NULL DEFAULT now(), last_seen TIMESTAMPTZ NOT NULL DEFAULT now(), closes_at DATE
         )""")
+        conn.execute("ALTER TABLE internships ADD COLUMN IF NOT EXISTS closes_at DATE")
 
 @asynccontextmanager
 async def lifespan(app):
@@ -44,8 +45,8 @@ def health():
 def opportunities(limit: int = Query(1000, ge=1, le=2000), offset: int = Query(0, ge=0)):
     with connect() as conn:
         refreshed = conn.execute("SELECT max(last_seen) AS at FROM internships").fetchone()["at"]
-        rows = conn.execute("""SELECT id,title,company AS org,location,url,description,type,season,skills,source,last_seen AS last_seen_at
-          FROM internships""").fetchall()
+        rows = conn.execute("""SELECT id,title,company AS org,location,url,description,type,season,skills,source,last_seen AS last_seen_at,closes_at AS deadline
+          FROM internships WHERE closes_at IS NULL OR closes_at >= CURRENT_DATE""").fetchall()
     roles = []
     for row in rows:
         kind = opportunity_kind(row['title'], row['description'])

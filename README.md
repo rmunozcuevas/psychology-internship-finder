@@ -77,3 +77,18 @@ Employer sources now include Eliot Community Human Services for bachelor's-level
 ### UNC Charlotte school eligibility
 
 Live postings are screened for explicit restrictions to another institution. This text screen cannot guarantee that an unmentioned school restriction does not exist. Program cards use `program-eligibility.json`: only programs with verified external-student access are shown, and duplicate URLs are removed. Duke-only and UGA-only programs are excluded. Princeton SYNAPSE remains because its visiting-student route explicitly accepts non-Princeton undergraduates. School access does not establish citizenship, class-year, major, academic-credit, travel or other individual eligibility; cards show the known conditions and source links. Unverified programs are hidden until reviewed.
+
+
+### Full internship coverage and local monitoring
+
+The registry includes nonprofit/community-services employers, research employers and corporate HR/people teams. Workday imports search all public internship pages and retrieve full descriptions, open/application state and closing dates before applying the undergraduate and school-access screens. Some Workday boards return `total: 0` after page one; pagination retains the first positive total instead of stopping early. SmartRecruiters imports U.S. internship results and retrieves each matching posting's full qualification sections and application link. These providers are connected to both daily import paths.
+
+`local-program-sources.json` tracks Charlotte-area programs separately. The daily website refresh checks each page and writes `local-programs.json`, shown as a local watchlist. Paused applications and unconfirmed Summer 2027 openings are not added to the active internship count. Local eligibility notes distinguish undergraduate support/advocacy opportunities from graduate clinical supervision. These pages are monitored for status, not represented as a guaranteed number of vacancies.
+
+The employer feed contains explicit Summer 2027, other 2027 seasons and season-unspecified opportunities. Past-year seasonal titles are excluded. A larger catalogue does not imply all internships fit Summer 2027. Locations and remaining qualifications must be checked on each employer posting.
+
+
+The November 6 expanded refresh returned 59 screened internship/student placements across 74 employer boards: 13 explicitly Summer 2027, 14 Spring 2027 and 32 season-unspecified. These figures are a refresh snapshot, not fixed targets. Use the Season filter to narrow the results. The five Charlotte program watchlist pages are excluded from those counts. Known Workday closing dates are stored in PostgreSQL and excluded from API results after expiry.
+
+
+The primary internship statistic counts all screened student placements across clinical support, human services, research, HR/I/O and other relevant functions. It does not require “psychology” in the job title. Clinical/pre-therapy and other psychology pathways are filters, not separate definitions of whether a role counts as an internship. Technician jobs remain entry-level rather than being relabeled as internships.
