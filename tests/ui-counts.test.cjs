@@ -71,3 +71,17 @@ test('resume upload, confirmed profile, reviews and clear work in both directori
   assert.doesNotMatch(element('#role-list').innerHTML,/3\.2/);
  }
 });
+
+test('posting dates use source dates, preserve calendar day and never substitute first-seen dates',()=>{
+ const element=()=>({value:'',textContent:'',innerHTML:'',dataset:{},classList:{toggle(){},remove(){},add(){}},setAttribute(){},addEventListener(){},querySelector:element});
+ const context={console,localStorage:{getItem(){return null}},document:{querySelector:element,querySelectorAll(){return []},addEventListener(){}},location:{hash:''},window:{addEventListener(){}},fetch(){return new Promise(()=>{})},setTimeout,clearTimeout};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('app.js','utf8').replace(/^import .*\n/gm,''),context);
+ const dates=role=>{context.dateRole=role;return vm.runInContext('postingDates(dateRole)',context)};
+ assert.equal(dates({datePosted:'2026-11-01T00:00:00Z',source:'Workday'}).posted.label,'Nov 1, 2026');
+ assert.equal(dates({date:'2026-10-20',verification:'community-index'}).posted.iso,'2026-10-20');
+ assert.equal(dates({datePosted:'2026-11-01',source:'Greenhouse'}).posted,null);
+ assert.equal(dates({datePosted:'2026-11-01',source:'Greenhouse'}).updated.iso,'2026-11-01');
+ assert.equal(dates({dateUpdated:'2026-11-01',source:'Greenhouse'}).posted,null);
+ assert.equal(dates({datePosted:'2026-02-30'}).posted,null);
+ assert.equal(dates({firstSeen:'2026-11-01',lastSeen:'2026-11-02'}).posted,null);
+});

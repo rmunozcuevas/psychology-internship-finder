@@ -38,7 +38,7 @@ export function sociologyRecord(row,rules){
   'Teamwork':/teamwork|collaborat|team player/i,
   'Documentation':/documentation|case notes|records/i
  };
- return {...row,id:postingKey(row.url),title,description:description.slice(0,12000),org:plain(row.org||row.company),location:plain(row.location),type,opportunityKind:kind,careerPath:careerPath(title,rules),season,skills:Object.entries(skillPatterns).filter(([,pattern])=>pattern.test(text)).map(([label])=>label),verification:row.verification||'employer-api'};
+ return {...row,datePosted:row.datePosted||row.date||null,id:postingKey(row.url),title,description:description.slice(0,12000),org:plain(row.org||row.company),location:plain(row.location),type,opportunityKind:kind,careerPath:careerPath(title,rules),season,skills:Object.entries(skillPatterns).filter(([,pattern])=>pattern.test(text)).map(([label])=>label),verification:row.verification||'employer-api'};
 }
 
 export function sociologyFeed(rows,rules,metadata={}){
