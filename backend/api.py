@@ -1,4 +1,5 @@
 import os
+from eligibility import opportunity_kind
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,8 +43,13 @@ def health():
 @app.get("/opportunities")
 def opportunities(limit: int = Query(1000, ge=1, le=2000), offset: int = Query(0, ge=0)):
     with connect() as conn:
-        total = conn.execute("SELECT count(*) AS n FROM internships").fetchone()["n"]
         refreshed = conn.execute("SELECT max(last_seen) AS at FROM internships").fetchone()["at"]
-        roles = conn.execute("""SELECT id,title,company AS org,location,url,description,type,season,skills,source,last_seen AS last_seen_at
-          FROM internships ORDER BY (type='psychology') DESC, title LIMIT %s OFFSET %s""", (limit, offset)).fetchall()
-    return {"total": total, "updatedAt": refreshed.isoformat() if refreshed else None, "roles": roles}
+        rows = conn.execute("""SELECT id,title,company AS org,location,url,description,type,season,skills,source,last_seen AS last_seen_at
+          FROM internships""").fetchall()
+    roles = []
+    for row in rows:
+        kind = opportunity_kind(row['title'], row['description'])
+        if kind:
+            roles.append({**row, 'opportunityKind': kind})
+    roles.sort(key=lambda r: (r['opportunityKind'] != 'internship', r['season'] != 'Summer 2027', r['type'] != 'psychology', r['title']))
+    return {"total": len(roles), "updatedAt": refreshed.isoformat() if refreshed else None, "roles": roles[offset:offset+limit]}

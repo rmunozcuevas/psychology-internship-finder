@@ -5,6 +5,8 @@ on:
     paths:
       - 'index.html'
       - 'app.js'
+      - 'eligibility.mjs'
+      - 'opportunity-rules.json'
       - 'styles.css'
       - 'opportunities.json'
       - '.github/workflows/deploy-pages.yml'

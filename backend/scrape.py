@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import requests
 from bs4 import BeautifulSoup
 from api import connect, initialize
+from eligibility import opportunity_kind
 
 TERMS = re.compile(r"intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavior(?:al)?(?: health)? technician|psychiatric aide|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition", re.I)
 PSYCH = re.compile(r"psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development|behavior(?:al)?(?: health)? technician|registered behavior technician|\bRBT\b", re.I)
@@ -20,7 +21,7 @@ SOURCES = [
 def clean(s): return re.sub(r"\s+", " ", html.unescape(BeautifulSoup(str(s or ""), "html.parser").get_text(" ", strip=True))).strip()
 def normalize(row, source):
     title=clean(row.get("role") or row.get("title") or row.get("name")); desc=clean(row.get("description")); text=f"{title} {desc}"
-    if not title or not TERMS.search(title): return None
+    if not title or not TERMS.search(title) or not opportunity_kind(title, desc): return None
     if re.search(r"talent community|expression of interest|\bopportunities\s*$", title, re.I): return None
     if re.search(r"senior|director|manager|licensed|postdoctoral|postdoc|professor|faculty|phd candidate",title,re.I): return None
     if not (PSYCH.search(title) or ADJ.search(title) or PSYCH.search(desc) or ADJ.search(desc)): return None
