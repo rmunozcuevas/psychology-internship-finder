@@ -28,3 +28,18 @@ test('live counts, sections, pagination and season filters reflect the collected
  assert.equal(Number(element('#broader-count').textContent),0);
  assert.equal(Number(element('#psych-stat').textContent),internship.length);
 });
+
+test('sociology uses its own snapshot, filters, counts and saved storage',()=>{
+ const elements=new Map(),keys=[];
+ function element(id){if(!elements.has(id))elements.set(id,{value:'',textContent:'',innerHTML:'',dataset:{},classList:{toggle(){},remove(){},add(){}},setAttribute(){},addEventListener(){},querySelector(){return element(id+' span')},scrollIntoView(){}});return elements.get(id)}
+ const context={console,localStorage:{getItem(key){keys.push(key);return null}},document:{body:{dataset:{discipline:'sociology'}},querySelector:element,querySelectorAll(){return []},addEventListener(){}},location:{hash:''},window:{addEventListener(){}},fetch(){return new Promise(()=>{})},setTimeout,clearTimeout};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('app.js','utf8').replace(/^import .*\n/,''),context);
+ const data=JSON.parse(fs.readFileSync('sociology-opportunities.json'));context.sampleRoles=data.roles;
+ vm.runInContext('liveRoles=sampleRoles;liveFeedLoaded=true;render()',context);
+ assert.ok(keys.includes('fieldnote-saved-sociology'));
+ assert.equal(Number(element('#side-count').textContent),data.roles.length);
+ assert.equal(Number(element('#result-count').textContent),data.roles.filter(r=>r.careerPath!=='Broader management / leadership').length);
+ vm.runInContext("state.path='Social research & evaluation';render()",context);
+ assert.equal(Number(element('#result-count').textContent),data.roles.filter(r=>r.careerPath==='Social research & evaluation').length);
+ assert.equal(vm.runInContext('PROFILE.feedUrl',context),'./sociology-opportunities.json');
+});

@@ -16,6 +16,7 @@ export function opportunityKind(title, description, rules) {
 }
 
 export function careerPath(title, rules) {
+  if(rules.careerPaths){for(const path of rules.careerPaths)if(new RegExp(path.pattern,'i').test(title))return path.label;return 'Related experience';}
   if (new RegExp(rules.ioTitle, 'i').test(title)) return 'I/O psychology / workplace';
   if (new RegExp(rules.researchTitle, 'i').test(title)) return 'Research / human behavior';
   if (new RegExp(rules.clinicalTitle, 'i').test(title)) return 'Clinical / pre-therapy';

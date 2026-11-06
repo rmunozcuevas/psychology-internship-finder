@@ -2,6 +2,14 @@
 
 A public, no-login directory for UNC Charlotte undergraduates and other psychology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
 
+## Sociology directory
+
+The [blue sociology page](https://rmunozcuevas.github.io/psychology-internship-finder/sociology.html) has its own feed, career filters, resume skill vocabulary and browser-saved shortlist. Switch fields using the Psychology / Sociology links on either page. Internships appear first, followed by screened undergraduate experience roles. Research/evaluation, policy/advocacy, community services and HR/organizations are separate from broader management internships.
+
+The initial snapshot contains 277 focused internship/student-placement candidates, 485 broader management candidates and 6 entry-level roles. Of the internship candidates, 112 came from retained employer observations and 650 from the fresh community index; community candidates require checking the employer posting. Counts are generated, not hardcoded. Titles alone do not guarantee major eligibility or Summer 2027 availability.
+
+The existing noon `America/New_York` refresh now screens each raw posting for both disciplines and commits both feeds before deployment. `node scripts/refresh-sociology.mjs` can seed/rebuild sociology from retained employer observations plus a fresh community index; the regular daily collector has broader employer coverage. No extra login or API key is needed.
+
 ## What the counts mean
 
 The November 6, 2026 snapshot contains **690 internship/student-placement candidates**:

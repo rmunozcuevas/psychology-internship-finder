@@ -1,3 +1,4 @@
+import { sociologyRecord, sociologyFeed, sociologyRelevance } from './sociology.mjs';
 import { TERMS, NOT_INTERN, OUT_OF_SCOPE, plain, classify as classifyRole } from './relevance.mjs';
 import { postingKey } from './posting-key.mjs';
 import { communityJobs } from './community.mjs';
@@ -9,6 +10,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+const sociologyRules=JSON.parse(await readFile(new URL('../sociology-rules.json',import.meta.url),'utf8'));
 const eligibilityRules = JSON.parse(await readFile(new URL('../opportunity-rules.json', import.meta.url), 'utf8'));
 const outputArg=process.argv.find(a=>a.startsWith('--output-dir='))?.slice('--output-dir='.length);
 const OUTPUT_ROOT=outputArg?pathToFileURL(resolve(outputArg)+'/'):new URL('../',import.meta.url);
@@ -46,6 +48,8 @@ const workdayBoards = configured('workday', 'WORKDAY_BOARDS');
 const discoverBoards = process.env.DISCOVER_ATS_BOARDS === 'true';
 const employerDirectory=JSON.parse(await readFile(new URL('../employer-directory.json',import.meta.url),'utf8').catch(()=>'{"psychologyFirst":[],"largeEmployers":[]}'));
 const old = JSON.parse(await readFile(OUT, 'utf8').catch(()=>'{"roles":[]}'));
+const oldSociology=JSON.parse(await readFile(new URL('sociology-opportunities.json',OUTPUT_ROOT),'utf8').catch(()=>'{"roles":[]}'));
+const sociologyInputs=extendMode?oldSociology.roles.filter(r=>r.sourceId&&reuseSources.has(r.sourceId)):[];
 const roles = extendMode ? old.roles.filter(r=>r.sourceId && reuseSources.has(r.sourceId)) : [];
 const errors = [];
 const discoveredBoardCounts={greenhouse:0,lever:0,ashby:0};
@@ -53,7 +57,12 @@ async function get(url, opts={}) { const res=await fetch(url,{...opts,signal:Abo
 function classify(title,text,preview=false){return classifyRole(title,text,eligibilityRules,preview);}
 function skills(text){const s=text.toLowerCase();return SKILLS.filter(k=>s.includes(k.toLowerCase())||({ 'Data analysis':['spss','statistics','excel','r studio'],'Research methods':['qualitative','quantitative','participant'],'Empathy':['client support','patient care'],'Survey design':['qualtrics','questionnaire'],'Child development':['pediatric','youth']}[k]||[]).some(x=>s.includes(x)));}
 function season(text) { if (/spring internship/i.test(text)&&/2027/.test(text)) return 'Spring 2027'; return /summer\s*(?:'|’)?\s*2027|2027\s+summer/i.test(text)?'Summer 2027':/spring\s*(?:'|’)?\s*2027/i.test(text)?'Spring 2027':'Season not specified'; }
-function add({title,company,location='',url='',description='',date='',deadline=null,source='',originBoard='',verification='employer-api',observedAt=null}) { const cleanTitle=plain(title);const cleanDescription=plain(description);const type=classify(cleanTitle,cleanDescription);const kind=opportunityKind(cleanTitle,cleanDescription,eligibilityRules);if(!type||!url||!kind||/\b(?:spring|summer|fall|autumn|winter)\s*202[0-6]\b|\b202[0-6]\s*(?:spring|summer|fall|autumn|winter)\b/i.test(cleanTitle))return;const key=postingKey(url);if(roles.some(r=>r.id===key))return;roles.push({id:key,careerPath:careerPath(cleanTitle,eligibilityRules),opportunityKind:kind,title:cleanTitle,org:plain(company),location:plain(location),type,source,sourceId:originBoard,verification,observedAt,url,deadline,description:cleanDescription.slice(0,12000),skills:skills(`${cleanTitle} ${cleanDescription}`),lastSeen:new Date().toISOString(),firstSeen:old.roles?.find(r=>postingKey(r.url)===key)?.firstSeen||new Date().toISOString().slice(0,10),datePosted:date||null,season:season(cleanTitle)!=='Season not specified'?season(cleanTitle):season(`${cleanTitle} ${cleanDescription}`)}); }
+function add({title,company,location='',url='',description='',date='',deadline=null,source='',originBoard='',verification='employer-api',observedAt=null}) { const cleanTitle=plain(title);const cleanDescription=plain(description);
+if(TERMS.test(cleanTitle)||new RegExp(sociologyRules.entryTitle,'i').test(cleanTitle)){
+ const sociology=sociologyRecord({title:cleanTitle,description:cleanDescription,org:company,location,url,datePosted:date,deadline,source,sourceId:originBoard,verification,observedAt,lastSeen:new Date().toISOString(),firstSeen:new Date().toISOString().slice(0,10),season:season(cleanTitle)!=='Season not specified'?season(cleanTitle):season(`${cleanTitle} ${cleanDescription}`)},sociologyRules);
+ if(sociology)sociologyInputs.push(sociology);
+}
+const type=classify(cleanTitle,cleanDescription);const kind=opportunityKind(cleanTitle,cleanDescription,eligibilityRules);if(!type||!url||!kind||/\b(?:spring|summer|fall|autumn|winter)\s*202[0-6]\b|\b202[0-6]\s*(?:spring|summer|fall|autumn|winter)\b/i.test(cleanTitle))return;const key=postingKey(url);if(roles.some(r=>r.id===key))return;roles.push({id:key,careerPath:careerPath(cleanTitle,eligibilityRules),opportunityKind:kind,title:cleanTitle,org:plain(company),location:plain(location),type,source,sourceId:originBoard,verification,observedAt,url,deadline,description:cleanDescription.slice(0,12000),skills:skills(`${cleanTitle} ${cleanDescription}`),lastSeen:new Date().toISOString(),firstSeen:old.roles?.find(r=>postingKey(r.url)===key)?.firstSeen||new Date().toISOString().slice(0,10),datePosted:date||null,season:season(cleanTitle)!=='Season not specified'?season(cleanTitle):season(`${cleanTitle} ${cleanDescription}`)}); }
 await parallel(boards,8,token=>source('greenhouse',token,async()=>{
  const data=await get(`https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(token)}/jobs?content=true`);
  if(!Array.isArray(data.jobs))throw Error('Invalid jobs response');
@@ -75,7 +84,7 @@ if (discoverBoards) {
 const smartRecruiterStats=[];
 for (const company of smartRecruiters) try {
   if(extendMode && reuseSources.has(`smartrecruiters:${company}`)){sourceReports.push({...reuseSources.get(`smartrecruiters:${company}`),reused:true});continue;}
-  const result=await smartRecruiterJobs(company,get,title=>TERMS.test(title)&&!NOT_INTERN.test(title)&&(!OUT_OF_SCOPE.test(title)||new RegExp(eligibilityRules.relevanceExceptionTitle,'i').test(title))&&Boolean(classify(title,'',true)));
+  const result=await smartRecruiterJobs(company,get,title=>TERMS.test(title)&&Boolean(classify(title,'',true)||sociologyRelevance(title,'',sociologyRules,{preview:true})));
   for(const job of result.jobs)add({...job,originBoard:`smartrecruiters:${company}`});
   errors.push(...result.errors);
   sourceReports.push({kind:'smartrecruiters',id:company,status:result.errors.length?'partial':'ok',scanned:result.scanned});
@@ -89,7 +98,7 @@ while(nextWorkday<workdayBoards.length) {
 const raw=workdayBoards[nextWorkday++];
 if(extendMode && reuseSources.has(`workday:${raw}`)){sourceReports.push({...reuseSources.get(`workday:${raw}`),reused:true});continue;}
 try {
-  const result=await workdayJobs(raw,get,title=>TERMS.test(title)&&!NOT_INTERN.test(title)&&(!OUT_OF_SCOPE.test(title)||new RegExp(eligibilityRules.relevanceExceptionTitle,'i').test(title))&&Boolean(classify(title,'',true)));
+  const result=await workdayJobs(raw,get,title=>TERMS.test(title)&&Boolean(classify(title,'',true)||sociologyRelevance(title,'',sociologyRules,{preview:true})));
   for(const job of result.jobs)add({...job,company:employerName('workday',raw),originBoard:`workday:${raw}`});
   errors.push(...result.errors.map(e=>`Workday ${raw}: ${e}`));
   sourceReports.push({kind:'workday',id:raw,status:result.errors.length?'partial':'ok',scanned:result.scanned});
@@ -112,3 +121,8 @@ const successfulRefresh=roles.length>0||!errors.length;
 await writeFile(OUT,JSON.stringify({updatedAt:successfulRefresh?new Date().toISOString():old.updatedAt||null,lastAttemptAt:new Date().toISOString(),source:'Employer APIs and separately labeled community index',counts,communityCoverage,selectedProviders:[...selectedProviders],sourceCoverage,workdayStats,smartRecruiterStats,total:merged.length,refreshed:roles.length,discoveredBoardCounts,configuredBoardCounts:Object.fromEntries(['greenhouse','lever','ashby','smartrecruiters','bamboohr','workday'].map(k=>[k,registry[k]?.length||0])),roles:merged,errors},null,2)+'\n');
 console.log(`Refresh complete: ${roles.length} fresh relevant roles, ${merged.length} total, ${errors.length} source errors.`);
 if(!selectedProviders.has('community')&&!boards.length&&!leverSites.length&&!ashbyBoards.length&&!smartRecruiters.length&&!bambooBoards.length&&!workdayBoards.length)console.log('No source configuration found. Set ATS board variables to expand coverage.');
+
+const retainedSociology=oldSociology.roles.filter(r=>failedSources.has(r.sourceId)&&Date.parse(r.lastSeen||r.firstSeen||0)>Date.now()-30*86400000).filter(r=>r.verification!=='community-index'||Date.parse(r.observedAt||0)>=Date.now()-14*86400000);
+const sociologySnapshot=sociologyFeed([...retainedSociology,...sociologyInputs],sociologyRules,{updatedAt:new Date().toISOString(),source:'Shared employer APIs and separately labeled community index',sourceCoverage,communityCoverage,errors});
+await writeFile(new URL('sociology-opportunities.json',OUTPUT_ROOT),JSON.stringify(sociologySnapshot,null,2)+'\n');
+console.log(`Sociology refresh: ${sociologySnapshot.counts.focused} focused internships/student placements, ${sociologySnapshot.counts.entryLevel} experience roles, ${sociologySnapshot.counts.broaderManagement} broader management candidates.`);

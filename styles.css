@@ -12,3 +12,5 @@
 .posting-button:focus-visible{outline:3px solid #83a669;outline-offset:3px}
 .role-actions .details-button{min-height:40px}
 @media(max-width:640px){.role-actions{flex-wrap:wrap}.posting-button{flex:1;min-height:44px}.role-actions .save-button{min-width:36px;min-height:40px}}
+
+.discipline-switch{display:flex;gap:5px;padding:4px;margin:0 0 24px;border:1px solid var(--line);border-radius:10px;background:#fff}.discipline-switch a{flex:1;text-align:center;padding:9px 5px;border-radius:6px;color:var(--muted);font:600 12px var(--sans);text-decoration:none}.discipline-switch a.is-active{background:var(--green);color:#fff}.discipline-switch a:focus-visible{outline:3px solid #83a669;outline-offset:2px}@media(max-width:640px){.discipline-switch{margin:0 0 10px;width:100%}}

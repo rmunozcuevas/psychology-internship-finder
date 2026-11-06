@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'sociology.html'
+      - 'sociology.css'
+      - 'sociology-rules.json'
+      - 'sociology-opportunities.json'
       - 'app.js'
       - 'eligibility.mjs'
       - 'opportunity-rules.json'
