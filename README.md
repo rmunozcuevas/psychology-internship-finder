@@ -1,4 +1,4 @@
-# Fieldnote — psychology & sociology internship finder
+# NinerPath — psychology & sociology internship finder
 
 A public, no-login directory for UNC Charlotte undergraduates and other psychology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
 
