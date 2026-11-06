@@ -1,94 +1,80 @@
-# Fieldnote — Psychology internship finder
+# Fieldnote — psychology student opportunities
 
-A public, no-login internship and experience directory for psychology students and anyone exploring related work. The live site is hosted on GitHub Pages and is free to browse.
+A public, no-login directory for UNC Charlotte undergraduates and other psychology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
 
-## Run it
+## What the counts mean
 
-Open `index.html` in a browser. No build step is required.
+The November 6, 2026 snapshot contains **690 internship/student-placement candidates**:
 
-## What’s included
+- **233 focused opportunities:** clinical/community support, research, HR/I/O and related experience.
+- **457 broader management internships:** displayed in their own section, with separate pagination.
+- **246 explicitly mention Summer 2027** across both sections. Use the season filter for Summer, Spring or unspecified dates.
 
-- Psychology roles sort ahead of adjacent people, research, and community roles.
-- Search by role, organization, skill, and location; filter by focus area, remote/hybrid, and paid status.
-- Save roles privately in the current browser and expand descriptions.
-- Browse a curated, directly linked list of verified Summer 2027 psychology and neuroscience programs.
-- Add a resume in PDF, DOCX, or TXT format. Skill matching is done in the browser and matching skill tags are highlighted. PDF and DOCX reading use browser libraries loaded from CDNs; TXT works without them.
-- Responsive layout, keyboard shortcut (⌘/Ctrl+K), visible focus, and reduced-motion support.
+Of these, **141 came from employer feeds** and **549 came from a community index and require employer review**. A community summary can omit qualifications, school restrictions or a closure. Its provenance is visible on the card; it is not represented as employer-verified availability. Counts are generated from collected records and change as sources change. The separate entry-level count does not inflate the internship count.
 
-## Live listing refresh
+The scan recorded **2,366 working employer sources** and **55 unavailable sources**. `source-health.json` contains individual results. The discovery pool contains 2,634 candidate board addresses; a configured address does not count as a successful source read.
 
-The browser UI reads `opportunities.json`. `scripts/refresh-jobs.mjs` imports relevant internships and research roles from employer-published Greenhouse, Lever, and Ashby job boards. Listings that explicitly identify Summer 2027 are labeled as such; other current roles are clearly labeled “Season not specified.” The GitHub Actions workflow refreshes the feed daily at 10:17 UTC and can also be run manually. Each role links to its employer posting.
+## Browse and run locally
 
-To configure, add these Actions repository variables as comma-separated employer board identifiers (not URLs):
+The public site is [on GitHub Pages](https://rmunozcuevas.github.io/psychology-internship-finder/). No account is needed to browse or save roles. Search titles, organizations, skills and locations; filter career path, season and opportunity type. Focused and broader sections use the same search/location/season criteria and have their own page controls.
 
-- `GREENHOUSE_BOARDS`: public Greenhouse board tokens.
-- `LEVER_SITES`: public Lever site names.
-- `ASHBY_BOARDS`: public Ashby board names.
+There is no build step. Serve the repository over HTTP because the frontend uses JavaScript modules:
 
-Starter employer identifiers are listed in [`employer-boards.json`](employer-boards.json) and are preconfigured as workflow defaults. They are discovery sources, not a promise of a relevant Summer 2027 opening. Add or remove source identifiers in GitHub Actions repository variables as the curated set grows.
+```sh
+python3 -m http.server 8000
+```
 
-The refresh script only queries these documented public endpoints. It does not log into or scrape LinkedIn or Indeed. LinkedIn prohibits crawlers and scraping in its User Agreement ([section 8.2](https://www.linkedin.com/legal/user-agreement)); Indeed's current Site Rules prohibit automated data mining/scraping without written permission ([Indeed Terms](https://www.indeed.com/legal?hl=en_US#site-rules)). Roles link to employer career pages, where the applicant can confirm requirements and apply. If formal LinkedIn or Indeed API/publisher access is granted, a separately authorized adapter can be added.
+Then open `http://localhost:8000`. Resume matching accepts TXT, PDF and DOCX. PDF/DOCX parsers load from CDNs; TXT requires neither parser. The file stays in the browser. Skill overlap is a keyword heuristic, not a guarantee of eligibility.
 
-## Database-backed feed (optional hosted setup)
+## Daily refresh
 
-The app includes a public FastAPI read API and PostgreSQL scraper. It imports the public SearchTern community JSON feed plus psychology-filtered Summer 2027/off-season internship markdown tables, deduplicates by posting URL, upserts into PostgreSQL, and only removes rows unseen for 30 days. The browser only calls `GET /opportunities`; no account is needed.
+“Refresh internship listings” runs every day at **10:17 UTC**: 5:17 a.m. Eastern standard time or 6:17 a.m. daylight time. GitHub can delay scheduled runs. It can also be started manually from Actions.
 
-To activate it:
+1. Run the source parsing, deduplication and eligibility checks.
+2. Discover up to 2,700 supported employer boards from the public [job-board-directory](https://kalebconfer-sys.github.io/job-board-directory/), prioritizing health, human services, research, education and larger employers with HR/people functions.
+3. Read employer APIs, retrieve full qualifications where needed, screen roles and deduplicate requisitions.
+4. Supplement with U.S. [SearchTern-Listings](https://github.com/KSaifStack/SearchTern-Listings) candidates observed within 14 days, keeping the community label. Employer results take priority for duplicate requisitions.
+5. Check the five Charlotte-area program watchlist pages separately; uncertain or paused program leads do not enter the internship count.
+6. Commit the collected snapshot, discovery registry and source-health report. Successful completion triggers Pages publishing and the optional database import.
 
-1. Deploy [`render.yaml`](render.yaml) from the public repository to provision the API and Postgres database on Render.
-2. In GitHub repository Settings → Secrets and variables → Actions, add secret `DATABASE_URL` using the database connection string from Render.
-3. Add repository variable `API_BASE` with the deployed API origin, for example `https://your-api-name.onrender.com` (no trailing slash).
-4. Run “Refresh psychology internship database” once in GitHub Actions. It also runs daily at 10:17 UTC. Then the normal Pages deployment picks up `API_BASE` and reads the database-backed feed.
+The workflow reports actual counts in its run summary. Overlapping refreshes queue. Discovery outages reuse the last candidate registry. Records belonging to temporarily failed sources may be retained for up to 30 days, preserving their original check date. The frontend flags a feed older than 36 hours as overdue.
 
-Without `DATABASE_URL` and `API_BASE`, the app continues to use the checked-in JSON feed. Render free services may sleep during inactivity; the first API request can be slower while the service wakes.
+## Sources and screening
 
-Employer board APIs do not provide a universal job search, so the directory grows as community members suggest employer board identifiers. Use the public GitHub Issues page to suggest a source or report a stale link. We only add publicly accessible employer career boards, and the live feed labels postings whose season is not stated. LinkedIn and Indeed are not scraped. Open source, report problems, or suggest a board at https://github.com/rmunozcuevas/psychology-internship-finder/issues. No account is needed to browse or save roles; saved roles stay in the user's browser.
+- `employer-boards.json`: manually reviewed priority employer identifiers.
+- `discovered-boards.json`: generated discovery candidates, parsed only for supported ATS hosts.
+- `scripts/refresh-jobs.mjs`: Greenhouse, Lever, Ashby, Workday, SmartRecruiters and configured BambooHR collection.
+- `scripts/relevance.mjs` and `opportunity-rules.json`: relevant functions, student/experience distinction, senior/graduate-only exclusions and school-access signals.
+- `scripts/posting-key.mjs`: requisition keys for tracking/locale variants and supported ATS identifiers.
+- `source-health.json`: successful, unavailable and partial reads, including scan counts.
 
-## Resume privacy
+The count does not require “psychology” in a title. Undergraduate research/student placements, human services, clinical support, consumer research and workplace/HR functions can qualify. General management belongs in the broader section. Unrelated AI, quantitative-finance or physical-science research is excluded from the focused research group. Specialized construction, investment or product-management roles require explicit all-major/psychology context to enter the broader group. Professional-degree-only titles and known graduate-only requirements are excluded. Technician positions remain experience roles.
 
-The resume file is processed in the browser and is not sent to an application server. The prototype does not save the file. Skill matching is a transparent keyword heuristic, not an employment decision or guarantee of eligibility.
+Workday searches combine quoted `"intern"` and `internship` terms to avoid matches to internal medicine. Pagination preserves a first-page total when later pages incorrectly report zero, detects repeated pages, and reports budget-limited reads as partial. Searches have a two-minute source budget and 1,000-result limit per query; detail collection has a three-minute total source budget. These limits are coverage limits, not claims that every vacancy was read.
 
-## Curated 2027 programs
+For an optional same-day expansion, `--extend` reuses successful source reads from a collection completed within six hours; reuse is recorded. Scheduled runs always perform fresh collection. Provider-specific collection can write isolated snapshots with `--providers=... --output-dir=...`; `scripts/merge-snapshots.mjs` combines completed snapshots, applies current rules, and preserves employer priority over community records.
 
-The Summer 2027 program section links directly to official university or program pages and shows their published dates/application status. Check each source for eligibility, changes, and current availability before applying.
+## UNC Charlotte and local programs
 
+Explicit restrictions to another institution are screened out of live postings where detected. University program cards are shown only when `program-eligibility.json` documents external-student access. Duke-only and UGA-only programs are excluded; Princeton SYNAPSE remains because it has a non-Princeton undergraduate track. Unverified program cards stay hidden. Class year, citizenship, work authorization, major, academic credit and other individual requirements still require checking.
 
-### Expanded employer coverage
+`local-program-sources.json` tracks Psychology For All, MHA Central Carolinas, Charlotte Community Health Clinic and UNC Charlotte programs. `local-programs.json` contains daily page checks and current uncertainty/paused labels. These are program leads, not guaranteed open positions or vacancy counts.
 
-`employer-boards.json` is the shared registry for the website refresh and PostgreSQL scraper. Both fetch current Greenhouse, Lever and Ashby postings; individual listings are never hand-entered. Repository board variables extend the registry instead of replacing it. Add an employer's public board identifier and name to the appropriate array to expand coverage.
+## Optional PostgreSQL API
 
-The November 5 expansion adds 14 working boards (24 total), including Cortica, Centria Autism, The Behavior Exchange, Adams Clinical, Acorn Health, Charlie Health, American Institutes for Research, Irvine Clinical Research, Lyra Health and Precision Medicine Group. Notion, Ramp and Duolingo provide potential adjacent HR or research experience. Sources may have no matching roles on a given day.
+The default public site reads the collected JSON snapshot. To use FastAPI/PostgreSQL:
 
-The first expanded refresh fetched 1,244 matching postings, including 19 internship titles and two explicit Summer 2027 listings. Most results are ongoing behavioral technician positions, often one opening per location. They are useful experience opportunities but are not confirmed undergraduate internships or confirmed summer positions. Check qualifications, required credentials and availability on the employer page.
+1. Deploy `render.yaml` to provision the API and database.
+2. Add the Actions secret `DATABASE_URL` and repository variable `API_BASE` with the deployed API origin.
+3. Run “Refresh psychology internship database” manually, then deploy Pages so it receives the API address.
 
-The daily feed workflow runs at 10:17 UTC. A successful refresh triggers Pages deployment through `workflow_run` because commits made by the Actions token do not trigger another push workflow. Website records unseen for 30 days expire; source failures are included in the feed's `errors` array. Database records also expire after 30 days. Publishing still depends on GitHub Pages accepting deployments; database updates require `DATABASE_URL`.
+After each successful listing refresh, the database workflow checks out the new snapshot and runs `python backend/scrape.py --from-feed`. This imports the same records rather than performing a second inconsistent crawl. Known closing dates are stored and expired rows are excluded from API responses. Community provenance survives database import. When no database secret is configured, the optional import is skipped and the public JSON site continues working. The frontend loads all API pages rather than silently stopping at the first 2,000 rows.
 
+## Checks and contributions
 
-### Undergraduate focus
+```sh
+node --test tests/*.test.*
+python3 -m py_compile backend/*.py
+```
 
-The default view shows internships and student placements. The opportunity selector offers entry-level experience separately, or both with internships first. Recommended order favors explicit Summer 2027 dates, then psychology within each opportunity type. Automated screening excludes senior titles, graduate-only requirements and explicitly required multi-year experience. Non-internship roles need a relevant assistant/technician/aide title plus entry-level, training, high-school or undergraduate eligibility evidence; explicit required completed bachelor's degrees are excluded. These text signals are a screening aid, not a guarantee of eligibility. Rules live in `opportunity-rules.json` and are used by both scrapers and the API. Counts will decrease when unsuitable or uncertain roles are removed.
-
-
-### Career path coverage (November 6)
-
-Employer sources now include Eliot Community Human Services for bachelor's-level clinical placements, Busara for behavioral research (international), and dedicated HR/talent internship boards including RF-SMART, Arc Boat Company, National Life Group, Stratolaunch, Trove Brands and Astera Labs Early Career. Live APIs supply the actual listings. Each card labels its clinical/pre-therapy, I/O/workplace, research/human-behavior or related-experience pathway; the career-path selector narrows the live results. I/O roles remain adjacent rather than being relabeled as clinical psychology. Location, eligibility and season must be checked per posting. A board name mentioning 2027 does not by itself confirm the role's season.
-
-
-### UNC Charlotte school eligibility
-
-Live postings are screened for explicit restrictions to another institution. This text screen cannot guarantee that an unmentioned school restriction does not exist. Program cards use `program-eligibility.json`: only programs with verified external-student access are shown, and duplicate URLs are removed. Duke-only and UGA-only programs are excluded. Princeton SYNAPSE remains because its visiting-student route explicitly accepts non-Princeton undergraduates. School access does not establish citizenship, class-year, major, academic-credit, travel or other individual eligibility; cards show the known conditions and source links. Unverified programs are hidden until reviewed.
-
-
-### Full internship coverage and local monitoring
-
-The registry includes nonprofit/community-services employers, research employers and corporate HR/people teams. Workday imports search all public internship pages and retrieve full descriptions, open/application state and closing dates before applying the undergraduate and school-access screens. Some Workday boards return `total: 0` after page one; pagination retains the first positive total instead of stopping early. SmartRecruiters imports U.S. internship results and retrieves each matching posting's full qualification sections and application link. These providers are connected to both daily import paths.
-
-`local-program-sources.json` tracks Charlotte-area programs separately. The daily website refresh checks each page and writes `local-programs.json`, shown as a local watchlist. Paused applications and unconfirmed Summer 2027 openings are not added to the active internship count. Local eligibility notes distinguish undergraduate support/advocacy opportunities from graduate clinical supervision. These pages are monitored for status, not represented as a guaranteed number of vacancies.
-
-The employer feed contains explicit Summer 2027, other 2027 seasons and season-unspecified opportunities. Past-year seasonal titles are excluded. A larger catalogue does not imply all internships fit Summer 2027. Locations and remaining qualifications must be checked on each employer posting.
-
-
-The November 6 expanded refresh returned 59 screened internship/student placements across 74 employer boards: 13 explicitly Summer 2027, 14 Spring 2027 and 32 season-unspecified. These figures are a refresh snapshot, not fixed targets. Use the Season filter to narrow the results. The five Charlotte program watchlist pages are excluded from those counts. Known Workday closing dates are stored in PostgreSQL and excluded from API results after expiry.
-
-
-The primary internship statistic counts all screened student placements across clinical support, human services, research, HR/I/O and other relevant functions. It does not require “psychology” in the job title. Clinical/pre-therapy and other psychology pathways are filters, not separate definitions of whether a role counts as an internship. Technician jobs remain entry-level rather than being relabeled as internships.
+Checks cover requisition deduplication, vendor-host validation, Workday pagination/closures, eligibility, community freshness, focused versus broader relevance, and frontend counts/filtering/pagination. See [CONTRIBUTING.md](CONTRIBUTING.md) to suggest an official source or report a false positive. Do not manually insert listings or count ordinary jobs as internships to meet an inventory target.

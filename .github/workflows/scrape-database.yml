@@ -1,19 +1,34 @@
 name: Refresh psychology internship database
 on:
-  schedule:
-    - cron: '17 10 * * *'
+  workflow_run:
+    workflows: [Refresh internship listings]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: database-internship-refresh
+  cancel-in-progress: false
 jobs:
-  scrape:
+  import:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
+        if: env.DATABASE_URL != ''
         with:
           python-version: '3.12'
       - run: pip install -r backend/requirements.txt
-      - run: python backend/scrape.py
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        if: env.DATABASE_URL != ''
+      - name: Import the collected snapshot
+        if: env.DATABASE_URL != ''
+        run: python backend/scrape.py --from-feed
+      - name: Report optional database configuration
+        if: env.DATABASE_URL == ''
+        run: echo 'No DATABASE_URL configured. The public website uses the daily collected JSON feed.'

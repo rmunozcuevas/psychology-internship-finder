@@ -3,20 +3,33 @@ export async function workdayJobs(raw, get, relevant) {
   const [host, tenant, site] = raw.split('|');
   if (!host?.endsWith('.myworkdayjobs.com') || !tenant || !site) throw Error('Invalid Workday board');
   const base = `https://${host}/wday/cxs/${tenant}/${site}`;
-  const postings = [];
-  let total=null;
-  for (let offset=0; offset<5000; offset+=20) {
-    const data=await get(`${base}/jobs`, {method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({limit:20,offset,searchText:'intern'})});
-    if(total===null && data.total>0) total=data.total;
-    const page=data.jobPostings||[];
-    postings.push(...page);
-    if (!page.length || (total!==null && offset+page.length >= total) || page.length<20) break;
+  const postingMap=new Map();
+  const paginationErrors=[];
+  const startedAt=Date.now();
+  // Quoted intern plus internship avoids substring matches such as internal medicine.
+  for(const searchText of ['"intern"','internship']) {
+    let total=null;
+    const querySeen=new Set();
+    for (let offset=0; offset<1000; offset+=20) {
+      if(Date.now()-startedAt>120000){paginationErrors.push(`Partial ${searchText} search: source time budget reached`);break;}
+      const data=await get(`${base}/jobs`, {method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({limit:20,offset,searchText})});
+      if(total===null && data.total>0) total=data.total;
+      if(!Array.isArray(data.jobPostings))throw Error('Invalid Workday jobs response');
+      const page=data.jobPostings;
+      const before=querySeen.size;
+      for(const job of page){postingMap.set(job.externalPath,job);querySeen.add(job.externalPath);}
+      if(offset>0 && page.length && querySeen.size===before){paginationErrors.push(`Partial ${searchText} search: repeated pagination`);break;}
+      if(offset+page.length>=1000 && total>1000)paginationErrors.push(`Partial ${searchText} search: ${total} results exceed per-query budget`);
+      if (!page.length || (total!==null && offset+page.length >= total) || page.length<20) break;
+    }
   }
+  const postings=[...postingMap.values()];
   const candidates=postings.filter(j=>relevant(j.title));
-  const jobs=[], errors=[];
+  const jobs=[], errors=[...paginationErrors];
   let next=0;
   await Promise.all(Array.from({length:4},async()=>{
     while(next<candidates.length) {
+      if(Date.now()-startedAt>180000){if(!errors.includes('Partial source: detail time budget reached'))errors.push('Partial source: detail time budget reached');break;}
       const j=candidates[next++];
       try {
         const detail=await get(`${base}${j.externalPath}`);

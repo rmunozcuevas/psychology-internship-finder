@@ -18,3 +18,10 @@ Use employer, university, nonprofit, or program pages as the source of truth. Do
 ## Make a change
 
 Open an issue using the “Suggest an employer board” or “Report a listing” form, or submit a pull request. Include the official source URL and evidence that the board is operated by the employer. Keep changes small and easy to review.
+
+
+## Automated discovery and quality checks
+
+Discovery candidates live in `discovered-boards.json`; manually verified priority sources live in `employer-boards.json`. Do not edit `opportunities.json` to add listings. Run discovery and the refresh script to collect them from their sources. `source-health.json` distinguishes working source reads from configured candidates. A board with no matching internships still may be a valid source; it should not be represented as extra internship inventory.
+
+Run `node --test tests/sources.test.mjs` when changing source parsing, pagination, eligibility or deduplication. Preserve the separation between employer API results, community-index candidates and program watchlist leads. A community record's summary may omit a school restriction or qualification; keep its review label. Include source URLs when reporting a false positive or an omitted eligible role.

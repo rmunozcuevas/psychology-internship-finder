@@ -9,6 +9,7 @@ on:
       - 'opportunity-rules.json'
       - 'program-eligibility.json'
       - 'local-programs.json'
+      - 'source-health.json'
       - 'styles.css'
       - 'opportunities.json'
       - '.github/workflows/deploy-pages.yml'

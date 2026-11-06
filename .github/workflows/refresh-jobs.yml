@@ -5,15 +5,25 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: daily-internship-refresh
+  cancel-in-progress: false
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/refresh-jobs.mjs
+      - name: Check source parsing and eligibility rules
+        run: node --test tests/*.test.*
+      - name: Discover employer feeds
+        continue-on-error: true
+        run: node scripts/discover-sources.mjs
+      - name: Collect and screen current listings
+        run: node scripts/refresh-jobs.mjs
         env:
           GREENHOUSE_BOARDS: ${{ vars.GREENHOUSE_BOARDS || 'talkspace,modernhealth,hs,mergeworld,criminaljusticeagency,nyisointernships,sharkninjaoperatingllc,tpgcareers,precisionaq' }}
           LEVER_SITES: ${{ vars.LEVER_SITES || 'profoundresearch' }}
@@ -22,10 +32,13 @@ jobs:
           BAMBOOHR_BOARDS: ${{ vars.BAMBOOHR_BOARDS }}
           WORKDAY_BOARDS: ${{ vars.WORKDAY_BOARDS }}
           DISCOVER_ATS_BOARDS: 'false'
+      - name: Report daily coverage
+        run: |
+          node -e 'const fs=require("fs");const j=JSON.parse(fs.readFileSync("opportunities.json"));const internships=j.roles.filter(r=>r.opportunityKind==="internship");const community=internships.filter(r=>r.verification==="community-index").length;fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,`## Daily internship coverage\n\n${internships.length} internship/student-placement candidates (${internships.length-community} employer-feed results; ${community} community candidates needing employer review).\n\n${j.sourceCoverage.healthy} working employer sources; ${j.sourceCoverage.failed} unavailable.\n`);'
       - name: Commit refreshed feed
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add opportunities.json local-programs.json
+          git add opportunities.json local-programs.json discovered-boards.json source-health.json
           git diff --cached --quiet || git commit -m "Refresh Summer 2027 internship listings"
           git push

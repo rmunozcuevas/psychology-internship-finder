@@ -1,4 +1,4 @@
-import json, os, re, hashlib, html
+import json, os, re, hashlib, html, sys
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -23,6 +23,7 @@ SOURCES = [
 def clean(s): return re.sub(r"\s+", " ", html.unescape(BeautifulSoup(str(s or ""), "html.parser").get_text(" ", strip=True))).strip()
 def normalize(row, source):
     title=clean(row.get("role") or row.get("title") or row.get("name")); desc=clean(row.get("description")); text=f"{title} {desc}"
+    if re.search(RULES['researchGeneric'],title,re.I) and not (re.search(RULES['researchFocusTitle'],title,re.I) or re.search(RULES['researchFocusContext'],desc,re.I)): return None
     if not title or not TERMS.search(title) or not opportunity_kind(title, desc): return None
     if re.search(r"talent community|expression of interest|\bopportunities\s*$", title, re.I): return None
     if re.search(r"senior|director|manager|licensed|postdoctoral|postdoc|professor|faculty|phd candidate",title,re.I): return None
@@ -66,58 +67,74 @@ def employer_jobs(board):
 
 def scrape():
     collected=[]; errors=[]
-    registry = json.loads((Path(__file__).resolve().parent.parent / "employer-boards.json").read_text())
-    boards = [(kind, board) for kind in ("greenhouse", "lever", "ashby") for board in registry.get(kind, [])]
-    with ThreadPoolExecutor(max_workers=6) as pool:
-        for jobs, error in pool.map(employer_jobs, boards):
-            collected.extend(jobs)
-            if error: errors.append(error)
-    for entry in registry.get('workday', []):
-        try:
-            rows, source_errors = collect_workday(entry)
-            errors.extend(source_errors)
-            for row in rows:
-                item = normalize(row, 'Workday')
-                if item: collected.append(item)
-        except Exception as exc:
-            errors.append(f"Workday {entry['employer']}: {exc}")
-    for entry in registry.get('smartrecruiters', []):
-        try:
-            rows, source_errors = collect_smartrecruiters(entry)
-            errors.extend(source_errors)
-            for row in rows:
-                item = normalize(row, 'SmartRecruiters')
-                if item: collected.append(item)
-        except Exception as exc:
-            errors.append(f"SmartRecruiters {entry['employer']}: {exc}")
-    for name,url,kind in SOURCES:
-        try:
-            res=requests.get(url,timeout=35);res.raise_for_status()
-            if kind=="json":
-                data=res.json()
-                if isinstance(data,dict): data=data.get("jobs",data.get("listings",[]))
-                for row in data:
-                    item=normalize(row,name)
+    from_feed = '--from-feed' in sys.argv
+    if from_feed:
+        feed = json.loads((Path(__file__).resolve().parent.parent / 'opportunities.json').read_text())
+        for row in feed.get('roles', []):
+            if not opportunity_kind(row['title'], row.get('description', '')):
+                continue
+            collected.append({'id':hashlib.sha256(row['url'].encode()).hexdigest(),
+                'title':row['title'], 'company':row['org'], 'location':row.get('location',''),
+                'url':row['url'], 'description':row.get('description',''), 'type':row['type'],
+                'season':row.get('season','Season not specified'), 'skills':row.get('skills',[]),
+                'source':row.get('source','Employer'), 'deadline':row.get('deadline'),
+                'verification':row.get('verification','employer-api')})
+    else:
+        registry = json.loads((Path(__file__).resolve().parent.parent / "employer-boards.json").read_text())
+        boards = [(kind, board) for kind in ("greenhouse", "lever", "ashby") for board in registry.get(kind, [])]
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            for jobs, error in pool.map(employer_jobs, boards):
+                collected.extend(jobs)
+                if error: errors.append(error)
+        for entry in registry.get('workday', []):
+            try:
+                rows, source_errors = collect_workday(entry)
+                errors.extend(source_errors)
+                for row in rows:
+                    item = normalize(row, 'Workday')
                     if item: collected.append(item)
-            else:
-                soup=BeautifulSoup(res.text,"html.parser")
-                for table in soup.select("table"):
-                    for tr in table.select("tr"):
-                        cells=tr.find_all(["td","th"])
-                        if len(cells)<4: continue
-                        a=next((c.find("a",href=True) for c in reversed(cells) if c.find("a",href=True)),None)
-                        row={"company":cells[0].get_text(" ",strip=True),"role":cells[1].get_text(" ",strip=True),"location":cells[2].get_text(" ",strip=True),"link":a["href"] if a else ""}
+            except Exception as exc:
+                errors.append(f"Workday {entry['employer']}: {exc}")
+        for entry in registry.get('smartrecruiters', []):
+            try:
+                rows, source_errors = collect_smartrecruiters(entry)
+                errors.extend(source_errors)
+                for row in rows:
+                    item = normalize(row, 'SmartRecruiters')
+                    if item: collected.append(item)
+            except Exception as exc:
+                errors.append(f"SmartRecruiters {entry['employer']}: {exc}")
+        for name,url,kind in SOURCES:
+            try:
+                res=requests.get(url,timeout=35);res.raise_for_status()
+                if kind=="json":
+                    data=res.json()
+                    if isinstance(data,dict): data=data.get("jobs",data.get("listings",[]))
+                    for row in data:
                         item=normalize(row,name)
                         if item: collected.append(item)
-        except Exception as e: errors.append(f"{name}: {e}")
+                else:
+                    soup=BeautifulSoup(res.text,"html.parser")
+                    for table in soup.select("table"):
+                        for tr in table.select("tr"):
+                            cells=tr.find_all(["td","th"])
+                            if len(cells)<4: continue
+                            a=next((c.find("a",href=True) for c in reversed(cells) if c.find("a",href=True)),None)
+                            row={"company":cells[0].get_text(" ",strip=True),"role":cells[1].get_text(" ",strip=True),"location":cells[2].get_text(" ",strip=True),"link":a["href"] if a else ""}
+                            item=normalize(row,name)
+                            if item: collected.append(item)
+            except Exception as e: errors.append(f"{name}: {e}")
     dedup={x["id"]:x for x in collected}; jobs=list(dedup.values())
     if not jobs: raise RuntimeError(f"No matching jobs collected; refusing to wipe database. Source errors: {errors}")
     initialize()
     with connect() as conn:
         for j in jobs:
-            conn.execute("""INSERT INTO internships(id,title,company,location,url,description,type,season,skills,source,closes_at,last_seen)
-              VALUES(%(id)s,%(title)s,%(company)s,%(location)s,%(url)s,%(description)s,%(type)s,%(season)s,%(skills)s,%(source)s,%(deadline)s,now())
-              ON CONFLICT(id) DO UPDATE SET title=excluded.title,company=excluded.company,location=excluded.location,url=excluded.url,description=excluded.description,type=excluded.type,season=excluded.season,skills=excluded.skills,source=excluded.source,closes_at=excluded.closes_at,last_seen=now()""",{**j,"skills":json.dumps(j["skills"])})
+            conn.execute("""INSERT INTO internships(id,title,company,location,url,description,type,season,skills,source,verification,closes_at,last_seen)
+              VALUES(%(id)s,%(title)s,%(company)s,%(location)s,%(url)s,%(description)s,%(type)s,%(season)s,%(skills)s,%(source)s,%(verification)s,%(deadline)s,now())
+              ON CONFLICT(id) DO UPDATE SET title=excluded.title,company=excluded.company,location=excluded.location,url=excluded.url,description=excluded.description,type=excluded.type,season=excluded.season,skills=excluded.skills,source=excluded.source,verification=excluded.verification,closes_at=excluded.closes_at,last_seen=now()""",{"verification":"employer-api",**j,"skills":json.dumps(j["skills"])})
+        if from_feed:
+            # The snapshot already retains only records belonging to temporarily failed sources.
+            conn.execute("DELETE FROM internships WHERE NOT (id = ANY(%s))", ([j['id'] for j in jobs],))
         # Expire records unseen for 30 days so temporary source outages don't delete the catalog.
         conn.execute("DELETE FROM internships WHERE last_seen < now() - interval '30 days'")
     print(f"Upserted {len(jobs)} relevant jobs. Source errors: {len(errors)}")

@@ -1,17 +1,21 @@
+import { TERMS, NOT_INTERN, OUT_OF_SCOPE, plain, classify as classifyRole } from './relevance.mjs';
+import { postingKey } from './posting-key.mjs';
+import { communityJobs } from './community.mjs';
 import { smartRecruiterJobs } from './smartrecruiters.mjs';
 import { refreshLocalPrograms } from './local-programs.mjs';
 import { workdayJobs } from './workday.mjs';
 import { opportunityKind, careerPath } from '../eligibility.mjs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const eligibilityRules = JSON.parse(await readFile(new URL('../opportunity-rules.json', import.meta.url), 'utf8'));
-const OUT = new URL('../opportunities.json', import.meta.url);
-const TERMS = /(intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavior(?:al)?(?: health)? technician|psychiatric aide|mental health technician|psychiatric technician|case management assistant|crisis support|youth mentor|after-school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition|research coordinator assistant)/i;
-const PSYCH = /(psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development|behavior(?:al)?(?: health)? technician|registered behavior technician|\bRBT\b)/i;
-const ADJACENT_TITLE = /(research assistant|research intern|lab assistant|survey research|social science|consumer insights|ux research|user research|people analytics|human resources|\bHR\b|recruiting coordinator|employee engagement|people operations|talent acquisition|clinical research|health economics|health outcomes|medical writing|community|social impact|human factors|public health|behavior(?:al)?(?: health)? technician|psychiatric aide|mental health technician|psychiatric technician|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|market research assistant)/i;
-const ADJACENT_CONTEXT = /(behavioral science|organizational psychology|human factors|consumer behavior|consumer research|public health|social impact|health economics|health outcomes)/i;
-const OUT_OF_SCOPE = /(engineer|engineering|software|technology|technical|\bIT\b|machine learning|market design|business operations|marketing|ecommerce|product development|facilities|test kitchen|industrial design|environmental health\s*(?:&|and)\s*safety)/i;
-const NOT_INTERN = /(senior|director|manager|vice president|physician|therapist|licensed|postdoctoral|postdoc|professor|faculty|phd candidate)/i;
+const outputArg=process.argv.find(a=>a.startsWith('--output-dir='))?.slice('--output-dir='.length);
+const OUTPUT_ROOT=outputArg?pathToFileURL(resolve(outputArg)+'/'):new URL('../',import.meta.url);
+await mkdir(OUTPUT_ROOT,{recursive:true});
+const OUT = new URL('opportunities.json',OUTPUT_ROOT);
+const providerArg=process.argv.find(a=>a.startsWith('--providers='))?.slice('--providers='.length);
+const selectedProviders=new Set((providerArg||'greenhouse,lever,ashby,workday,smartrecruiters,bamboohr,community').split(','));
 const SKILLS = ['Research methods','Data analysis','Child development','Empathy','Documentation','Teamwork','Survey design','Communication','Outreach','Writing','Interviewing','Neuroscience'];
 const SOURCES = [
   {name:'Greenhouse public career boards', url:'https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true', kind:'greenhouse'},
@@ -20,7 +24,18 @@ const SOURCES = [
 ];
 // The checked-in registry is always included; repository variables add extra boards.
 const registry = JSON.parse(await readFile(new URL('../employer-boards.json', import.meta.url), 'utf8'));
-const configured = (kind, variable) => [...new Set([...(registry[kind] || []).map(b => b.id), ...(process.env[variable] || '').split(',').map(s => s.trim()).filter(Boolean)])];
+const discovered=process.argv.includes('--manual-only')?{boards:[]}:JSON.parse(await readFile(new URL('../discovered-boards.json',import.meta.url),'utf8').catch(()=>'{"boards":[]}'));
+for(const board of discovered.boards||[]){const list=registry[board.kind]??=[];if(!list.some(b=>b.id===board.id))list.push(board);}
+const sourceReports=[];
+const extendMode=process.argv.includes('--extend');
+const previousHealth=extendMode?JSON.parse(await readFile(new URL('source-health.json',OUTPUT_ROOT),'utf8').catch(()=>'{"sources":[]}')):{sources:[]};
+if(extendMode && (!previousHealth.updatedAt || Date.now()-Date.parse(previousHealth.updatedAt)>6*3600000))throw Error('--extend requires a full collection completed within the last six hours');
+const reuseSources=new Map(previousHealth.sources.filter(r=>r.status==='ok').map(r=>[`${r.kind}:${r.id}`,r]));
+async function parallel(items,limit,fn){let next=0;await Promise.all(Array.from({length:limit},async()=>{while(next<items.length)await fn(items[next++]);}));}
+async function source(kind,id,fn){
+if(extendMode && reuseSources.has(`${kind}:${id}`)){sourceReports.push({...reuseSources.get(`${kind}:${id}`),reused:true});return;}
+try{const count=await fn();sourceReports.push({kind,id,status:'ok',scanned:count});if(sourceReports.length%50===0)console.log(`Checked ${sourceReports.length} employer feeds; ${roles.filter(r=>r.opportunityKind==='internship').length} internship candidates so far.`);}catch(e){errors.push(`${kind} ${id}: ${e.message}`);sourceReports.push({kind,id,status:'error',error:e.message});}}
+const configured = (kind, variable) => selectedProviders.has(kind)?[...new Set([...(registry[kind] || []).map(b => b.id), ...(process.env[variable] || '').split(',').map(s => s.trim()).filter(Boolean)])]:[];
 const employerName = (kind, id) => registry[kind]?.find(b => b.id === id)?.employer || id;
 const boards = configured('greenhouse', 'GREENHOUSE_BOARDS');
 const leverSites = configured('lever', 'LEVER_SITES');
@@ -31,18 +46,27 @@ const workdayBoards = configured('workday', 'WORKDAY_BOARDS');
 const discoverBoards = process.env.DISCOVER_ATS_BOARDS === 'true';
 const employerDirectory=JSON.parse(await readFile(new URL('../employer-directory.json',import.meta.url),'utf8').catch(()=>'{"psychologyFirst":[],"largeEmployers":[]}'));
 const old = JSON.parse(await readFile(OUT, 'utf8').catch(()=>'{"roles":[]}'));
-const roles = [];
+const roles = extendMode ? old.roles.filter(r=>r.sourceId && reuseSources.has(r.sourceId)) : [];
 const errors = [];
 const discoveredBoardCounts={greenhouse:0,lever:0,ashby:0};
 async function get(url, opts={}) { const res=await fetch(url,{...opts,signal:AbortSignal.timeout(18000),headers:{'user-agent':'FieldnoteInternshipFinder/1.0 contact=project-maintainer',...opts.headers}});if(!res.ok)throw new Error(`${res.status} ${url}`);return res.json(); }
-function plain(value='') { let text=String(value);for(let pass=0;pass<3;pass++)text=text.replace(/&amp;/gi,'&').replace(/&nbsp;|&#160;/gi,' ').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([\da-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)));return text.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim(); }
-function classify(title, text) { const t=plain(title);const body=plain(text);if(!TERMS.test(t)||NOT_INTERN.test(t)||OUT_OF_SCOPE.test(t)||/talent community|expression of interest|\bopportunities\s*$/i.test(t))return null;if(PSYCH.test(t)||new RegExp(eligibilityRules.clinicalTitle,'i').test(t))return 'psychology';if(new RegExp(eligibilityRules.ioTitle,'i').test(t))return 'adjacent';if(ADJACENT_TITLE.test(t)||ADJACENT_CONTEXT.test(body)||/psycholog/i.test(body))return 'adjacent';return null; }
+function classify(title,text,preview=false){return classifyRole(title,text,eligibilityRules,preview);}
 function skills(text){const s=text.toLowerCase();return SKILLS.filter(k=>s.includes(k.toLowerCase())||({ 'Data analysis':['spss','statistics','excel','r studio'],'Research methods':['qualitative','quantitative','participant'],'Empathy':['client support','patient care'],'Survey design':['qualtrics','questionnaire'],'Child development':['pediatric','youth']}[k]||[]).some(x=>s.includes(x)));}
 function season(text) { if (/spring internship/i.test(text)&&/2027/.test(text)) return 'Spring 2027'; return /summer\s*(?:'|’)?\s*2027|2027\s+summer/i.test(text)?'Summer 2027':/spring\s*(?:'|’)?\s*2027/i.test(text)?'Spring 2027':'Season not specified'; }
-function add({title,company,location='',url='',description='',date='',deadline=null,source=''}) { const cleanTitle=plain(title);const cleanDescription=plain(description);const type=classify(cleanTitle,cleanDescription);const kind=opportunityKind(cleanTitle,cleanDescription,eligibilityRules);if(!type||!url||!kind||/\b(?:spring|summer|fall|autumn|winter)\s*202[0-6]\b|\b202[0-6]\s*(?:spring|summer|fall|autumn|winter)\b/i.test(cleanTitle))return;const key=url.split('?')[0];if(roles.some(r=>r.url.split('?')[0]===key))return;roles.push({id:key,careerPath:careerPath(cleanTitle,eligibilityRules),opportunityKind:kind,title:cleanTitle,org:plain(company),location:plain(location),type,source,url,deadline,description:cleanDescription.slice(0,1800),skills:skills(`${cleanTitle} ${cleanDescription}`),lastSeen:new Date().toISOString(),firstSeen:old.roles?.find(r=>r.url.split('?')[0]===key)?.firstSeen||new Date().toISOString().slice(0,10),datePosted:date||null,season:season(cleanTitle)!=='Season not specified'?season(cleanTitle):season(`${cleanTitle} ${cleanDescription}`)}); }
-for (const token of boards) try { const data=await get(`https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(token)}/jobs?content=true`);for(const j of data.jobs||[])add({title:j.title,company:j.company_name||employerName('greenhouse', token),location:j.location?.name||'',url:j.absolute_url,description:j.content||'',date:j.updated_at||j.first_published,source:'Greenhouse'}); } catch(e) {errors.push(`Greenhouse ${token}: ${e.message}`)}
-for (const site of leverSites) try { const data=await get(`https://api.lever.co/v0/postings/${encodeURIComponent(site)}?mode=json`);for(const j of data||[])add({title:j.text,company:employerName('lever', site),location:j.categories?.location||'',url:j.hostedUrl,description:[j.descriptionPlain||j.description||'', ...(j.lists||[]).map(l=>l.text+' '+l.content)].join(' '),date:j.createdAt?new Date(j.createdAt).toISOString():null,source:'Lever'}); } catch(e) {errors.push(`Lever ${site}: ${e.message}`)}
-for (const board of ashbyBoards) try { const data=await get(`https://api.ashbyhq.com/posting-api/job-board/${encodeURIComponent(board)}`);for(const j of data.jobs||[])add({title:j.title,company:employerName('ashby', board),location:j.location||'',url:j.jobUrl,description:j.descriptionPlain||j.descriptionHtml||'',date:j.publishedAt,source:'Ashby'}); } catch(e) {errors.push(`Ashby ${board}: ${e.message}`)}
+function add({title,company,location='',url='',description='',date='',deadline=null,source='',originBoard='',verification='employer-api',observedAt=null}) { const cleanTitle=plain(title);const cleanDescription=plain(description);const type=classify(cleanTitle,cleanDescription);const kind=opportunityKind(cleanTitle,cleanDescription,eligibilityRules);if(!type||!url||!kind||/\b(?:spring|summer|fall|autumn|winter)\s*202[0-6]\b|\b202[0-6]\s*(?:spring|summer|fall|autumn|winter)\b/i.test(cleanTitle))return;const key=postingKey(url);if(roles.some(r=>r.id===key))return;roles.push({id:key,careerPath:careerPath(cleanTitle,eligibilityRules),opportunityKind:kind,title:cleanTitle,org:plain(company),location:plain(location),type,source,sourceId:originBoard,verification,observedAt,url,deadline,description:cleanDescription.slice(0,12000),skills:skills(`${cleanTitle} ${cleanDescription}`),lastSeen:new Date().toISOString(),firstSeen:old.roles?.find(r=>postingKey(r.url)===key)?.firstSeen||new Date().toISOString().slice(0,10),datePosted:date||null,season:season(cleanTitle)!=='Season not specified'?season(cleanTitle):season(`${cleanTitle} ${cleanDescription}`)}); }
+await parallel(boards,8,token=>source('greenhouse',token,async()=>{
+ const data=await get(`https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(token)}/jobs?content=true`);
+ if(!Array.isArray(data.jobs))throw Error('Invalid jobs response');
+ for(const j of data.jobs)add({title:j.title,company:j.company_name||employerName('greenhouse',token),location:j.location?.name||'',url:j.absolute_url,description:j.content||'',date:j.updated_at||j.first_published,source:'Greenhouse',originBoard:`greenhouse:${token}`});return data.jobs.length;
+}));
+await parallel(leverSites,6,site=>source('lever',site,async()=>{
+ const data=await get(`https://api.lever.co/v0/postings/${encodeURIComponent(site)}?mode=json`);if(!Array.isArray(data))throw Error('Invalid jobs response');
+ for(const j of data)add({title:j.text,company:employerName('lever',site),location:j.categories?.location||'',url:j.hostedUrl,description:[j.descriptionPlain||j.description||'',...(j.lists||[]).map(l=>l.text+' '+l.content)].join(' '),date:j.createdAt?new Date(j.createdAt).toISOString():null,source:'Lever',originBoard:`lever:${site}`});return data.length;
+}));
+await parallel(ashbyBoards,6,board=>source('ashby',board,async()=>{
+ const data=await get(`https://api.ashbyhq.com/posting-api/job-board/${encodeURIComponent(board)}`);if(!Array.isArray(data.jobs))throw Error('Invalid jobs response');
+ for(const j of data.jobs)add({title:j.title,company:employerName('ashby',board),location:j.location||'',url:j.jobUrl,description:j.descriptionPlain||j.descriptionHtml||'',date:j.publishedAt,source:'Ashby',originBoard:`ashby:${board}`});return data.jobs.length;
+}));
 if (discoverBoards) {
   const ccIndex='https://index.commoncrawl.org/CC-MAIN-2026-42-index';
   const employers=[...employerDirectory.psychologyFirst,...employerDirectory.largeEmployers];
@@ -50,29 +74,41 @@ if (discoverBoards) {
 }
 const smartRecruiterStats=[];
 for (const company of smartRecruiters) try {
-  const result=await smartRecruiterJobs(company,get,title=>TERMS.test(title)&&!NOT_INTERN.test(title)&&!OUT_OF_SCOPE.test(title)&&Boolean(classify(title,'')));
-  for(const job of result.jobs)add(job);
+  if(extendMode && reuseSources.has(`smartrecruiters:${company}`)){sourceReports.push({...reuseSources.get(`smartrecruiters:${company}`),reused:true});continue;}
+  const result=await smartRecruiterJobs(company,get,title=>TERMS.test(title)&&!NOT_INTERN.test(title)&&(!OUT_OF_SCOPE.test(title)||new RegExp(eligibilityRules.relevanceExceptionTitle,'i').test(title))&&Boolean(classify(title,'',true)));
+  for(const job of result.jobs)add({...job,originBoard:`smartrecruiters:${company}`});
   errors.push(...result.errors);
+  sourceReports.push({kind:'smartrecruiters',id:company,status:result.errors.length?'partial':'ok',scanned:result.scanned});
   smartRecruiterStats.push({board:company,scanned:result.scanned,detailFetched:result.jobs.length,errors:result.errors.length});
-} catch(e) {errors.push(`SmartRecruiters ${company}: ${e.message}`)}
+} catch(e) {errors.push(`SmartRecruiters ${company}: ${e.message}`);sourceReports.push({kind:'smartrecruiters',id:company,status:'error',error:e.message})}
 for (const board of bambooBoards) try { const data=await get(`https://${encodeURIComponent(board)}.bamboohr.com/careers/list`);for(const j of data.result||[])add({title:j.jobOpeningName,company:j.departmentLabel||board,location:j.location?.city||j.location?.state||'',url:`https://${board}.bamboohr.com/careers/${j.id}`,description:j.jobOpeningDescription||'',date:j.datePosted,source:'BambooHR'}); } catch(e) {errors.push(`BambooHR ${board}: ${e.message}`)}
 const workdayStats=[];
 let nextWorkday=0;
-await Promise.all(Array.from({length:3},async()=>{
+await Promise.all(Array.from({length:6},async()=>{
 while(nextWorkday<workdayBoards.length) {
 const raw=workdayBoards[nextWorkday++];
+if(extendMode && reuseSources.has(`workday:${raw}`)){sourceReports.push({...reuseSources.get(`workday:${raw}`),reused:true});continue;}
 try {
-  const result=await workdayJobs(raw,get,title=>TERMS.test(title)&&!NOT_INTERN.test(title)&&!OUT_OF_SCOPE.test(title)&&Boolean(classify(title,'')));
-  for(const job of result.jobs)add({...job,company:employerName('workday',raw)});
+  const result=await workdayJobs(raw,get,title=>TERMS.test(title)&&!NOT_INTERN.test(title)&&(!OUT_OF_SCOPE.test(title)||new RegExp(eligibilityRules.relevanceExceptionTitle,'i').test(title))&&Boolean(classify(title,'',true)));
+  for(const job of result.jobs)add({...job,company:employerName('workday',raw),originBoard:`workday:${raw}`});
   errors.push(...result.errors.map(e=>`Workday ${raw}: ${e}`));
+  sourceReports.push({kind:'workday',id:raw,status:result.errors.length?'partial':'ok',scanned:result.scanned});
   workdayStats.push({board:raw,scanned:result.scanned,detailFetched:result.jobs.length,errors:result.errors.length});
-} catch(e) {errors.push(`Workday ${raw}: ${e.message}`)}
+} catch(e) {errors.push(`Workday ${raw}: ${e.message}`);sourceReports.push({kind:'workday',id:raw,status:'error',error:e.message})}
 }
 }));
-await refreshLocalPrograms();
-const retained=(errors.length ? old.roles||[] : []).map(oldRole=>{const description=plain(oldRole.description);return {...oldRole,title:plain(oldRole.title),org:plain(oldRole.org),description,careerPath:careerPath(oldRole.title,eligibilityRules),opportunityKind:opportunityKind(oldRole.title,description,eligibilityRules),type:classify(oldRole.title,description),season:season(`${oldRole.title} ${description}`)}}).filter(oldRole=>oldRole.opportunityKind&&oldRole.type&&Date.parse(oldRole.lastSeen||oldRole.firstSeen||0)>Date.now()-30*86400000&&!roles.some(r=>r.url.split('?')[0]===oldRole.url.split('?')[0]));
-const merged=[...roles,...retained].sort((a,b)=>(a.opportunityKind==='internship'?0:1)-(b.opportunityKind==='internship'?0:1)||(a.type==='psychology'?-1:1)-(b.type==='psychology'?-1:1)||a.title.localeCompare(b.title));
+let communityCoverage={status:'not-requested'};
+try{if(selectedProviders.has('community')){const jobs=await communityJobs(get);for(const job of jobs)add({...job,originBoard:'community:searchtern'});communityCoverage={status:'ok',checkedAt:new Date().toISOString(),observedCandidates:jobs.length};}}catch(e){errors.push(`Community index: ${e.message}`);communityCoverage={status:'error',error:e.message};}
+if(!outputArg)await refreshLocalPrograms();
+const failedSources=new Set(sourceReports.filter(r=>r.status!=='ok').map(r=>`${r.kind}:${r.id}`));
+if(communityCoverage.status==='error')failedSources.add('community:searchtern');
+const retained=(old.roles||[]).filter(r=>failedSources.has(r.sourceId)).filter(r=>r.verification!=='community-index'||Date.parse(r.observedAt||0)>=Date.now()-14*86400000).map(oldRole=>{const description=plain(oldRole.description);return {...oldRole,title:plain(oldRole.title),org:plain(oldRole.org),description,careerPath:careerPath(oldRole.title,eligibilityRules),opportunityKind:opportunityKind(oldRole.title,description,eligibilityRules),type:classify(oldRole.title,description),season:season(`${oldRole.title} ${description}`)}}).filter(oldRole=>oldRole.opportunityKind&&oldRole.type&&Date.parse(oldRole.lastSeen||oldRole.firstSeen||0)>Date.now()-30*86400000&&!roles.some(r=>r.url.split('?')[0]===oldRole.url.split('?')[0]));
+const merged=[...new Map([...retained,...roles].map(r=>[postingKey(r.url),r])).values()].map(r=>({...r,opportunityKind:opportunityKind(r.title,r.description||'',eligibilityRules),type:classify(r.title,r.description||''),careerPath:careerPath(r.title,eligibilityRules)})).filter(r=>r.opportunityKind&&r.type&&(!r.deadline||Date.parse(String(r.deadline).slice(0,10)+'T23:59:59Z')>=Date.now())).sort((a,b)=>(a.opportunityKind==='internship'?0:1)-(b.opportunityKind==='internship'?0:1)||(a.type==='psychology'?-1:1)-(b.type==='psychology'?-1:1)||a.title.localeCompare(b.title));
+const sourceCoverage={configured:sourceReports.length,healthy:sourceReports.filter(r=>r.status==='ok').length,failed:sourceReports.filter(r=>r.status!=='ok').length,reused:sourceReports.filter(r=>r.reused).length,scannedPostings:sourceReports.reduce((sum,r)=>sum+(r.scanned||0),0)};
+await writeFile(new URL('source-health.json',OUTPUT_ROOT),JSON.stringify({updatedAt:new Date().toISOString(),...sourceCoverage,sources:sourceReports},null,2)+'\n');
+const internshipRows=merged.filter(r=>r.opportunityKind==='internship');
+const counts={internships:internshipRows.length,focused:internshipRows.filter(r=>r.careerPath!=='Broader management / leadership').length,broaderManagement:internshipRows.filter(r=>r.careerPath==='Broader management / leadership').length,employerFeedInternships:internshipRows.filter(r=>r.verification!=='community-index').length,communityInternshipCandidates:internshipRows.filter(r=>r.verification==='community-index').length,entryLevel:merged.filter(r=>r.opportunityKind==='entry-level').length};
 const successfulRefresh=roles.length>0||!errors.length;
-await writeFile(OUT,JSON.stringify({updatedAt:successfulRefresh?new Date().toISOString():old.updatedAt||null,lastAttemptAt:new Date().toISOString(),source:'Public ATS APIs and employer opportunity pages',workdayStats,smartRecruiterStats,total:merged.length,refreshed:roles.length,discoveredBoardCounts,configuredBoardCounts:Object.fromEntries(['greenhouse','lever','ashby','smartrecruiters','bamboohr','workday'].map(k=>[k,registry[k]?.length||0])),roles:merged,errors},null,2)+'\n');
+await writeFile(OUT,JSON.stringify({updatedAt:successfulRefresh?new Date().toISOString():old.updatedAt||null,lastAttemptAt:new Date().toISOString(),source:'Employer APIs and separately labeled community index',counts,communityCoverage,selectedProviders:[...selectedProviders],sourceCoverage,workdayStats,smartRecruiterStats,total:merged.length,refreshed:roles.length,discoveredBoardCounts,configuredBoardCounts:Object.fromEntries(['greenhouse','lever','ashby','smartrecruiters','bamboohr','workday'].map(k=>[k,registry[k]?.length||0])),roles:merged,errors},null,2)+'\n');
 console.log(`Refresh complete: ${roles.length} fresh relevant roles, ${merged.length} total, ${errors.length} source errors.`);
-if(!boards.length&&!leverSites.length&&!ashbyBoards.length&&!smartRecruiters.length&&!bambooBoards.length&&!workdayBoards.length)console.log('No source configuration found. Set ATS board variables to expand coverage.');
+if(!selectedProviders.has('community')&&!boards.length&&!leverSites.length&&!ashbyBoards.length&&!smartRecruiters.length&&!bambooBoards.length&&!workdayBoards.length)console.log('No source configuration found. Set ATS board variables to expand coverage.');
