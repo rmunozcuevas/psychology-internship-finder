@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import requests
 from bs4 import BeautifulSoup
 from api import connect, initialize
-from eligibility import opportunity_kind
+from eligibility import opportunity_kind, RULES
 
 TERMS = re.compile(r"intern|internship|summer student|research assistant|co-?op|fellow|lab assistant|survey research|behavior(?:al)?(?: health)? technician|psychiatric aide|case management assistant|crisis support|youth mentor|after.school|special education aide|registered behavior technician|\bRBT\b|recruiting coordinator|employee engagement|market research assistant|people operations|talent acquisition", re.I)
 PSYCH = re.compile(r"psycholog|behavioral health|mental health|neuropsych|counseling|human behavior|child development|behavior(?:al)?(?: health)? technician|registered behavior technician|\bRBT\b", re.I)
@@ -24,11 +24,11 @@ def normalize(row, source):
     if not title or not TERMS.search(title) or not opportunity_kind(title, desc): return None
     if re.search(r"talent community|expression of interest|\bopportunities\s*$", title, re.I): return None
     if re.search(r"senior|director|manager|licensed|postdoctoral|postdoc|professor|faculty|phd candidate",title,re.I): return None
-    if not (PSYCH.search(title) or ADJ.search(title) or PSYCH.search(desc) or ADJ.search(desc)): return None
+    if not (re.search(RULES["clinicalTitle"]+"|"+RULES["ioTitle"],title,re.I) or PSYCH.search(title) or ADJ.search(title) or PSYCH.search(desc) or ADJ.search(desc)): return None
     url=str(row.get("link") or row.get("url") or "").strip()
     if not url.startswith("http"): return None
     company=clean(row.get("company") or row.get("org") or "Employer")
-    location=clean(row.get("location")); typ="psychology" if PSYCH.search(title) else "adjacent"
+    location=clean(row.get("location")); typ="psychology" if (PSYCH.search(title) or re.search(RULES["clinicalTitle"],title,re.I)) else "adjacent"
     season="Summer 2027" if re.search(r"summer\s*2027|2027\s+summer",text,re.I) else "Spring 2027" if re.search(r"spring\s*2027",text,re.I) else "Season not specified"
     skills=[k for k,p in [("Research methods",r"research|study|participant"),("Data analysis",r"data|statistics|excel|spss"),("Child development",r"child|youth|pediatric|development"),("Communication",r"communication|interpersonal"),("Survey design",r"survey|questionnaire|qualtrics"),("Outreach",r"outreach|community"),("Writing",r"writing|written|editing")] if re.search(p,text,re.I)]
     return {"id":hashlib.sha256((url.split("?")[0]).encode()).hexdigest(),"title":title,"company":company,"location":location,"url":url,"description":desc[:4000],"type":typ,"season":season,"skills":skills,"source":source}

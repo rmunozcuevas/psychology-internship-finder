@@ -1,5 +1,5 @@
 import os
-from eligibility import opportunity_kind
+from eligibility import opportunity_kind, career_path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -50,6 +50,6 @@ def opportunities(limit: int = Query(1000, ge=1, le=2000), offset: int = Query(0
     for row in rows:
         kind = opportunity_kind(row['title'], row['description'])
         if kind:
-            roles.append({**row, 'opportunityKind': kind})
+            roles.append({**row, 'opportunityKind': kind, 'careerPath': career_path(row['title'])})
     roles.sort(key=lambda r: (r['opportunityKind'] != 'internship', r['season'] != 'Summer 2027', r['type'] != 'psychology', r['title']))
     return {"total": len(roles), "updatedAt": refreshed.isoformat() if refreshed else None, "roles": roles[offset:offset+limit]}

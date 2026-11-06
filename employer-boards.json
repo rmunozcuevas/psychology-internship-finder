@@ -126,6 +126,90 @@
       "evidence": "Public postings API returned a valid jobs list during source verification.",
       "verifiedAt": "2026-11-05",
       "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "trovebrands",
+      "employer": "Trove Brands",
+      "url": "https://boards-api.greenhouse.io/v1/boards/trovebrands/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "partnershipforpublicservice",
+      "employer": "Partnership for Public Service",
+      "url": "https://boards-api.greenhouse.io/v1/boards/partnershipforpublicservice/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "rfsmart",
+      "employer": "RF-SMART",
+      "url": "https://boards-api.greenhouse.io/v1/boards/rfsmart/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "kodiaksolutions",
+      "employer": "Kodiak Solutions",
+      "url": "https://boards-api.greenhouse.io/v1/boards/kodiaksolutions/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "arcboatcompany",
+      "employer": "Arc Boat Company",
+      "url": "https://boards-api.greenhouse.io/v1/boards/arcboatcompany/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "talentprograms",
+      "employer": "Hunter Douglas Talent Programs",
+      "url": "https://boards-api.greenhouse.io/v1/boards/talentprograms/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "stratolaunch",
+      "employer": "Stratolaunch",
+      "url": "https://boards-api.greenhouse.io/v1/boards/stratolaunch/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "asteraearlycareer2027",
+      "employer": "Astera Labs Early Career",
+      "url": "https://boards-api.greenhouse.io/v1/boards/asteraearlycareer2027/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "nationallifeinsurancecompany",
+      "employer": "National Life Group",
+      "url": "https://boards-api.greenhouse.io/v1/boards/nationallifeinsurancecompany/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "idmeuniversityrecruiting",
+      "employer": "ID.me University Recruiting",
+      "url": "https://boards-api.greenhouse.io/v1/boards/idmeuniversityrecruiting/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "eliotcommunityhumanservices",
+      "employer": "Eliot Community Human Services",
+      "url": "https://boards-api.greenhouse.io/v1/boards/eliotcommunityhumanservices/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
+    },
+    {
+      "id": "usafacts",
+      "employer": "USAFacts",
+      "url": "https://boards-api.greenhouse.io/v1/boards/usafacts/jobs?content=true",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
     }
   ],
   "lever": [
@@ -150,6 +234,13 @@
       "evidence": "Public postings API returned a valid jobs list during source verification.",
       "verifiedAt": "2026-11-05",
       "category": "Psychology, research, behavioral health or adjacent HR experience"
+    },
+    {
+      "id": "BusaraCenter",
+      "employer": "Busara Center for Behavioral Economics",
+      "url": "https://api.lever.co/v0/postings/BusaraCenter?mode=json",
+      "verifiedAt": "2026-11-06",
+      "evidence": "Verified public API; searched for undergraduate behavioral health, research and I/O internship functions."
     }
   ],
   "ashby": [

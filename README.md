@@ -67,3 +67,8 @@ The daily feed workflow runs at 10:17 UTC. A successful refresh triggers Pages d
 ### Undergraduate focus
 
 The default view shows internships and student placements. The opportunity selector offers entry-level experience separately, or both with internships first. Recommended order favors explicit Summer 2027 dates, then psychology within each opportunity type. Automated screening excludes senior titles, graduate-only requirements and explicitly required multi-year experience. Non-internship roles need a relevant assistant/technician/aide title plus entry-level, training, high-school or undergraduate eligibility evidence; explicit required completed bachelor's degrees are excluded. These text signals are a screening aid, not a guarantee of eligibility. Rules live in `opportunity-rules.json` and are used by both scrapers and the API. Counts will decrease when unsuitable or uncertain roles are removed.
+
+
+### Career path coverage (November 6)
+
+Employer sources now include Eliot Community Human Services for bachelor's-level clinical placements, Busara for behavioral research (international), and dedicated HR/talent internship boards including RF-SMART, Arc Boat Company, National Life Group, Stratolaunch, Trove Brands and Astera Labs Early Career. Live APIs supply the actual listings. Each card labels its clinical/pre-therapy, I/O/workplace, research/human-behavior or related-experience pathway; the career-path selector narrows the live results. I/O roles remain adjacent rather than being relabeled as clinical psychology. Location, eligibility and season must be checked per posting. A board name mentioning 2027 does not by itself confirm the role's season.

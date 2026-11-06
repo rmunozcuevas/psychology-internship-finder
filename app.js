@@ -1,7 +1,7 @@
-import { opportunityKind } from './eligibility.mjs';
+import { opportunityKind, careerPath } from './eligibility.mjs';
 let eligibilityRules=null;
 let storedSaved=[];try{storedSaved=JSON.parse(localStorage.getItem('fieldnote-saved')||'[]')}catch{}
-const state={kind:'internship',category:'all',query:'',location:'',remote:false,focus:'all',paid:false,saved:new Set(storedSaved),resumeSkills:new Set(),page:1,pageSize:20};
+const state={path:'all',kind:'internship',category:'all',query:'',location:'',remote:false,focus:'all',paid:false,saved:new Set(storedSaved),resumeSkills:new Set(),page:1,pageSize:20};
 const programs=[
   {title:'Summer Undergraduate Psychology Experience in Research (SUPER)',org:'American Psychological Association',place:'Remote mentorship with a faculty host',status:'2027 applications expected late November or early December 2026 · deadline March 1, 2027',date:'Summer 2027',url:'https://www.apa.org/science/programs/super-fellowship',type:'Psychology research fellowship'},
   {title:'Undergraduate Summer Internship',org:'Pace University Counseling Center',place:'New York, NY',status:'Summer dates posted · application details on program page',date:'May 19 – July 23, 2027',url:'https://www.pace.edu/counseling/psychology-training-programs/undergraduate-summer-internship',type:'Psychology'},
@@ -22,8 +22,8 @@ const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const safeUrl=value=>{try{const url=new URL(value);return url.protocol==='https:'?url.href:'#'}catch{return '#'}};
 function roleMatch(role){if(!state.resumeSkills.size)return null;const skills=(role.skills||[]).map(s=>s.toLowerCase());const matched=[...state.resumeSkills].filter(s=>skills.includes(s));return Math.round(matched.length/state.resumeSkills.size*100)}
-function allRoles(){return liveRoles.map((r,i)=>{const match=roleMatch(r);return {opportunityKind:r.opportunityKind,id:r.id||r.url||'live-'+i,title:r.title,org:r.org,mark:(r.org||'').slice(0,2),logo:r.type==='psychology'?'purple':'orange',type:r.type,focus:r.focus||'Research',place:r.location||'See source for location',duration:r.season||'Season not specified',pay:r.pay||'See posting',deadline:r.deadline||'See posting',match,skills:r.skills?.length?r.skills:['Research methods','Communication'],desc:`${r.description||''} · Source: ${r.source||'Employer careers page'}. Last refreshed ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString(): 'recently'}.` ,url:r.url,source:r.source}})}
-function filteredRoles(){let rows=allRoles().filter(o=>state.kind==='all'||o.opportunityKind===state.kind).filter(o=>state.category==='all'||o.type===state.category);if(state.query){const q=state.query.toLowerCase();rows=rows.filter(o=>(o.title+' '+o.org+' '+o.focus+' '+o.skills.join(' ')).toLowerCase().includes(q))}if(state.location){const q=state.location.toLowerCase();rows=rows.filter(o=>o.place.toLowerCase().includes(q))}const sort=$('#sort-select')?.value||'recommended';if(sort==='deadline')rows.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));else if(sort==='match')rows.sort((a,b)=>(b.match??-1)-(a.match??-1));else rows.sort((a,b)=>(a.opportunityKind==='internship'?0:1)-(b.opportunityKind==='internship'?0:1)||(a.duration==='Summer 2027'?0:1)-(b.duration==='Summer 2027'?0:1)||(a.type==='psychology'?-1:1)-(b.type==='psychology'?-1:1)||String(a.id).localeCompare(String(b.id)));return rows}
+function allRoles(){return liveRoles.map((r,i)=>{const match=roleMatch(r);return {careerPath:r.careerPath||careerPath(r.title,eligibilityRules),opportunityKind:r.opportunityKind,id:r.id||r.url||'live-'+i,title:r.title,org:r.org,mark:(r.org||'').slice(0,2),logo:r.type==='psychology'?'purple':'orange',type:r.type,focus:r.focus||'Research',place:r.location||'See source for location',duration:r.season||'Season not specified',pay:r.pay||'See posting',deadline:r.deadline||'See posting',match,skills:r.skills?.length?r.skills:['Research methods','Communication'],desc:`${r.description||''} · Source: ${r.source||'Employer careers page'}. Last refreshed ${feedUpdatedAt?new Date(feedUpdatedAt).toLocaleString(): 'recently'}.` ,url:r.url,source:r.source}})}
+function filteredRoles(){let rows=allRoles().filter(o=>state.path==='all'||o.careerPath===state.path).filter(o=>state.kind==='all'||o.opportunityKind===state.kind).filter(o=>state.category==='all'||o.type===state.category);if(state.query){const q=state.query.toLowerCase();rows=rows.filter(o=>(o.title+' '+o.org+' '+o.focus+' '+o.skills.join(' ')).toLowerCase().includes(q))}if(state.location){const q=state.location.toLowerCase();rows=rows.filter(o=>o.place.toLowerCase().includes(q))}const sort=$('#sort-select')?.value||'recommended';if(sort==='deadline')rows.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));else if(sort==='match')rows.sort((a,b)=>(b.match??-1)-(a.match??-1));else rows.sort((a,b)=>(a.opportunityKind==='internship'?0:1)-(b.opportunityKind==='internship'?0:1)||(a.duration==='Summer 2027'?0:1)-(b.duration==='Summer 2027'?0:1)||(a.type==='psychology'?-1:1)-(b.type==='psychology'?-1:1)||String(a.id).localeCompare(String(b.id)));return rows}
 function render() {
   const rows = filteredRoles();
   const pageCount=Math.max(1,Math.ceil(rows.length/state.pageSize));state.page=Math.min(state.page,pageCount);const visibleRows=rows.slice((state.page-1)*state.pageSize,state.page*state.pageSize);
@@ -41,7 +41,7 @@ function render() {
               <span class="category-badge ${o.type === 'psychology' ? 'psych-badge' : 'adjacent-badge'}">${o.type === 'psychology' ? 'PSYCHOLOGY' : 'ADJACENT'}</span>
               ${o.match===null?'':`<span class="match-pill">${o.match}% skill overlap</span>`}
             </div>
-            <div class="org-name">${esc(o.org)} · ${o.opportunityKind==='internship'?'Internship / student placement':'Entry-level experience'}</div>
+            <div class="org-name">${esc(o.org)} · ${esc(o.careerPath)} · ${o.opportunityKind==='internship'?'Internship / student placement':'Entry-level experience'}</div>
             <div class="role-meta">
               <span>⌖ ${esc(o.place)}</span><span>◷ ${esc(o.duration)}</span><span>＄ ${esc(o.pay)}</span><span>◷ Apply by ${esc(o.deadline)}</span>
             </div>
@@ -59,7 +59,7 @@ function render() {
         </div>
       </article>`).join('');
   } else {
-    const hasFilters=Boolean(state.query||state.location||state.category!=='all');
+    const hasFilters=Boolean(state.query||state.location||state.category!=='all'||state.path!=='all');
     const title = liveFeedError ? 'Listings feed unavailable' : !liveFeedLoaded ? 'Loading live listings…' : hasFilters ? 'No roles match these filters' : 'No live postings in the current feed yet';
     const message = liveFeedError
       ? 'Current listings could not be loaded. Please refresh the page later.'
@@ -85,7 +85,7 @@ function render() {
   $('#catalog-summary').textContent = liveFeedError ? 'Catalogue unavailable. Please try again later.' : !liveFeedLoaded ? 'Loading catalogue totals…' : `Full catalogue: ${internshipCount} internships/student placements · ${entryCount} entry-level roles. Viewing ${viewLabel}.`;
   $('#psych-stat-label').textContent = state.kind === 'internship' ? 'psychology internships' : state.kind === 'entry-level' ? 'psychology entry-level roles' : 'psychology roles';
   $('#adjacent-stat-label').textContent = state.kind === 'internship' ? 'adjacent internships' : state.kind === 'entry-level' ? 'adjacent entry-level roles' : 'adjacent roles';
-  const base = liveFeedLoaded ? liveRoles.filter(r=>state.kind==='all'||r.opportunityKind===state.kind) : [];
+  const base = liveFeedLoaded ? liveRoles.filter(r=>state.kind==='all'||r.opportunityKind===state.kind).filter(r=>state.path==='all'||(r.careerPath||careerPath(r.title,eligibilityRules))===state.path) : [];
   $('#psych-stat').textContent = base.filter(o => o.type === 'psychology').length;
   $('#adjacent-stat').textContent = base.filter(o => o.type === 'adjacent').length;
   $('#saved-count').textContent = state.saved.size;
@@ -104,8 +104,9 @@ function render() {
   });
 }
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2500)}
+$('#career-path-filter').addEventListener('change',e=>{state.path=e.target.value;state.page=1;render()});
 $('#opportunity-kind').addEventListener('change',e=>{state.kind=e.target.value;state.page=1;render()});
-function resetFilters(){state.kind='internship';$('#opportunity-kind').value='internship';state.category='all';state.query='';state.location='';$('#search-input').value='';$('#location-input').value='';render()}
+function resetFilters(){state.path='all';$('#career-path-filter').value='all';state.kind='internship';$('#opportunity-kind').value='internship';state.category='all';state.query='';state.location='';$('#search-input').value='';$('#location-input').value='';render()}
 $('#pagination').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){state.page=Number(b.dataset.page);render();$('#role-list').scrollIntoView({behavior:'smooth',block:'start'})}});$('#pagination').addEventListener('change',e=>{if(e.target.id==='page-size'){state.pageSize=Number(e.target.value);state.page=1;render()}});
 $$('.chip').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.filter;state.page=1;render()}));$('#search-input').addEventListener('input',e=>{state.query=e.target.value.trim();render()});$('#location-input').addEventListener('input',e=>{state.location=e.target.value.trim();render()});$('#search-form').addEventListener('submit',e=>{e.preventDefault();state.query=$('#search-input').value.trim();state.location=$('#location-input').value.trim();render();$('#role-list').scrollIntoView({behavior:'smooth',block:'start'})});$('#sort-select').addEventListener('change',render);$('#filter-toggle').addEventListener('click',()=>$('#extra-filters').classList.toggle('hidden'));$('#clear-filters').addEventListener('click',resetFilters);$('#role-list').addEventListener('click',e=>{const card=e.target.closest('.role-card');if(!card)return;const id=card.dataset.id;if(e.target.closest('.save-button')){state.saved.has(id)?state.saved.delete(id):state.saved.add(id);localStorage.setItem('fieldnote-saved',JSON.stringify([...state.saved]));render()}else if(e.target.closest('.details-button'))card.classList.toggle('expanded')});$('#saved-list').addEventListener('click',e=>{const b=e.target.closest('.saved-open');if(!b)return;resetFilters();location.hash='#opportunities';$('#role-list').scrollIntoView({behavior:'smooth',block:'start'})});$('#show-all-roles').addEventListener('click',()=>{resetFilters();location.hash='#opportunities'});window.addEventListener('hashchange',render);
 $$('[data-search]').forEach(link=>link.addEventListener('click',()=>{const query=link.dataset.search;$('#search-input').value=query;state.query=query;state.category='all';render()}));
