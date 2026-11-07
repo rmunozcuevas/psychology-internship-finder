@@ -1,6 +1,10 @@
 # NinerPath — psychology & sociology internship finder
 
-A public, no-login directory for UNC Charlotte undergraduates and other psychology and sociology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
+An independent, public directory for psychology and sociology undergraduates, wherever they study. NinerPath is not affiliated with or endorsed by UNC Charlotte or Niner Software. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
+
+## Visual identity
+
+NinerPath uses an original lowercase `np` and direction-arrow mark, bold sans-serif typography, white space and restrained subject accents: green for psychology, blue for sociology. The visual direction takes inspiration from the minimal project presentation at [Niner Software](https://ninersoftware.com/#projects); the mark and site are independent. No university seals, athletics marks or Niner Software logos are used.
 
 ## Student workspace
 

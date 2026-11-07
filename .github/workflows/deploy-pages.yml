@@ -18,6 +18,8 @@ on:
       - 'local-programs.json'
       - 'source-health.json'
       - 'styles.css'
+      - 'identity.css'
+      - 'brand-icon.svg'
       - 'opportunities.json'
       - '.github/workflows/deploy-pages.yml'
   workflow_run:
