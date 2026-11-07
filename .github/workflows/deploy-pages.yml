@@ -11,6 +11,8 @@ on:
       - 'app.js'
       - 'eligibility.mjs'
       - 'resume-fit.mjs'
+      - 'listing-quality.mjs'
+      - 'student-tools.mjs'
       - 'opportunity-rules.json'
       - 'program-eligibility.json'
       - 'local-programs.json'

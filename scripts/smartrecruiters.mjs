@@ -11,6 +11,7 @@ export async function smartRecruiterJobs(company,get,relevant) {
   await Promise.all(Array.from({length:4},async()=>{
     while(next<candidates.length){const j=candidates[next++];try{
       const d=await get(`${base}/${j.id}`);
+      if(d.active===false||['CLOSED','EXPIRED','FILLED'].includes(String(d.status||'').toUpperCase()))continue;
       const description=Object.values(d.jobAd?.sections||{}).map(s=>`${s.title||''} ${s.text||''}`).join(' ');
       jobs.push({title:d.name||j.name,company:d.company?.name||company,location:[d.location?.city,d.location?.region,d.location?.country].filter(Boolean).join(', '),url:d.applyUrl||`https://jobs.smartrecruiters.com/${company}/${j.id}`,description,date:d.releasedDate,source:'SmartRecruiters'});
     }catch(e){errors.push(`${company} ${j.name}: ${e.message}`)}}

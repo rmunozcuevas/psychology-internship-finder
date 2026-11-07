@@ -1,3 +1,4 @@
+import {deadlineTime} from '../listing-quality.mjs';
 // Public employer postings only. Full descriptions are required for eligibility screening.
 export async function workdayJobs(raw, get, relevant) {
   const [host, tenant, site] = raw.split('|');
@@ -35,7 +36,7 @@ export async function workdayJobs(raw, get, relevant) {
         const detail=await get(`${base}${j.externalPath}`);
         const info=detail.jobPostingInfo;
         if(!info || info.canApply===false || info.posted===false) continue;
-        if(info.endDate && Date.parse(info.endDate+'T23:59:59Z')<Date.now()) continue;
+        if(deadlineTime(info.endDate)!==null && deadlineTime(info.endDate)<Date.now()) continue;
         jobs.push({title:info.title,location:info.location||j.locationsText||'',url:info.externalUrl||`https://${host}/en-US/${site}${j.externalPath}`,description:info.jobDescription||'',date:info.startDate,deadline:info.endDate||null,source:'Workday'});
       } catch(e) { errors.push(`${j.title}: ${e.message}`); }
     }

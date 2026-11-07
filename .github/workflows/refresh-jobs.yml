@@ -33,6 +33,8 @@ jobs:
           BAMBOOHR_BOARDS: ${{ vars.BAMBOOHR_BOARDS }}
           WORKDAY_BOARDS: ${{ vars.WORKDAY_BOARDS }}
           DISCOVER_ATS_BOARDS: 'false'
+      - name: Verify posting pages and remove confirmed closures
+        run: node scripts/verify-listings.mjs
       - name: Report daily coverage
         run: |
           node -e 'const fs=require("fs");const j=JSON.parse(fs.readFileSync("opportunities.json"));const internships=j.roles.filter(r=>r.opportunityKind==="internship");const community=internships.filter(r=>r.verification==="community-index").length;fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,`## Daily internship coverage\n\n${internships.length} internship/student-placement candidates (${internships.length-community} employer-feed results; ${community} community candidates needing employer review).\n\n${j.sourceCoverage.healthy} working employer sources; ${j.sourceCoverage.failed} unavailable.\n`);'
@@ -40,6 +42,6 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add opportunities.json sociology-opportunities.json local-programs.json discovered-boards.json source-health.json
+          git add closed-listings.json opportunities.json sociology-opportunities.json local-programs.json discovered-boards.json source-health.json
           git diff --cached --quiet || git commit -m "Refresh Summer 2027 internship listings"
           git push

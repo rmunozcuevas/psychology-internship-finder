@@ -23,6 +23,7 @@ def initialize():
           first_seen TIMESTAMPTZ NOT NULL DEFAULT now(), last_seen TIMESTAMPTZ NOT NULL DEFAULT now(), closes_at DATE
         )""")
         conn.execute("ALTER TABLE internships ADD COLUMN IF NOT EXISTS closes_at DATE")
+        conn.execute("ALTER TABLE internships ADD COLUMN IF NOT EXISTS metadata JSONB NOT NULL DEFAULT '{}'")
         conn.execute("ALTER TABLE internships ADD COLUMN IF NOT EXISTS verification TEXT NOT NULL DEFAULT 'employer-api'")
 
 @asynccontextmanager
@@ -46,10 +47,12 @@ def health():
 def opportunities(limit: int = Query(1000, ge=1, le=2000), offset: int = Query(0, ge=0)):
     with connect() as conn:
         refreshed = conn.execute("SELECT max(last_seen) AS at FROM internships").fetchone()["at"]
-        rows = conn.execute("""SELECT id,title,company AS org,location,url,description,type,season,skills,source,verification,last_seen AS last_seen_at,closes_at AS deadline
+        rows = conn.execute("""SELECT id,title,company AS org,location,url,description,type,season,skills,source,verification,metadata,last_seen AS last_seen_at,closes_at AS deadline
           FROM internships WHERE closes_at IS NULL OR closes_at >= CURRENT_DATE""").fetchall()
     roles = []
     for row in rows:
+        metadata = row.pop('metadata', {}) or {}
+        row = {**metadata, **row}
         kind = opportunity_kind(row['title'], row['description'])
         if kind:
             roles.append({**row, 'opportunityKind': kind, 'careerPath': career_path(row['title'])})

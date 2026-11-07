@@ -73,12 +73,14 @@ def scrape():
         for row in feed.get('roles', []):
             if not opportunity_kind(row['title'], row.get('description', '')):
                 continue
-            collected.append({'id':hashlib.sha256(row['url'].encode()).hexdigest(),
+            collected.append({'id':row.get('id') or hashlib.sha256(row['url'].encode()).hexdigest(),
                 'title':row['title'], 'company':row['org'], 'location':row.get('location',''),
                 'url':row['url'], 'description':row.get('description',''), 'type':row['type'],
                 'season':row.get('season','Season not specified'), 'skills':row.get('skills',[]),
                 'source':row.get('source','Employer'), 'deadline':row.get('deadline'),
-                'verification':row.get('verification','employer-api')})
+                'verification':row.get('verification','employer-api'),
+                'last_seen':row.get('lastSeen') or row.get('last_seen_at'),
+                'metadata':row})
     else:
         registry = json.loads((Path(__file__).resolve().parent.parent / "employer-boards.json").read_text())
         boards = [(kind, board) for kind in ("greenhouse", "lever", "ashby") for board in registry.get(kind, [])]
@@ -129,9 +131,9 @@ def scrape():
     initialize()
     with connect() as conn:
         for j in jobs:
-            conn.execute("""INSERT INTO internships(id,title,company,location,url,description,type,season,skills,source,verification,closes_at,last_seen)
-              VALUES(%(id)s,%(title)s,%(company)s,%(location)s,%(url)s,%(description)s,%(type)s,%(season)s,%(skills)s,%(source)s,%(verification)s,%(deadline)s,now())
-              ON CONFLICT(id) DO UPDATE SET title=excluded.title,company=excluded.company,location=excluded.location,url=excluded.url,description=excluded.description,type=excluded.type,season=excluded.season,skills=excluded.skills,source=excluded.source,verification=excluded.verification,closes_at=excluded.closes_at,last_seen=now()""",{"verification":"employer-api",**j,"skills":json.dumps(j["skills"])})
+            conn.execute("""INSERT INTO internships(id,title,company,location,url,description,type,season,skills,source,verification,closes_at,last_seen,metadata)
+              VALUES(%(id)s,%(title)s,%(company)s,%(location)s,%(url)s,%(description)s,%(type)s,%(season)s,%(skills)s,%(source)s,%(verification)s,%(deadline)s,COALESCE(%(last_seen)s::timestamptz,now()),%(metadata)s::jsonb)
+              ON CONFLICT(id) DO UPDATE SET title=excluded.title,company=excluded.company,location=excluded.location,url=excluded.url,description=excluded.description,type=excluded.type,season=excluded.season,skills=excluded.skills,source=excluded.source,verification=excluded.verification,closes_at=excluded.closes_at,last_seen=excluded.last_seen,metadata=excluded.metadata""",{"verification":"employer-api","last_seen":None,**j,"skills":json.dumps(j["skills"]),"metadata":json.dumps(j.get("metadata",{}))})
         if from_feed:
             # The snapshot already retains only records belonging to temporarily failed sources.
             conn.execute("DELETE FROM internships WHERE NOT (id = ANY(%s))", ([j['id'] for j in jobs],))

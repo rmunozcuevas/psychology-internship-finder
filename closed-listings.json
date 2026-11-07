@@ -1,0 +1,914 @@
+{
+  "updatedAt": "2026-11-07T03:05:52.647Z",
+  "roles": [
+    {
+      "id": "https://us-erac.icims.com/jobs/566673/management-intern/job?in_iframe=1",
+      "title": "Management Intern",
+      "org": "Us Erac",
+      "url": "https://us-erac.icims.com/jobs/566673/management-intern/job?in_iframe=1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 410"
+    },
+    {
+      "id": "https://careers-steinhafels.icims.com/jobs/2261/sales-and-leadership-internship/job?in_iframe=1",
+      "title": "Sales and Leadership Internship",
+      "org": "Steinhafels",
+      "url": "https://careers-steinhafels.icims.com/jobs/2261/sales-and-leadership-internship/job?in_iframe=1",
+      "deadline": null,
+      "closedAt": "2026-11-07T03:05:52.647Z",
+      "reason": "Source returned HTTP 410"
+    },
+    {
+      "id": "https://careers-leye.icims.com/jobs/2135/virginia-restaurant-management-internship-level-1/job?in_iframe=1",
+      "title": "Virginia Restaurant Management Internship Level 1",
+      "org": "LEYE",
+      "url": "https://careers-leye.icims.com/jobs/2135/virginia-restaurant-management-internship-level-1/job?in_iframe=1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 410"
+    },
+    {
+      "id": "workday:smucker.wd5.myworkdayjobs.com:115804",
+      "title": "Category Leadership Intern, Summer 2027",
+      "org": "J M Smucker",
+      "url": "https://smucker.wd5.myworkdayjobs.com/job/Orrville-OH/Category-Leadership-Intern--Summer-2027_115804",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:genpt.wd1.myworkdayjobs.com:0000035654",
+      "title": "Category Management Intern - Summer 2027",
+      "org": "Genuine Parts Company",
+      "url": "https://genpt.wd1.myworkdayjobs.com/job/Atlanta-GA-USA/Category-Management-Intern---Summer-2027_R26_0000035654",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:alliance.wd3.myworkdayjobs.com:R00214300",
+      "title": "Human Resource Business Partner Intern - Summer 2027 - Franklin, TN",
+      "org": "Nissan",
+      "url": "https://alliance.wd3.myworkdayjobs.com/job/Franklin-Tennessee---United-States-of-America/Human-Resource-Business-Partner-Intern---Summer-2027---Franklin--TN_R00214300",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:snc.wd1.myworkdayjobs.com:R0031253",
+      "title": "Human Resource Intern (Summer 2027)",
+      "org": "Sierra Nevada Corporation",
+      "url": "https://snc.wd1.myworkdayjobs.com/job/Lone-Tree-CO/Human-Resource-Intern--Summer-2027-_R0031253-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:oshkoshcorporation.wd5.myworkdayjobs.com:R49751",
+      "title": "Materials Management Intern (Summer 2027 or Year Round)",
+      "org": "Oshkosh",
+      "url": "https://oshkoshcorporation.wd5.myworkdayjobs.com/job/Appleton-Wisconsin-United-States/Materials-Management-Intern--Summer-2027-or-Year-Round-_R49751",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:oshkoshcorporation.wd5.myworkdayjobs.com:R49822",
+      "title": "Materials Management Intern (Summer 2027)",
+      "org": "Oshkosh",
+      "url": "https://oshkoshcorporation.wd5.myworkdayjobs.com/job/Bradenton-Florida-United-States/Materials-Management-Intern--Summer-2027-_R49822",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hcmportal.wd5.myworkdayjobs.com:R26039546",
+      "title": "MHR Summer 2027 Intern - Data Analytics (HR Systems)",
+      "org": "United Parcel Service Ups",
+      "url": "https://hcmportal.wd5.myworkdayjobs.com/job/US---UPS-CORPORATE-OFFICES-GACOR/MHR-Summer-2027-Intern---Data-Analytics--HR-Systems-_R26039546",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:oshkoshcorporation.wd5.myworkdayjobs.com:R49882",
+      "title": "Operations Management Intern (Summer 2027)",
+      "org": "Oshkosh",
+      "url": "https://oshkoshcorporation.wd5.myworkdayjobs.com/job/Murfreesboro-Tennessee-United-States/Operations-Management-Intern_R49882",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:alliance.wd3.myworkdayjobs.com:R00214301",
+      "title": "People Analytics Intern - Summer 2027 - Franklin, TN",
+      "org": "Nissan",
+      "url": "https://alliance.wd3.myworkdayjobs.com/job/Franklin-Tennessee---United-States-of-America/People-Analytics-Intern---Summer-2027---Franklin--TN_R00214301",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:snc.wd1.myworkdayjobs.com:R0031171",
+      "title": "Program Management Intern (Summer 2027)",
+      "org": "Sierra Nevada Corporation",
+      "url": "https://snc.wd1.myworkdayjobs.com/job/Lone-Tree-CO/Program-Management-Intern--Summer-2027-_R0031171",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:slihrms.wd3.myworkdayjobs.com:R-162018",
+      "title": "Resilience and Emergency Management Intern - Summer 2027",
+      "org": "Atkinsr Alis",
+      "url": "https://slihrms.wd3.myworkdayjobs.com/job/USCALos-Angeles801-S-Grand-Avenue/Resilience-and-Emergency-Management-Intern---Summer-2027_R-162018-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:smucker.wd5.myworkdayjobs.com:116012",
+      "title": "Revenue Growth Management Intern, Summer 2027",
+      "org": "J M Smucker",
+      "url": "https://smucker.wd5.myworkdayjobs.com/job/Orrville-OH/Revenue-Growth-Management-Intern--Summer-2027_116012",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:tmobile.wd1.myworkdayjobs.com:REQ381216",
+      "title": "Summer 2027 Account Management Internship",
+      "org": "T Mobile",
+      "url": "https://tmobile.wd1.myworkdayjobs.com/job/New-York-New-York/Summer-2027-Account-Management-Internship_REQ381216",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:highmarkhealth.wd1.myworkdayjobs.com:J288339",
+      "title": "Summer 2027 Community Affairs (Buffalo, NY) Undergraduate Intern (Open)",
+      "org": "Highmark Health",
+      "url": "https://highmarkhealth.wd1.myworkdayjobs.com/job/Buffalo-NY-1-Seneca-St-Ste-3400/Summer-2027-Community-Affairs--Buffalo--NY--Undergraduate-Intern--Open-_J288339",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:highmarkhealth.wd1.myworkdayjobs.com:J286838",
+      "title": "Summer 2027 Community Affairs (Central PA) Undergraduate Intern",
+      "org": "Highmark Health",
+      "url": "https://highmarkhealth.wd1.myworkdayjobs.com/job/Camp-Hill-PA-17011-Center-Street-Building-1B/Summer-2027-Community-Affairs--Central-PA--Undergraduate-Intern_J286838",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:highmarkhealth.wd1.myworkdayjobs.com:J287943",
+      "title": "Summer 2027 Community Affairs (Western PA) Undergraduate Intern",
+      "org": "Highmark Health",
+      "url": "https://highmarkhealth.wd1.myworkdayjobs.com/job/Pittsburgh-PA-15222-FAP-5th-Avenue-Place/Summer-2027-Community-Affairs--Western-PA--Undergraduate-Intern_J287943",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:rb.wd5.myworkdayjobs.com:R-0000033619",
+      "title": "Summer 2027 Intern - Non-Business Majors - ex. Criminal Justice, International Affairs, Liberal Arts",
+      "org": "The Federal Reserve System",
+      "url": "https://rb.wd5.myworkdayjobs.com/job/Chicago-IL/Summer-2027-Intern---Non-Business-Majors---ex-Criminal-Justice--International-Affairs--Liberal-Arts_R-0000033619-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:qtsdatacenters.wd5.myworkdayjobs.com:R2026",
+      "title": "Summer 2027 Internship: Learning and Development Programs Administrator",
+      "org": "Qts Data Centers",
+      "url": "https://qtsdatacenters.wd5.myworkdayjobs.com/job/Duluth-GA/Summer-2027-Internship--Learning-and-Development-Programs-Administrator_R2026-2017",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:highmarkhealth.wd1.myworkdayjobs.com:J286835",
+      "title": "Summer 2027 Legislative and Regulatory Department Undergraduate Intern",
+      "org": "Highmark Health",
+      "url": "https://highmarkhealth.wd1.myworkdayjobs.com/job/Camp-Hill-PA-17011-Center-Street-Building-1B/Summer-2027-Legislative-and-Regulatory-Department-Undergraduate-Intern_J286835",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:alliance.wd3.myworkdayjobs.com:R00214221",
+      "title": "Sustainability and Philanthropy Intern - Summer 2027 - Franklin, TN",
+      "org": "Nissan",
+      "url": "https://alliance.wd3.myworkdayjobs.com/job/Franklin-Tennessee---United-States-of-America/Sustainability-and-Philanthropy-Intern---Summer-2027---Franklin--TN_R00214221",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:smucker.wd5.myworkdayjobs.com:115992",
+      "title": "Talent Acquisition Intern, Summer 2027",
+      "org": "J M Smucker",
+      "url": "https://smucker.wd5.myworkdayjobs.com/job/Orrville-OH/Talent-Acquisition-Intern--Summer-2027_115992",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:wattswater.wd5.myworkdayjobs.com:10017568",
+      "title": "Talent Development Intern, Summer 2027",
+      "org": "Watts Water",
+      "url": "https://wattswater.wd5.myworkdayjobs.com/job/North-Andover-MA/Talent-Development-Intern--Summer-2027_10017568",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:alliance.wd3.myworkdayjobs.com:R00214299",
+      "title": "Talent Management Intern - Summer 2027 - Franklin, TN",
+      "org": "Nissan",
+      "url": "https://alliance.wd3.myworkdayjobs.com/job/Franklin-Tennessee---United-States-of-America/Talent-Management-Intern---Summer-2027---Franklin--TN_R00214299",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:alliance.wd3.myworkdayjobs.com:R00214233",
+      "title": "Treasury Cash Management Intern - Summer 2027 - Franklin, TN",
+      "org": "Nissan",
+      "url": "https://alliance.wd3.myworkdayjobs.com/job/Franklin-Tennessee---United-States-of-America/Treasury-Cash-Management-Intern---Summer-2027---Franklin--TN_R00214233",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:toyota.wd503.myworkdayjobs.com:10338484",
+      "title": "2027 Accounting & Finance, Product Profit Lifecycle Management Intern",
+      "org": "Toyota",
+      "url": "https://toyota.wd503.myworkdayjobs.com/job/Ann-Arbor-Michigan/XMLNAME-2027-Accounting---Finance--Product-Profit-Lifecycle-Management-Intern_10338484",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:msd.wd5.myworkdayjobs.com:R422934",
+      "title": "2027 Future Talent Program - L&D (Learning & Development) Coordinator - Co-op",
+      "org": "MSD",
+      "url": "https://msd.wd5.myworkdayjobs.com/job/USA---Pennsylvania---West-Point/XMLNAME-2027-Future-Talent-Program---L-D--Learning---Development--Coordinator---Co-op_R422934",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ngc.wd1.myworkdayjobs.com:R10259102",
+      "title": "2027 Program Management Intern - Northridge CA",
+      "org": "Northrop Grumman",
+      "url": "https://ngc.wd1.myworkdayjobs.com/job/United-States-California-Northridge/XMLNAME-2027-Program-Management-Intern---Northridge-CA_R10259102",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:michelinhr.wd3.myworkdayjobs.com:R",
+      "title": "2027 Summer Inclusion Strategy & Business Integration Intern",
+      "org": "Michelin",
+      "url": "https://michelinhr.wd3.myworkdayjobs.com/job/GREENVILLE-SC/XMLNAME-2027-Summer-Inclusion-Strategy---Business-Integration-Intern_R-2026029963",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:regeneron.wd1.myworkdayjobs.com:R51828",
+      "title": "2027 Summer Intern Training, Communications & HR (IOPS)",
+      "org": "Regeneron",
+      "url": "https://regeneron.wd1.myworkdayjobs.com/job/RENSSELAER/XMLNAME-2027-Summer-Intern-Training--Communications---HR--IOPS-_R51828-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:icf.wd5.myworkdayjobs.com:R2603471",
+      "title": "2027 Summer Intern, Program Outreach (Upstate New York)",
+      "org": "Icf International",
+      "url": "https://icf.wd5.myworkdayjobs.com/job/Albany-NY/XMLNAME-2027-Summer-Intern--Program-Outreach--Upstate-New-York-_R2603471-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:wsfsbank.wd1.myworkdayjobs.com:R-104110",
+      "title": "2027 Summer Internship - Community Impact",
+      "org": "Wsfs Bank",
+      "url": "https://wsfsbank.wd1.myworkdayjobs.com/job/Wilmington-DE/XMLNAME-2027-Summer-Internship---Community-Impact_R-104110-2",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:werner.wd501.myworkdayjobs.com:JR23721",
+      "title": "Account Management Intern",
+      "org": "Werner Enterprises",
+      "url": "https://werner.wd501.myworkdayjobs.com/job/Omaha-NE/Account-Management-Intern_JR23721",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hpe.wd5.myworkdayjobs.com:1213059",
+      "title": "Account Operations Management Intern",
+      "org": "Juniper Networks",
+      "url": "https://hpe.wd5.myworkdayjobs.com/job/Spring-Texas-United-States-of-America/Account-Operations-Management-Intern_1213059",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hpe.wd5.myworkdayjobs.com:1213072",
+      "title": "Account Operations Management Intern.",
+      "org": "Juniper Networks",
+      "url": "https://hpe.wd5.myworkdayjobs.com/job/Spring-Texas-United-States-of-America/Account-Operations-Management-Intern_1213072",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:cir.wd108.myworkdayjobs.com:R-2025",
+      "title": "Advocacy & Supervision Intern",
+      "org": "Cambridge Investment Research",
+      "url": "https://cir.wd108.myworkdayjobs.com/job/Fairfield-IA/Advocacy---Supervision-Intern_R-2025-240",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:pg.wd5.myworkdayjobs.com:R000146320",
+      "title": "Brand Management Internship",
+      "org": "Procter Gamble",
+      "url": "https://pg.wd5.myworkdayjobs.com/job/Brussels/Brand-Management-Internship_R000146320",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:pg.wd5.myworkdayjobs.com:R000145988",
+      "title": "Brand Management Internship (m/f/d)",
+      "org": "Procter Gamble",
+      "url": "https://pg.wd5.myworkdayjobs.com/job/Schwalbach-Am-Taunus/Brand-Management-Internship--m-f-d-_R000145988",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:magna.wd3.myworkdayjobs.com:R00256547",
+      "title": "Co-op Student, Organizational Change Management",
+      "org": "Magna",
+      "url": "https://magna.wd3.myworkdayjobs.com/job/Aurora-Ontario-CA/Co-op-Student--Organizational-Change-Management_R00256547",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:tencent.wd1.myworkdayjobs.com:R108279",
+      "title": "Consumer Insights Intern",
+      "org": "Tencent",
+      "url": "https://tencent.wd1.myworkdayjobs.com/job/US-California-Los-Angeles/Consumer-Insights-Intern_R108279",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:utaustin.wd1.myworkdayjobs.com:00041237",
+      "title": "CRC Community Outreach Intern",
+      "org": "University Of Texas At Austin",
+      "url": "https://utaustin.wd1.myworkdayjobs.com/job/UT-MAIN-CAMPUS/CRC-Community-Outreach-Intern_R_00041237",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:bcbsla.wd1.myworkdayjobs.com:R12168",
+      "title": "CW Community Relations Intern (Spring 2027)",
+      "org": "Louisiana Blue",
+      "url": "https://bcbsla.wd1.myworkdayjobs.com/job/Corporate---Baton-Rouge-LA/CW-Community-Relations-Intern--Spring-2027-_R12168",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:disney.wd5.myworkdayjobs.com:10158805",
+      "title": "Disney Experiences (Disney Eats) Public Relations and Digital Communications Intern, Spring 2027",
+      "org": "Disney",
+      "url": "https://disney.wd5.myworkdayjobs.com/job/Bay-Lake-FL-USA/Disney-Experiences--Disney-Eats--Social-Media-and-Digital-Comms-Intern--Spring-2027_10158805-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:disney.wd5.myworkdayjobs.com:10157709",
+      "title": "Disney Public Relations/Communications Intern, Spring 2027",
+      "org": "Disney",
+      "url": "https://disney.wd5.myworkdayjobs.com/job/Celebration-FL-USA/Disney--Public-Relations-Communications-Intern--Spring-2027_10157709-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:disney.wd5.myworkdayjobs.com:10161154",
+      "title": "Disneyland Resort Labor Relations, Intern Spring 2027",
+      "org": "Disney",
+      "url": "https://disney.wd5.myworkdayjobs.com/job/Anaheim-CA-USA/Disneyland-Resort-Labor-Relations--Intern-Spring-2027_10161154",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100871",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Tampa-FL/Employee-Benefits-Intern_JR100871",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100874",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Cranston-RI/Employee-Benefits-Intern_JR100874",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100883",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Cranston-RI/Employee-Benefits-Intern_JR100883",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100884",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Greer-SC/Employee-Benefits-Intern_JR100884",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100885",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Winston-Salem-NC/Employee-Benefits-Intern_JR100885",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100886",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Cranston-RI/Employee-Benefits-Intern_JR100886",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100902",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Uniondale-NY/Employee-Benefits-Intern_JR100902",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100907",
+      "title": "Employee Benefits Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Shelton-CT/Employee-Benefits-Intern_JR100907",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:hilbgroup.wd5.myworkdayjobs.com:JR100893",
+      "title": "Employee Benefits Sales Intern",
+      "org": "Hilb Group",
+      "url": "https://hilbgroup.wd5.myworkdayjobs.com/job/Canton-MA/Employee-Benefits-Sales-Intern_JR100893",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:cenhud.wd5.myworkdayjobs.com:R2143",
+      "title": "Energy Policy & Regulation Intern",
+      "org": "Central Hudson",
+      "url": "https://cenhud.wd5.myworkdayjobs.com/job/Poughkeepsie/Energy-Policy---Regulation-Intern_R2143",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:travelers.wd5.myworkdayjobs.com:R-53348",
+      "title": "Enterprise Market Research - Marketing & Communications Intern",
+      "org": "Travelers",
+      "url": "https://travelers.wd5.myworkdayjobs.com/job/CT---Hartford/Enterprise-Market-Research---Marketing---Communications-Intern_R-53348-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ingredion.wd1.myworkdayjobs.com:Req-40257",
+      "title": "Global Talent Management Intern",
+      "org": "Ingredion",
+      "url": "https://ingredion.wd1.myworkdayjobs.com/job/Westchester-IL/Global-Talent-Management-Intern_Req-40257-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:oneok.wd1.myworkdayjobs.com:R8951",
+      "title": "Government Relations Intern",
+      "org": "Oneok",
+      "url": "https://oneok.wd1.myworkdayjobs.com/job/Bismarck-ND/Government-Relations-Intern_R8951",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:badgermeter.wd5.myworkdayjobs.com:4639",
+      "title": "HR Generalist Intern",
+      "org": "Badger Meter",
+      "url": "https://badgermeter.wd5.myworkdayjobs.com/job/US---WI---Milwaukee-HQ/HR-Generalist-Intern_4639",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:graco.wd501.myworkdayjobs.com:R0023528",
+      "title": "HR Operations Intern",
+      "org": "Graco",
+      "url": "https://graco.wd501.myworkdayjobs.com/job/Dayton-Minnesota-USA-French-Lake/HR-Operations-Intern_R0023528",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:swbc.wd1.myworkdayjobs.com:R0013983",
+      "title": "HR Staffing Intern (Onsite)",
+      "org": "SWBC",
+      "url": "https://swbc.wd1.myworkdayjobs.com/job/San-Antonio-TX/HR-Staffing-Intern_R0013983-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aep.wd1.myworkdayjobs.com:R20774",
+      "title": "HR/Talent Acquisition - Campus Intern",
+      "org": "American Electric Power",
+      "url": "https://aep.wd1.myworkdayjobs.com/job/Tulsa-OK/HR-Talent-Acquisition---Campus-Intern_R20774",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ryancompanies.wd5.myworkdayjobs.com:R",
+      "title": "Human Resource Intern",
+      "org": "Ryan Companies",
+      "url": "https://ryancompanies.wd5.myworkdayjobs.com/job/Minneapolis/Human-Resource-Intern_R-101938",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:snc.wd1.myworkdayjobs.com:R0031202",
+      "title": "Human Resource Intern",
+      "org": "Sierra Nevada Corporation",
+      "url": "https://snc.wd1.myworkdayjobs.com/job/Sparks-NV/Human-Resource-Intern_R0031202",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:livenation.wd503.myworkdayjobs.com:JR-93565",
+      "title": "Insomniac - Paid Spring Public Relations Intern",
+      "org": "Live Nation Entertainment",
+      "url": "https://livenation.wd503.myworkdayjobs.com/job/Calabasas-CA-USA/Insomniac---Paid-Spring-Public-Relations-Intern_JR-93565-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:midlandsb.wd1.myworkdayjobs.com:JR1465",
+      "title": "Intern - Community Banking and Commercial Lending",
+      "org": "Midland States Bank",
+      "url": "https://midlandsb.wd1.myworkdayjobs.com/job/Rockford-IL/Intern---Community-Banking-and-Commercial-Lending_JR1465",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:midlandsb.wd1.myworkdayjobs.com:JR1460",
+      "title": "Intern - HR - Talent Acquisition",
+      "org": "Midland States Bank",
+      "url": "https://midlandsb.wd1.myworkdayjobs.com/job/Effingham-IL/Intern---HR---Talent-Acquisition_JR1460",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:lplfinancial.wd1.myworkdayjobs.com:R",
+      "title": "Intern 2027 - Government Relations",
+      "org": "Lpl Financial Holdings",
+      "url": "https://lplfinancial.wd1.myworkdayjobs.com/job/Washington-DC/Intern-2027---Government-Relations_R-054560",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aba.wd1.myworkdayjobs.com:R626",
+      "title": "Intern, Bank Community Engagement",
+      "org": "American Bankers Association",
+      "url": "https://aba.wd1.myworkdayjobs.com/job/US-DC-Main-Office/Intern--Bank-Community-Engagement_R626",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aba.wd1.myworkdayjobs.com:R625",
+      "title": "Intern, Banking Policy and Economic Research",
+      "org": "American Bankers Association",
+      "url": "https://aba.wd1.myworkdayjobs.com/job/US-DC-Main-Office/Intern--Banking-Policy-and-Economic-Research_R625",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:myhrabc.wd5.myworkdayjobs.com:R2618961",
+      "title": "Intern, HR Talent Programs",
+      "org": "Cencora",
+      "url": "https://myhrabc.wd5.myworkdayjobs.com/job/USA--PA--Conshohocken--West-First/Intern--HR-Talent-Programs_R2618961-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:dairynet.wd1.myworkdayjobs.com:JR101072",
+      "title": "Intern, Leadership & Organizational Development (On-Site - La Crosse, WI)",
+      "org": "Dairyland Power Cooperative",
+      "url": "https://dairynet.wd1.myworkdayjobs.com/job/La-Crosse-Wisconsin/Intern--Leadership---Organizational-Development--On-Site---La-Crosse--WI-_JR101072",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aba.wd1.myworkdayjobs.com:R612",
+      "title": "Intern, Legal, Innovation Policy",
+      "org": "American Bankers Association",
+      "url": "https://aba.wd1.myworkdayjobs.com/job/US-DC-Main-Office/Intern--Legal--Innovation-Policy_R612",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aba.wd1.myworkdayjobs.com:R618",
+      "title": "Intern, Membership Communications & Outreach",
+      "org": "American Bankers Association",
+      "url": "https://aba.wd1.myworkdayjobs.com/job/US-DC-Main-Office/Intern--Membership-Communications---Outreach_R618",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aba.wd1.myworkdayjobs.com:R616",
+      "title": "Intern, Policy & Advocacy Operations",
+      "org": "American Bankers Association",
+      "url": "https://aba.wd1.myworkdayjobs.com/job/US-DC-Main-Office/Intern--Policy---Advocacy-Operations_R616",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:aba.wd1.myworkdayjobs.com:R615",
+      "title": "Intern, Workforce Excellence",
+      "org": "American Bankers Association",
+      "url": "https://aba.wd1.myworkdayjobs.com/job/US-DC-Main-Office/Intern--Workforce-Excellence_R615",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:pwc.wd3.myworkdayjobs.com:641881WD",
+      "title": "Internship - Consulting - Workforce Transformation - Talent Pool",
+      "org": "PWC",
+      "url": "https://pwc.wd3.myworkdayjobs.com/job/Jakarta/Internship---Consulting---Workforce-Transformation---Talent-Pool_641881WD-2",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:emcins.wd5.myworkdayjobs.com:R6603",
+      "title": "Learning, Culture & Inclusion Intern",
+      "org": "Emc Insurance",
+      "url": "https://emcins.wd5.myworkdayjobs.com/job/Iowa/Learning--Culture---Inclusion-Intern_R6603-2",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ttc.wd1.myworkdayjobs.com:JR17610",
+      "title": "Materials Management Intern - The Toro Company",
+      "org": "The Toro Company",
+      "url": "https://ttc.wd1.myworkdayjobs.com/job/Shakopee-MN/Materials-Management-Intern---The-Toro-Company_JR17610",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:brunswick.wd1.myworkdayjobs.com:JR",
+      "title": "Mercury Marine: Category Content Management Intern",
+      "org": "Brunswick",
+      "url": "https://brunswick.wd1.myworkdayjobs.com/job/Fond-du-Lac-WI/Mercury-Marine--Category-Content-Management-Intern_JR-051501",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:werner.wd501.myworkdayjobs.com:JR23730",
+      "title": "One-Way Operations Management Intern",
+      "org": "Werner Enterprises",
+      "url": "https://werner.wd501.myworkdayjobs.com/job/Omaha-NE/One-Way-Operations-Management-Intern_JR23730",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:heidelbergmaterials.wd3.myworkdayjobs.com:JR10018151",
+      "title": "Operations Management Intern",
+      "org": "Heidelberg Materials",
+      "url": "https://heidelbergmaterials.wd3.myworkdayjobs.com/job/Richmond-TX/Operations-Management-Intern_JR10018151",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ttc.wd1.myworkdayjobs.com:JR17598",
+      "title": "Operations Management Intern - The Toro Company",
+      "org": "The Toro Company",
+      "url": "https://ttc.wd1.myworkdayjobs.com/job/Tomah-WI/Operations-Management-Intern---The-Toro-Company_JR17598",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:lighting.wd3.myworkdayjobs.com:365421",
+      "title": "Order Management Intern",
+      "org": "Signify",
+      "url": "https://lighting.wd3.myworkdayjobs.com/job/Lima/Order-Management-Intern_365421",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:axos.wd5.myworkdayjobs.com:JR5587",
+      "title": "Program Management Intern",
+      "org": "Axos Bank",
+      "url": "https://axos.wd5.myworkdayjobs.com/job/HQ---San-Diego-CA/Program-Management-Intern_JR5587",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:borgwarner.wd5.myworkdayjobs.com:R2026",
+      "title": "Program Management Intern",
+      "org": "Borgwarner",
+      "url": "https://borgwarner.wd5.myworkdayjobs.com/job/Arden---North-Carolina---USA/Program-Management-Intern_R2026-4004",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:oshkoshcorporation.wd5.myworkdayjobs.com:R50253",
+      "title": "Program Management Intern",
+      "org": "Oshkosh",
+      "url": "https://oshkoshcorporation.wd5.myworkdayjobs.com/job/Oshkosh-Wisconsin-United-States/Program-Management-Intern_R50253",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:slihrms.wd3.myworkdayjobs.com:R",
+      "title": "Resilience and Emergency Management Intern - Spring 2027",
+      "org": "Atkinsr Alis",
+      "url": "https://slihrms.wd3.myworkdayjobs.com/job/USCALos-Angeles801-S-Grand-Avenue/Resilience-and-Emergency-Management-Intern---Spring-2027_R-170819",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ttc.wd1.myworkdayjobs.com:JR17639",
+      "title": "Social Community Intern - The Toro Company",
+      "org": "The Toro Company",
+      "url": "https://ttc.wd1.myworkdayjobs.com/job/Bloomington-MN/Social-Community-Intern---The-Toro-Company_JR17639",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:vrtx.wd501.myworkdayjobs.com:REQ-31104",
+      "title": "Spring 2027 Co-op, Business Process Excellence, HR Transformation",
+      "org": "Vertex",
+      "url": "https://vrtx.wd501.myworkdayjobs.com/job/Boston-MA/Spring-2027-Co-op-Business-Process-Excellence--HR-Transformation_REQ-31104-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:standoutforgood.wd12.myworkdayjobs.com:SOSJ12742",
+      "title": "Spring 2027 Talent Acquisition Intern",
+      "org": "Altar D State",
+      "url": "https://standoutforgood.wd12.myworkdayjobs.com/job/Knoxville-TN/Spring-2027-Talent-Acquisition-Intern_SOSJ12742",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:ameren.wd1.myworkdayjobs.com:033898",
+      "title": "Sustainability, Community and Inclusive Engagement Co-Op",
+      "org": "Ameren",
+      "url": "https://ameren.wd1.myworkdayjobs.com/job/St-Louis-MO/Sustainability--Community-and-Inclusive-Engagement-Co-Op_033898-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:quickenloans.wd5.myworkdayjobs.com:R-085101",
+      "title": "Talent & Inclusion Administrative Intern - Winter 2027",
+      "org": "Rocket Companies",
+      "url": "https://quickenloans.wd5.myworkdayjobs.com/job/Detroit-MI/Talent---Inclusion-Administrative-Intern---Winter-2027_R-085101-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:alliedsolutions.wd501.myworkdayjobs.com:R",
+      "title": "Talent Management Intern",
+      "org": "Allied Solutions",
+      "url": "https://alliedsolutions.wd501.myworkdayjobs.com/job/Carmel-IN/Talent-Management-Intern_R-011091",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:werner.wd501.myworkdayjobs.com:JR23734",
+      "title": "Transportation Management Intern",
+      "org": "Werner Enterprises",
+      "url": "https://werner.wd501.myworkdayjobs.com/job/Omaha-NE/Transportation-Management-Intern_JR23734",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:prologis.wd5.myworkdayjobs.com:R6832",
+      "title": "Treasury Cash Management Intern",
+      "org": "Prologis",
+      "url": "https://prologis.wd5.myworkdayjobs.com/job/Denver-Colorado/Treasury-Cash-Management-Intern_R6832",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:disney.wd5.myworkdayjobs.com:10160354",
+      "title": "Walt Disney World Government Relations Intern, Spring 2027",
+      "org": "Disney",
+      "url": "https://disney.wd5.myworkdayjobs.com/job/Lake-Buena-Vista-FL-USA/Walt-Disney-World-Government-Relations-Intern--Spring-2027_10160354-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:disney.wd5.myworkdayjobs.com:10159002",
+      "title": "Walt Disney World Labor Relations Intern, Spring 2027",
+      "org": "Disney",
+      "url": "https://disney.wd5.myworkdayjobs.com/job/Lake-Buena-Vista-FL-USA/Walt-Disney-World-Labor-Relations-Intern--Spring-2027_10159002-1",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    },
+    {
+      "id": "workday:zekelman.wd12.myworkdayjobs.com:JR002888",
+      "title": "Workforce Development Intern",
+      "org": "Zekelman Industries",
+      "url": "https://zekelman.wd12.myworkdayjobs.com/job/Chicago-IL---Headquarters/Workforce-Development-Intern_JR002888",
+      "deadline": null,
+      "closedAt": "2026-11-07T00:53:50.645Z",
+      "reason": "Source returned HTTP 404"
+    }
+  ]
+}

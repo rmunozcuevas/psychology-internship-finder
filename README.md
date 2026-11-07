@@ -1,6 +1,10 @@
 # NinerPath — psychology & sociology internship finder
 
-A public, no-login directory for UNC Charlotte undergraduates and other psychology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
+A public, no-login directory for UNC Charlotte undergraduates and other psychology and sociology students. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
+
+## Student workspace
+
+See [the completed three-phase roadmap](ROADMAP.md) for source verification, undergraduate screening, the redesigned cards, career preferences, expanded search, the application tracker/CSV export, in-site updates, and explainable recommendations. Preferences and tracker data stay on the current browser; resumes are still temporary and local. Updates appear when the website is open, with no email or background push service.
 
 ## Resume requirements review
 
@@ -12,21 +16,21 @@ The checker compares simple explicit GPA thresholds, major mentions, enrollment 
 
 The [blue sociology page](https://rmunozcuevas.github.io/psychology-sociology-internship-finder/sociology.html) has its own feed, career filters, resume skill vocabulary and browser-saved shortlist. Switch fields using the Psychology / Sociology links on either page. Internships appear first, followed by screened undergraduate experience roles. Research/evaluation, policy/advocacy, community services and HR/organizations are separate from broader management internships.
 
-The initial snapshot contains 277 focused internship/student-placement candidates, 485 broader management candidates and 6 entry-level roles. Of the internship candidates, 112 came from retained employer observations and 650 from the fresh community index; community candidates require checking the employer posting. Counts are generated, not hardcoded. Titles alone do not guarantee major eligibility or Summer 2027 availability.
+The November 6 snapshot contains 364 focused internship/student-placement candidates, 619 broader management candidates and 13 entry-level roles. Of the internship candidates, 430 came from employer observations and 553 from the community index. Counts are generated, not hardcoded. Titles alone do not guarantee major eligibility or Summer 2027 availability.
 
 The existing noon `America/New_York` refresh now screens each raw posting for both disciplines and commits both feeds before deployment. `node scripts/refresh-sociology.mjs` can seed/rebuild sociology from retained employer observations plus a fresh community index; the regular daily collector has broader employer coverage. No extra login or API key is needed.
 
 ## What the counts mean
 
-The November 6, 2026 snapshot contains **690 internship/student-placement candidates**:
+The November 6, 2026 snapshot contains **993 internship/student-placement candidates**:
 
-- **233 focused opportunities:** clinical/community support, research, HR/I/O and related experience.
-- **457 broader management internships:** displayed in their own section, with separate pagination.
-- **246 explicitly mention Summer 2027** across both sections. Use the season filter for Summer, Spring or unspecified dates.
+- **373 focused opportunities:** clinical/community support, research, HR/I/O and related experience.
+- **620 broader management internships:** displayed in their own section, with separate pagination.
+- **395 explicitly mention Summer 2027** across both sections. Use the season filter for Summer, Spring or unspecified dates.
 
-Of these, **141 came from employer feeds** and **549 came from a community index and require employer review**. A community summary can omit qualifications, school restrictions or a closure. Its provenance is visible on the card; it is not represented as employer-verified availability. Counts are generated from collected records and change as sources change. The separate entry-level count does not inflate the internship count.
+Of these, **447 came from employer feeds** and **546 came from a community index and require employer review**. Page checks now remove confirmed closures and label matching structured postings, but a community summary can still omit qualifications or school restrictions. Its provenance is visible on the card; it is not represented as employer-verified availability. Counts are generated from collected records and change as sources change. The separate entry-level count does not inflate the internship count.
 
-The scan recorded **2,366 working employer sources** and **55 unavailable sources**. `source-health.json` contains individual results. The discovery pool contains 2,634 candidate board addresses; a configured address does not count as a successful source read.
+The scan recorded **2,557 working employer sources** and **112 unavailable sources**. `source-health.json` contains individual results. The discovery pool contains 2,634 candidate board addresses; a configured address does not count as a successful source read.
 
 ## Browse and run locally
 

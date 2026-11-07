@@ -1,3 +1,4 @@
+import {deadlineTime} from '../listing-quality.mjs';
 import {plain} from './relevance.mjs';
 import {opportunityKind,careerPath} from '../eligibility.mjs';
 import {postingKey} from './posting-key.mjs';
@@ -21,7 +22,7 @@ export function sociologyRecord(row,rules){
  const type=sociologyRelevance(title,description,rules);if(!type)return null;
  const kind=opportunityKind(title,description,rules);
  if(!kind||!type||!/^https:\/\//.test(row.url||''))return null;
- if(row.deadline&&Date.parse(String(row.deadline).slice(0,10)+'T23:59:59Z')<Date.now())return null;
+ if(deadlineTime(row.deadline)!==null&&deadlineTime(row.deadline)<Date.now())return null;
  const text=`${title} ${description}`;
  const explicitSeason=text.match(/\b(summer|spring|fall|winter)\s*2027\b/i);
  const season=row.season|| (explicitSeason?explicitSeason[1][0].toUpperCase()+explicitSeason[1].slice(1).toLowerCase()+' 2027':'Season not specified');
