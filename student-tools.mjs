@@ -17,6 +17,44 @@ export function payType(role){
  return 'unknown';
 }
 export const STATE_NAMES={AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
+export const CITY_AREAS=[
+ ['new-york','New York City','NY',['New York','NYC','Manhattan','Brooklyn','Queens','Bronx','Staten Island']],
+ ['los-angeles','Los Angeles','CA',['LA','L.A.']],['chicago','Chicago','IL',[]],['houston','Houston','TX',[]],['phoenix','Phoenix','AZ',[]],['philadelphia','Philadelphia','PA',['Philly']],
+ ['san-antonio','San Antonio','TX',[]],['san-diego','San Diego','CA',[]],['dallas','Dallas','TX',[]],['jacksonville','Jacksonville','FL',[]],['fort-worth','Fort Worth','TX',['Ft Worth']],
+ ['austin','Austin','TX',[]],['san-jose','San Jose','CA',[]],['columbus','Columbus','OH',[]],['charlotte','Charlotte','NC',[]],['indianapolis','Indianapolis','IN',['Indy']],
+ ['san-francisco','San Francisco','CA',['SF','San Fran']],['seattle','Seattle','WA',[]],['denver','Denver','CO',[]],['boston','Boston','MA',[]],['washington-dc','Washington','DC',['Washington DC','D.C.','DC','District of Columbia']],
+ ['nashville','Nashville','TN',[]],['oklahoma-city','Oklahoma City','OK',['OKC']],['el-paso','El Paso','TX',[]],['las-vegas','Las Vegas','NV',['Vegas']],['baltimore','Baltimore','MD',[]],
+ ['portland-or','Portland','OR',[]],['louisville','Louisville','KY',[]],['memphis','Memphis','TN',[]],['detroit','Detroit','MI',[]],['milwaukee','Milwaukee','WI',[]],['albuquerque','Albuquerque','NM',[]],
+ ['tucson','Tucson','AZ',[]],['fresno','Fresno','CA',[]],['sacramento','Sacramento','CA',[]],['atlanta','Atlanta','GA',['ATL']],['kansas-city','Kansas City','MO',[]],['colorado-springs','Colorado Springs','CO',[]],
+ ['raleigh','Raleigh','NC',[]],['durham','Durham','NC',[]],['greensboro','Greensboro','NC',[]],['miami','Miami','FL',[]],['tampa','Tampa','FL',[]],['orlando','Orlando','FL',[]],
+ ['minneapolis','Minneapolis','MN',[]],['st-paul','Saint Paul','MN',['St Paul']],['cleveland','Cleveland','OH',[]],['cincinnati','Cincinnati','OH',[]],['pittsburgh','Pittsburgh','PA',[]],
+ ['st-louis','Saint Louis','MO',['St Louis']],['salt-lake-city','Salt Lake City','UT',['Salt Lake']],['richmond','Richmond','VA',[]],['newark','Newark','NJ',[]],['providence','Providence','RI',[]],['oakland','Oakland','CA',[]],['cambridge','Cambridge','MA',[]]
+].map(([id,name,state,aliases])=>({id,name,state,aliases,label:name+', '+state}));
+const cityKey=value=>norm(value).replace(/[^a-z0-9]+/g,' ').trim();
+const cityLookup=new Map();
+for(const city of CITY_AREAS)for(const name of [city.name,...city.aliases])for(const value of [name,name+' '+city.state,name+' '+STATE_NAMES[city.state]])cityLookup.set(cityKey(value),city);
+// Washington alone can mean the state, so only explicit D.C. variants select the city.
+cityLookup.delete('washington');
+export function findCitySearch(value){return cityLookup.get(cityKey(value))||null;}
+export function matchesCity(location,city){
+ const aliases=[city.name,...city.aliases].map(cityKey);
+ return String(location||'').split(/;|\||\s\/\s/).some(part=>{
+  const cityPart=cityKey(part.split(',')[0].replace(/\((?:remote|hybrid|on.?site)[^)]*\)/gi,''));
+  const named=aliases.some(alias=>cityPart===alias||cityPart.startsWith(alias+' '+norm(STATE_NAMES[city.state]))||cityPart.startsWith(alias+' ')&&/^(?:area|metropolitan area|region|[a-z]{2}(?: |$))/.test(cityPart.slice(alias.length+1)));
+  if(!named)return false;
+  if(matchesState(part,city.state))return true;
+  // Missing state data may match a unique named city, but never override a stated different state.
+  const stated=Object.entries(STATE_NAMES).some(([code])=>matchesState(part,code));
+  return !stated&&!['portland-or','washington-dc','kansas-city'].includes(city.id);
+ });
+}
+const cityMatchesCache=new Map();
+function citiesAtLocation(location){const key=String(location||'');if(cityMatchesCache.has(key))return cityMatchesCache.get(key);const cities=CITY_AREAS.filter(city=>matchesCity(key,city));if(cityMatchesCache.size>=3000)cityMatchesCache.delete(cityMatchesCache.keys().next().value);cityMatchesCache.set(key,cities);return cities;}
+export function cityCoverage(roles,now=Date.now()){
+ const counts=new Map(CITY_AREAS.map(city=>[city.id,{...city,internships:0,experience:0}]));
+ for(const role of roles){if(listingStatus(role,now).state==='closed')continue;for(const city of citiesAtLocation(role.location||role.place)){const row=counts.get(city.id);if(role.opportunityKind==='internship')row.internships++;else if(role.opportunityKind==='entry-level')row.experience++;}}
+ return [...counts.values()];
+}
 export function matchesState(location,state){
  if(!state)return true;const name=STATE_NAMES[state];if(!name)return false;
  const text=String(location||'').replace(/\bWashington\s*,?\s*(?:DC|D\.C\.|District of Columbia)\b/gi,'District of Columbia');
@@ -37,6 +75,7 @@ function locationSegments(location){
 }
 export function matchesLocation(location,query){
  if(!String(query||'').trim())return true;
+ const city=findCitySearch(query);if(city)return matchesCity(location,city);
  const code=String(query).trim().toUpperCase();if(/^[A-Z]{2}$/.test(code)&&STATE_NAMES[code])return matchesState(location,code);
  const tokens=norm(query).replace(/[^a-z0-9\s]/g,' ').trim().split(/\s+/).filter(Boolean);
  if(!tokens.length)return false;
@@ -50,7 +89,9 @@ export function sourcePostedDate(role){
 }
 export function matchesAdvanced(role,filters,now=Date.now()){
  const location=role.location||role.place||'',description=role.description||role.desc||'';
- if(filters.query&&!matchesQuery(`${role.title} ${role.org} ${role.careerPath} ${(role.skills||[]).join(' ')} ${description} ${locationSegments(location).join(' ')}`,filters.query))return false;
+ const queryCity=filters.query?findCitySearch(filters.query):null;
+ if(queryCity&&!matchesCity(location,queryCity))return false;
+ if(filters.query&&!queryCity&&!matchesQuery(`${role.title} ${role.org} ${role.careerPath} ${(role.skills||[]).join(' ')} ${description} ${locationSegments(location).join(' ')} ${citiesAtLocation(location).flatMap(city=>[city.name,...city.aliases]).join(' ')}`,filters.query))return false;
  if(filters.location&&!matchesLocation(location,filters.location))return false;
  if(filters.region&&!matchesState(location,filters.region))return false;
  if(filters.mode&&filters.mode!=='all'&&workMode(role)!==filters.mode)return false;

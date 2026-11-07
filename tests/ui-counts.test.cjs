@@ -143,4 +143,11 @@ test('Seattle searches show both sections and reveal the matching entry-level ro
  // Typing Seattle into the main keyword field must find every Seattle-location role too.
  vm.runInContext("state.location='';state.query='Seattle';render()",context);
  for(const role of active)assert.ok(vm.runInContext('filteredRoles().some(r=>r.id===wantedId)',Object.assign(context,{wantedId:role.id}))||role.careerPath==='Broader management / leadership');
+ assert.match(element('#city-search-options').innerHTML,/Seattle, WA/);
+ assert.match(element('#popular-city-searches').innerHTML,/data-search-city="seattle"/);
+ vm.runInContext("state.region='NC'",context);
+ handlers.get('#city-directory:click')({target:{closest(selector){return selector==='[data-search-city]'?{dataset:{searchCity:'seattle'}}:null}}});
+ assert.equal(vm.runInContext('state.location',context),'Seattle, WA');
+ assert.equal(vm.runInContext('state.query',context),'');
+ assert.equal(vm.runInContext('state.region',context),'');
 });

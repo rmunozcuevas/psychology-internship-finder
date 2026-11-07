@@ -95,3 +95,21 @@ test('city searches include location-only matches and normalize state names with
  assert.ok(!matchesLocation('Washington, DC','WA'));assert.ok(matchesLocation('Raleigh, North Carolina','Raleigh NC'));assert.ok(matchesLocation('Raleigh, NC','Raleigh North Carolina'));
  assert.ok(matchesQuery('Policy Intern Seattle Washington','Seattle -Boston'));
 });
+
+test('major-city aliases work in either field and city counts do not inflate multi-location roles',async()=>{
+ const {CITY_AREAS,cityCoverage,findCitySearch,matchesLocation}=await import('../student-tools.mjs');
+ assert.ok(CITY_AREAS.length>=50);
+ for(const [location,query] of [['New York, New York','NYC'],['Brooklyn, NY','New York City'],['Los Angeles, CA','LA'],['San Francisco, California','SF'],['Washington, District of Columbia','DC']]){
+  assert.ok(matchesAdvanced({...role,location},{query},now),query+' keyword');
+  assert.ok(matchesLocation(location,query),query+' location');
+ }
+ assert.equal(findCitySearch('Washington'),null);
+ assert.ok(!matchesLocation('Albany, New York','NYC'));
+ assert.ok(!matchesLocation('South San Francisco, CA','SF'));
+ assert.ok(!matchesAdvanced({...role,location:'Boston, MA',description:'Our headquarters is in New York City.'},{query:'NYC'},now));
+ const counts=cityCoverage([{...role,location:'New York, NY; Brooklyn, NY; Seattle, WA'},{...role,id:'entry',location:'Seattle, Washington',opportunityKind:'entry-level'},{...role,id:'closed',location:'Seattle, WA',deadline:'2020-01-01'}],now);
+ assert.equal(counts.find(c=>c.id==='new-york').internships,1);
+ assert.equal(counts.find(c=>c.id==='seattle').internships,1);
+ assert.equal(counts.find(c=>c.id==='seattle').experience,1);
+ assert.equal(counts.find(c=>c.id==='atlanta').internships,0);
+});

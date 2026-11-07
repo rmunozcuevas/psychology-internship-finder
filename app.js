@@ -1,7 +1,7 @@
 import { opportunityKind, careerPath } from './eligibility.mjs';
 import { assessRole, skillEvidence, resumeFacts } from './resume-fit.mjs';
 import { listingStatus, studentEligibilityNotes } from './listing-quality.mjs';
-import { TRACKER_STATUSES, STATE_NAMES, matchesAdvanced, relevance, trackerCSV, updateApplication, alertCandidates, sourcePostedDate, workMode, payType } from './student-tools.mjs';
+import { CITY_AREAS, findCitySearch, cityCoverage, TRACKER_STATUSES, STATE_NAMES, matchesAdvanced, relevance, trackerCSV, updateApplication, alertCandidates, sourcePostedDate, workMode, payType } from './student-tools.mjs';
 const isSociology=document.body?.dataset?.discipline==='sociology';
 const PROFILE=isSociology?{primaryType:'sociology',rulesUrl:'./sociology-rules.json',feedUrl:'./sociology-opportunities.json',focusedPrefix:'Sociology research, policy & community'}:{primaryType:'psychology',rulesUrl:'./opportunity-rules.json',feedUrl:'./opportunities.json',focusedPrefix:'Clinical, research & HR/I/O'};
 function readLocal(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return value&&typeof value==='object'?value:fallback;}catch{return fallback}}
@@ -14,7 +14,7 @@ if(!Array.isArray(preferences.paths))preferences.paths=[];
 let applications=readLocal(applicationsKey,{}),alertSettings=readLocal(alertsKey,{baseline:null,read:[],scope:'shortlist',days:7});
 if(!Array.isArray(alertSettings.read))alertSettings.read=[];
 if(!Array.isArray(alertSettings.baseline))alertSettings.baseline=null;
-let activeAlerts=[],alertLimit=20,trackerFilter='all',lastFeedAttempt=0;
+let activeAlerts=[],alertLimit=20,trackerFilter='all',lastFeedAttempt=0,cityCacheFeed=null;
 const savedStorageKey=isSociology?'fieldnote-saved-sociology':'fieldnote-saved';
 let eligibilityRules=null;let programEligibility={};let feedCoverage=null;
 let storedSaved=[];try{storedSaved=JSON.parse(localStorage.getItem(savedStorageKey)||'[]')}catch{}
@@ -69,6 +69,21 @@ function sortRoles(rows){
  return rows;
 }
 function filteredRoles(){return sortRoles(allRoles().filter(o=>o.careerPath!=='Broader management / leadership').filter(o=>state.season==='all'||o.duration===state.season).filter(o=>state.path==='all'||o.careerPath===state.path).filter(o=>state.kind==='all'||o.opportunityKind===state.kind).filter(o=>state.category==='all'||o.type===state.category).filter(o=>matchesAdvanced(o,state)))}
+function renderCitySearch(){
+ if(!liveFeedLoaded||cityCacheFeed===liveRoles)return;cityCacheFeed=liveRoles;
+ const cities=cityCoverage(liveRoles),byId=new Map(cities.map(city=>[city.id,city]));
+ $('#city-search-options').innerHTML=cities.map(city=>`<option value="${esc(city.label)}">${city.internships} internships · ${city.experience} entry-level</option>`).join('');
+ const card=city=>`<button type="button" class="city-search-button" data-search-city="${esc(city.id)}"><span>${esc(city.name)}<small>${esc(city.state)}</small></span><b>${city.internships}</b><small>${city.internships===1?'internship':'internships'} · ${city.experience} experience</small></button>`;
+ $('#popular-city-searches').innerHTML=['charlotte','seattle','new-york','washington-dc','chicago','los-angeles','boston','san-francisco'].map(id=>card(byId.get(id))).join('');
+ $('#all-city-searches').innerHTML=cities.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(card).join('');
+ $('#city-coverage-label').textContent=`${cities.length} city searches · counts include both internship sections, before your filters. A multi-location role can appear under more than one city. Zero means no current matches in this feed.`;
+}
+$('#city-directory').addEventListener('click',e=>{const button=e.target.closest('[data-search-city]');if(!button)return;const city=CITY_AREAS.find(value=>value.id===button.dataset.searchCity);if(!city)return;
+ if(findCitySearch(state.query)){state.query='';$('#search-input').value='';}
+ state.location=city.label;$('#location-input').value=city.label;
+ if(state.region&&state.region!==city.state){state.region='';$('#region-filter').value='';toast('State filter cleared for '+city.label+'.');}
+ state.page=1;state.broadPage=1;render();$('#search-summary').scrollIntoView({behavior:'smooth',block:'center'});
+});
 function renderSearchSummary(focused,broader){
  const active=Boolean(state.query||state.location||state.path!=='all'||state.category!=='all'||state.season!=='all'||state.region||state.mode!=='all'||state.compensation!=='all'||state.postedDays!=='all'||state.trusted||state.kind==='entry-level');
  const box=$('#search-summary');box.classList.toggle('hidden',!active||!liveFeedLoaded);if(!active||!liveFeedLoaded)return;
@@ -125,6 +140,7 @@ function roleCard(o){return `
         </div>
       </article>`;}
 function render() {
+  renderCitySearch();
   const rows = filteredRoles();
   const pageCount=Math.max(1,Math.ceil(rows.length/state.pageSize));state.page=Math.min(state.page,pageCount);const visibleRows=rows.slice((state.page-1)*state.pageSize,state.page*state.pageSize);
   const sourceSet = liveFeedLoaded;
