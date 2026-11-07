@@ -116,3 +116,31 @@ test('preferences, advanced filters, shared tracker and new-listing inbox work t
  assert.equal(JSON.parse(storage.get('ninerpath-applications-v1')).b.notes,'Submitted application');
  assert.ok([...storage.values()].every(value=>!value.includes('resumeText')));
 });
+
+test('Seattle searches show both sections and reveal the matching entry-level role without clearing location',async()=>{
+ const elements=new Map(),handlers=new Map();
+ const element=id=>{if(!elements.has(id))elements.set(id,{value:'',checked:false,textContent:'',innerHTML:'',dataset:{},classList:{toggle(){},remove(){},add(){},contains(){return false}},setAttribute(){},addEventListener(name,handler){handlers.set(id+':'+name,handler)},querySelector(){return element(id+' span')},scrollIntoView(){}});return elements.get(id)};
+ const context={...await dependencies,console,localStorage:{getItem(){return null}},document:{body:{dataset:{}},querySelector:element,querySelectorAll(){return []},addEventListener(){}},location:{hash:''},window:{addEventListener(){}},fetch(){return new Promise(()=>{})},setTimeout,clearTimeout};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('app.js','utf8').replace(/^import .*\n/gm,''),context);
+ const base={org:'Example',skills:[],description:'Undergraduate experience.',url:'https://example.org/job'};
+ const data={roles:[{...base,id:'focused-seattle',title:'Talent Acquisition Intern',type:'adjacent',careerPath:'I/O psychology / workplace',opportunityKind:'internship',location:'Seattle, Washington, United States'},{...base,id:'broader-seattle',title:'Management Intern',type:'broader',careerPath:'Broader management / leadership',opportunityKind:'internship',location:'Seattle, WA'},{...base,id:'entry-seattle',title:'Behavior Technician',type:'psychology',careerPath:'Clinical / pre-therapy',opportunityKind:'entry-level',location:'Seattle, Washington'},{...base,id:'boston',title:'HR Intern',type:'adjacent',careerPath:'I/O psychology / workplace',opportunityKind:'internship',location:'Boston, MA'}]};
+ context.sampleRoles=data.roles;vm.runInContext('liveRoles=sampleRoles;liveFeedLoaded=true;',context);
+ handlers.get('#location-input:input')({target:{value:'Seattle'}});
+ const active=data.roles.filter(r=>context.listingStatus(r).state!=='closed'&&context.matchesLocation(r.location,'Seattle'));
+ const interns=active.filter(r=>r.opportunityKind==='internship'),focused=interns.filter(r=>r.careerPath!=='Broader management / leadership'),broader=interns.filter(r=>r.careerPath==='Broader management / leadership');
+ const entry=active.filter(r=>r.opportunityKind==='entry-level');
+ assert.ok(interns.length>0);assert.ok(entry.length>0);
+ assert.equal(Number(element('#result-count').textContent),focused.length);
+ assert.equal(Number(element('#broader-count').textContent),broader.length);
+ assert.match(element('#search-summary').innerHTML,new RegExp(interns.length+' matches across both sections'));
+ assert.match(element('#search-summary').innerHTML,/data-include-entry/);
+ assert.match(element('#search-summary').innerHTML,/Seattle/);
+ handlers.get('#search-summary:click')({target:{closest(selector){return selector==='[data-include-entry]'?{}:null}}});
+ assert.equal(vm.runInContext('state.location',context),'Seattle');
+ assert.equal(Number(element('#result-count').textContent),focused.length+entry.length);
+ handlers.get('#location-input:input')({target:{value:'Seattle, WA'}});
+ assert.equal(Number(element('#result-count').textContent),focused.length+entry.length);
+ // Typing Seattle into the main keyword field must find every Seattle-location role too.
+ vm.runInContext("state.location='';state.query='Seattle';render()",context);
+ for(const role of active)assert.ok(vm.runInContext('filteredRoles().some(r=>r.id===wantedId)',Object.assign(context,{wantedId:role.id}))||role.careerPath==='Broader management / leadership');
+});

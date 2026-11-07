@@ -81,3 +81,17 @@ test('qualification exceptions do not leak between sentences',async()=>{
  assert.equal(opportunityKind('HR Intern',"Must be enrolled in a master's or bachelor's program.",rules),'internship');
  assert.equal(opportunityKind('HR Intern',"A bachelor's background is useful. Must be enrolled in a doctoral program.",rules),null);
 });
+
+test('city searches include location-only matches and normalize state names without mixing separate locations',async()=>{
+ const {matchesLocation}=await import('../student-tools.mjs');
+ const seattle={...role,title:'Talent Acquisition Intern',description:'Undergraduate recruiting experience.',location:'Chicago, Illinois; Seattle, Washington, United States'};
+ assert.ok(matchesAdvanced(seattle,{query:'Seattle'},now));
+ assert.ok(matchesAdvanced(seattle,{location:'Seattle, WA'},now));
+ assert.ok(matchesLocation('Seattle, WA','Seattle Washington'));
+ assert.ok(matchesLocation('Seattle, Washington','seattle wa'));
+ assert.ok(!matchesLocation('Boston, Massachusetts; Seattle, Washington','Boston WA'));
+ assert.ok(!matchesLocation('Boston, Massachusetts','Seattle'));
+ assert.ok(!matchesState('Washington, DC','WA'));assert.ok(matchesState('Washington, DC','DC'));
+ assert.ok(!matchesLocation('Washington, DC','WA'));assert.ok(matchesLocation('Raleigh, North Carolina','Raleigh NC'));assert.ok(matchesLocation('Raleigh, NC','Raleigh North Carolina'));
+ assert.ok(matchesQuery('Policy Intern Seattle Washington','Seattle -Boston'));
+});

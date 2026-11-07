@@ -19,7 +19,28 @@ export function payType(role){
 export const STATE_NAMES={AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 export function matchesState(location,state){
  if(!state)return true;const name=STATE_NAMES[state];if(!name)return false;
- return norm(location).includes(norm(name))||new RegExp(`(?:^|[,;/\\s])${state}(?:$|[,;/\\s])`).test(location||'');
+ const text=String(location||'').replace(/\bWashington\s*,?\s*(?:DC|D\.C\.|District of Columbia)\b/gi,'District of Columbia');
+ return norm(text).includes(norm(name))||new RegExp(`(?:^|[,;/\\s])${state}(?:$|[,;/\\s])`).test(text);
+}
+const stateCodesByName=new Map(Object.entries(STATE_NAMES).map(([code,name])=>[name.toLowerCase(),code]));
+const stateNamePattern=new RegExp(`\\b(?:${Object.values(STATE_NAMES).join('|')})\\b`,'gi');
+const locationCache=new Map();
+function locationSegments(location){
+ const raw=String(location||'');if(locationCache.has(raw))return locationCache.get(raw);
+ const segments=raw.split(/;|\||\s\/\s/).map(part=>{
+  const text=part.replace(/\bWashington\s*,?\s*(?:DC|D\.C\.|District of Columbia)\b/gi,'District of Columbia');
+  const names=text.replace(/\b[A-Z]{2}\b/g,code=>STATE_NAMES[code]||code);
+  const codes=[...text.matchAll(stateNamePattern)].map(match=>stateCodesByName.get(match[0].toLowerCase())).join(' ');
+  return norm(part+' '+names+' '+codes).replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+ });
+ if(locationCache.size>=3000)locationCache.delete(locationCache.keys().next().value);locationCache.set(raw,segments);return segments;
+}
+export function matchesLocation(location,query){
+ if(!String(query||'').trim())return true;
+ const code=String(query).trim().toUpperCase();if(/^[A-Z]{2}$/.test(code)&&STATE_NAMES[code])return matchesState(location,code);
+ const tokens=norm(query).replace(/[^a-z0-9\s]/g,' ').trim().split(/\s+/).filter(Boolean);
+ if(!tokens.length)return false;
+ return locationSegments(location).some(segment=>tokens.every(token=>segment.includes(token)));
 }
 export function sourcePostedDate(role){
  if(role.source==='Greenhouse'&&!role.dateUpdated)return null;
@@ -29,8 +50,8 @@ export function sourcePostedDate(role){
 }
 export function matchesAdvanced(role,filters,now=Date.now()){
  const location=role.location||role.place||'',description=role.description||role.desc||'';
- if(!matchesQuery(`${role.title} ${role.org} ${role.careerPath} ${(role.skills||[]).join(' ')} ${description}`,filters.query))return false;
- if(filters.location&&!norm(location).includes(norm(filters.location)))return false;
+ if(filters.query&&!matchesQuery(`${role.title} ${role.org} ${role.careerPath} ${(role.skills||[]).join(' ')} ${description} ${locationSegments(location).join(' ')}`,filters.query))return false;
+ if(filters.location&&!matchesLocation(location,filters.location))return false;
  if(filters.region&&!matchesState(location,filters.region))return false;
  if(filters.mode&&filters.mode!=='all'&&workMode(role)!==filters.mode)return false;
  if(filters.compensation&&filters.compensation!=='all'&&payType({...role,description})!==filters.compensation)return false;
