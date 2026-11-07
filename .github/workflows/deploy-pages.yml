@@ -1,4 +1,4 @@
-name: Deploy Fieldnote to GitHub Pages
+name: Deploy Path49 to GitHub Pages
 on:
   push:
     branches: [main]

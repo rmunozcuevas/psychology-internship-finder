@@ -124,3 +124,27 @@ test('city search recognizes ATS location formats without confusing nearby citie
  assert.ok(!matchesLocation('US - MA - Boston - 200 Cambridge Street','Cambridge MA'));
  assert.ok(!matchesLocation('Cambridge, United Kingdom','Cambridge MA'));
 });
+
+test('metro search includes explicitly configured neighbors without matching substrings or wrong states',async()=>{
+ const {matchesLocation,cityCoverage}=await import('../student-tools.mjs');
+ assert.ok(matchesLocation('Bellevue, WA','Seattle',{metro:true}));
+ assert.ok(!matchesLocation('Bellevue, WA','Seattle',{metro:false}));
+ assert.ok(matchesLocation('Rock Hill, SC','Charlotte',{metro:true}));
+ assert.ok(!matchesLocation('Concord, NH','Charlotte',{metro:true}));
+ assert.ok(!matchesLocation('Trenton, NJ','Seattle',{metro:true}));
+ assert.ok(matchesAdvanced({...role,location:'Redmond, Washington'},{query:'Seattle',metro:true},now));
+ assert.ok(!matchesAdvanced({...role,location:'Redmond, Washington'},{query:'Seattle',metro:false},now));
+ const rows=[{...role,location:'Seattle, WA; Bellevue, WA'},{...role,id:'two',location:'Redmond, WA'}];
+ assert.equal(cityCoverage(rows,now,true).find(c=>c.id==='seattle').internships,2);
+});
+test('every internship is accounted for in exactly one complete source-location group',async()=>{
+ const {locationInventory}=await import('../student-tools.mjs');
+ const rows=[role,{...role,id:'two',location:'Seattle, WA; Bellevue, WA'},{...role,id:'three',location:'Shanghai, China'},{...role,id:'four',location:''},{...role,id:'entry',opportunityKind:'entry-level',location:'Somewhere'},{...role,id:'closed',deadline:'2020-01-01'}];
+ const inventory=locationInventory(rows,now,true);
+ assert.equal(inventory.internships,4);assert.equal(inventory.experience,1);
+ assert.equal(inventory.featuredInternships+inventory.otherInternships,4);
+ assert.equal(inventory.groups.reduce((sum,g)=>sum+g.internships,0),4);
+ assert.ok(inventory.groups.some(g=>g.label==='Location not provided'));
+ assert.ok(matchesAdvanced(rows[1],{location:rows[1].location,exactLocation:rows[1].location},now));
+ assert.ok(!matchesAdvanced(role,{exactLocation:rows[1].location},now));
+});

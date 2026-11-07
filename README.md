@@ -1,10 +1,16 @@
-# NinerPath — psychology & sociology internship finder
+# Path49 — psychology & sociology internship finder
 
-An independent, public directory for psychology and sociology undergraduates, wherever they study. NinerPath is not affiliated with or endorsed by UNC Charlotte or Niner Software. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
+The name is a nod to Charlotte’s 49ers; the project is independently run.
+
+An independent, public directory for psychology and sociology undergraduates, wherever they study. Path49 is not affiliated with or endorsed by UNC Charlotte or Niner Software. Browse internships, student research placements and adjacent experience, save roles in the current browser, and highlight skills from a resume processed on the device.
 
 ## Visual identity
 
-NinerPath uses an original lowercase `np` and direction-arrow mark, bold sans-serif typography, white space and restrained subject accents: green for psychology, blue for sociology. The visual direction takes inspiration from the minimal project presentation at [Niner Software](https://ninersoftware.com/#projects); the mark and site are independent. No university seals, athletics marks or Niner Software logos are used.
+Path49 uses an original lowercase `p49` and direction-arrow mark, bold sans-serif typography, white space and restrained subject accents: green for psychology, blue for sociology. The visual direction takes inspiration from the minimal project presentation at [Niner Software](https://ninersoftware.com/#projects); the mark and site are independent. No university seals, athletics marks or Niner Software logos are used.
+
+## Location coverage
+
+Metro searches include listed nearby places by default, with a strict city-only option. [The coverage guide](LOCATION-COVERAGE.md) explains the curated groups and the searchable, paginated browser of every source location. All active internships reconcile to exactly one source-location group, including international, remote, and unspecified locations. Featured city cards are overlapping subsets, not the whole catalogue.
 
 ## Student workspace
 

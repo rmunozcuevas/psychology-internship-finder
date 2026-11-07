@@ -51,11 +51,31 @@ export function matchesCity(location,city){
   return !stated&&!['portland-or','washington-dc','kansas-city'].includes(city.id);
  });
 }
+export const METRO_NEIGHBORS={
+ 'seattle':{WA:['Bellevue','Redmond','Kirkland','Renton','Bothell','Shoreline','Lynnwood','Issaquah','Everett','Tacoma','Auburn','Kent']},
+ 'charlotte':{NC:['Matthews','Mint Hill','Huntersville','Cornelius','Davidson','Concord','Kannapolis','Gastonia','Belmont','Pineville','Monroe','Indian Trail'],SC:['Fort Mill','Rock Hill']},
+ 'new-york':{NJ:['Newark','Jersey City','Hoboken','Secaucus','Edison','Woodbridge','New Brunswick'],NY:['Yonkers','White Plains','Hempstead','Garden City','Melville'],CT:['Stamford']},
+ 'washington-dc':{VA:['Arlington','Alexandria','Falls Church','Fairfax','Reston','Herndon','Tysons','Vienna','Ashburn'],MD:['Bethesda','Rockville','Silver Spring','Gaithersburg','College Park']},
+ 'boston':{MA:['Cambridge','Somerville','Brookline','Waltham','Newton','Quincy','Watertown','Lexington','Burlington','Woburn','Framingham']},
+ 'san-francisco':{CA:['Oakland','Berkeley','Emeryville','Alameda','South San Francisco','San Bruno','San Mateo','Burlingame','Redwood City','Menlo Park','Palo Alto','Mountain View','Sunnyvale','San Jose','Santa Clara','Fremont','Hayward','Walnut Creek','San Ramon','Pleasanton','Concord']},
+ 'los-angeles':{CA:['Santa Monica','Culver City','Burbank','Glendale','Pasadena','El Segundo','Torrance','Long Beach','Carson','Commerce','West Hollywood','Beverly Hills','Santa Clarita','Irvine','Anaheim','Costa Mesa','Newport Beach','Huntington Beach','Fullerton','Orange','Tustin']},
+ 'chicago':{IL:['Evanston','Skokie','Schaumburg','Naperville','Oak Brook','Downers Grove','Lombard','Rosemont','Des Plaines','Arlington Heights','Northbrook','Deerfield','Glenview'],IN:['Hammond','Gary','Merrillville']},
+ 'dallas':{TX:['Plano','Irving','Richardson','Frisco','Addison','McKinney','Allen','Arlington','Fort Worth']},
+ 'houston':{TX:['Spring','The Woodlands','Katy','Sugar Land','Pearland','Pasadena']},
+ 'phoenix':{AZ:['Mesa','Tempe','Scottsdale','Chandler','Gilbert','Glendale','Peoria','Surprise']},
+ 'denver':{CO:['Aurora','Lakewood','Littleton','Broomfield','Boulder','Westminster','Thornton','Englewood','Greenwood Village']},
+ 'atlanta':{GA:['Alpharetta','Roswell','Marietta','Sandy Springs','Dunwoody','Smyrna','Decatur','Norcross','Duluth','Tucker','Lawrenceville']},
+ 'raleigh':{NC:['Durham','Chapel Hill','Cary','Morrisville','Apex','Wake Forest','Garner']},
+ 'minneapolis':{MN:['Saint Paul','St Paul','Bloomington','Edina','Eden Prairie','Minnetonka','Golden Valley','Plymouth','Maple Grove']},
+ 'philadelphia':{PA:['King of Prussia','Malvern','Conshohocken','Plymouth Meeting','Bala Cynwyd','Radnor','Horsham','Exton'],NJ:['Camden','Cherry Hill'],DE:['Wilmington','Newark']}
+};
+export function nearbyPlaces(city){return Object.entries(METRO_NEIGHBORS[city.id]||{}).flatMap(([state,names])=>names.map(name=>({name,state,aliases:[]})));}
+export function matchesCityScope(location,city,metro=false){return matchesCity(location,city)||(metro&&nearbyPlaces(city).some(place=>matchesCity(location,place)));}
 const cityMatchesCache=new Map();
-function citiesAtLocation(location){const key=String(location||'');if(cityMatchesCache.has(key))return cityMatchesCache.get(key);const cities=CITY_AREAS.filter(city=>matchesCity(key,city));if(cityMatchesCache.size>=3000)cityMatchesCache.delete(cityMatchesCache.keys().next().value);cityMatchesCache.set(key,cities);return cities;}
-export function cityCoverage(roles,now=Date.now()){
+function citiesAtLocation(location,metro=false){const raw=String(location||''),key=(metro?'metro:':'city:')+raw;if(cityMatchesCache.has(key))return cityMatchesCache.get(key);const cities=CITY_AREAS.filter(city=>matchesCityScope(raw,city,metro));if(cityMatchesCache.size>=3000)cityMatchesCache.delete(cityMatchesCache.keys().next().value);cityMatchesCache.set(key,cities);return cities;}
+export function cityCoverage(roles,now=Date.now(),metro=false){
  const counts=new Map(CITY_AREAS.map(city=>[city.id,{...city,internships:0,experience:0}]));
- for(const role of roles){if(listingStatus(role,now).state==='closed')continue;for(const city of citiesAtLocation(role.location||role.place)){const row=counts.get(city.id);if(role.opportunityKind==='internship')row.internships++;else if(role.opportunityKind==='entry-level')row.experience++;}}
+ for(const role of roles){if(listingStatus(role,now).state==='closed')continue;for(const city of citiesAtLocation(role.location||role.place,metro)){const row=counts.get(city.id);if(role.opportunityKind==='internship')row.internships++;else if(role.opportunityKind==='entry-level')row.experience++;}}
  return [...counts.values()];
 }
 export function matchesState(location,state){
@@ -76,9 +96,9 @@ function locationSegments(location){
  });
  if(locationCache.size>=3000)locationCache.delete(locationCache.keys().next().value);locationCache.set(raw,segments);return segments;
 }
-export function matchesLocation(location,query){
+export function matchesLocation(location,query,{metro=false}={}){
  if(!String(query||'').trim())return true;
- const city=findCitySearch(query);if(city)return matchesCity(location,city);
+ const city=findCitySearch(query);if(city)return matchesCityScope(location,city,metro);
  const code=String(query).trim().toUpperCase();if(/^[A-Z]{2}$/.test(code)&&STATE_NAMES[code])return matchesState(location,code);
  const tokens=norm(query).replace(/[^a-z0-9\s]/g,' ').trim().split(/\s+/).filter(Boolean);
  if(!tokens.length)return false;
@@ -93,9 +113,11 @@ export function sourcePostedDate(role){
 export function matchesAdvanced(role,filters,now=Date.now()){
  const location=role.location||role.place||'',description=role.description||role.desc||'';
  const queryCity=filters.query?findCitySearch(filters.query):null;
- if(queryCity&&!matchesCity(location,queryCity))return false;
- if(filters.query&&!queryCity&&!matchesQuery(`${role.title} ${role.org} ${role.careerPath} ${(role.skills||[]).join(' ')} ${description} ${locationSegments(location).join(' ')} ${citiesAtLocation(location).flatMap(city=>[city.name,...city.aliases]).join(' ')}`,filters.query))return false;
- if(filters.location&&!matchesLocation(location,filters.location))return false;
+ if(queryCity&&!matchesCityScope(location,queryCity,Boolean(filters.metro)))return false;
+ if(filters.query&&!queryCity&&!matchesQuery(`${role.title} ${role.org} ${role.careerPath} ${(role.skills||[]).join(' ')} ${description} ${locationSegments(location).join(' ')} ${citiesAtLocation(location,Boolean(filters.metro)).flatMap(city=>[city.name,...city.aliases]).join(' ')}`,filters.query))return false;
+ const exact=filters.exactLocation!==undefined&&filters.exactLocation!==null;
+ if(exact&&norm(role.location||'').trim()!==norm(filters.exactLocation).trim())return false;
+ if(!exact&&filters.location&&!matchesLocation(location,filters.location,{metro:Boolean(filters.metro)}))return false;
  if(filters.region&&!matchesState(location,filters.region))return false;
  if(filters.mode&&filters.mode!=='all'&&workMode(role)!==filters.mode)return false;
  if(filters.compensation&&filters.compensation!=='all'&&payType({...role,description})!==filters.compensation)return false;
@@ -137,4 +159,13 @@ export function alertCandidates(roles,{baseline=null,read=[],preferences={},trac
   if(inScope&&!terminal&&due!==null&&due>=now&&due-now<=Number(days)*86400000){const id=`deadline:${role.id}:${role.deadline}`;if(!ack.has(id))alerts.push({id,roleId:String(role.id),kind:'deadline',title:role.title,org:role.org,url:role.url,detail:`Application deadline: ${String(role.deadline).slice(0,10)}`,due});}
  }
  return alerts.sort((a,b)=>(a.kind==='deadline'?0:1)-(b.kind==='deadline'?0:1)||(a.due||0)-(b.due||0)||a.title.localeCompare(b.title));
+}
+
+export function locationInventory(roles,now=Date.now(),metro=false){
+ const groups=new Map(),seen=new Set();let internships=0,experience=0,featuredInternships=0;
+ for(const role of roles){if(listingStatus(role,now).state==='closed'||seen.has(role.id||role.url))continue;seen.add(role.id||role.url);
+  const raw=String(role.location||'').trim(),key=norm(raw),group=groups.get(key)||{location:raw,label:raw||'Location not provided',internships:0,experience:0};
+  if(role.opportunityKind==='internship'){group.internships++;internships++;if(citiesAtLocation(raw,metro).length)featuredInternships++;}else if(role.opportunityKind==='entry-level'){group.experience++;experience++;}groups.set(key,group);
+ }
+ return {groups:[...groups.values()].sort((a,b)=>b.internships-a.internships||b.experience-a.experience||a.label.localeCompare(b.label)),internships,experience,featuredInternships,otherInternships:internships-featuredInternships};
 }

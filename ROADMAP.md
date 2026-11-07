@@ -1,4 +1,4 @@
-# NinerPath student search roadmap
+# Path49 student search roadmap
 
 ## Phase 1 — trust and clarity
 
@@ -18,7 +18,7 @@
 - [x] Add career-path preference onboarding.
   - Optional, non-blocking choices per subject; no account required. Preferences change recommendation order without hiding other paths.
 - [x] Expand search and location filters.
-  - Multi-term search includes location fields as well as titles, descriptions and skills. City/state variants (e.g. Seattle, WA / Seattle, Washington) match consistently. Both search inputs offer a major-city directory with actual feed counts and aliases such as NYC, LA, SF and D.C.; city-only queries match location, not incidental headquarters mentions. Neighboring cities are not silently included, and cities with no current listings show zero. A search summary links focused and broader results, shows removable active filters, and offers matching entry-level roles without losing the search. Other filters include quoted phrases, excluded words, US state, work setting, compensation, posting age and recent source observation. Focused and broader sections share advanced filters.
+  - Multi-term search includes location fields as well as titles, descriptions and skills. City/state variants (e.g. Seattle, WA / Seattle, Washington) match consistently. Both search inputs offer a major-city directory with actual feed counts and aliases such as NYC, LA, SF and D.C.; city-only queries match location, not incidental headquarters mentions. Metro search includes explicitly listed nearby places by default, with a city-only switch. A searchable, paginated source-location browser accounts for every active role, including places outside the featured cities. Cities with no current listings show zero. A search summary links focused and broader results, shows removable active filters, and offers matching entry-level roles without losing the search. Other filters include quoted phrases, excluded words, US state, work setting, compensation, posting age and recent source observation. Focused and broader sections share advanced filters.
   - Unknown location/work-setting/pay/date values are not silently inferred. This is text-based location search, not a radius or commute calculation.
 - [x] Add application tracker and CSV export.
   - Shared between psychology and sociology in the current browser. Track preparation, applications, interviews and outcomes, plus notes and a next-action date. Removal has an undo action.

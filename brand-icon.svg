@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <title>NinerPath</title>
+  <title>Path49</title>
   <rect width="64" height="64" rx="13" fill="#fff"/>
-  <text x="4" y="46" fill="#171b20" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="900" letter-spacing="-4">np</text>
+  <text x="4" y="46" fill="#171b20" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="900" letter-spacing="-3">p49</text>
   <path d="M47 22 58 11m-9 0h9v9" fill="none" stroke="#171b20" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

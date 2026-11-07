@@ -14,17 +14,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261107-count-clarity-2" />
-  <link rel="stylesheet" href="identity.css?v=20261107-count-clarity-2" />
-  <link rel="icon" type="image/svg+xml" href="brand-icon.svg" />
-  <meta name="description" content="An independent internship and undergraduate experience directory for psychology and sociology students. Search roles, review requirements and track applications without an account." />
+  <link rel="stylesheet" href="styles.css?v=20261107-path49-metro-1" />
+  <link rel="stylesheet" href="identity.css?v=20261107-path49-metro-1" />
+  <link rel="icon" type="image/svg+xml" href="brand-icon.svg?v=20261107-path49-1" />
+  <meta name="description" content="Path49 is an independent internship and undergraduate experience directory for psychology and sociology students. Search roles, review requirements and track applications without an account." />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
     <header class="sidebar site-header">
-      <a class="brand" href="#home" aria-label="NinerPath home"><span class="brand-mark" aria-hidden="true"><img src="brand-icon.svg" alt="" width="43" height="43" /></span><span class="brand-copy"><span class="brand-name">niner<em>path</em></span><small>psychology + sociology internships</small></span></a>
+      <a class="brand" href="#home" aria-label="Path49 home"><span class="brand-mark" aria-hidden="true"><img src="brand-icon.svg?v=20261107-path49-1" alt="" width="43" height="43" /></span><span class="brand-copy"><span class="brand-name">path<em>49</em></span><small>psychology + sociology internships</small></span></a>
       <nav class="discipline-switch" aria-label="Choose a field"><a href="index.html" class="is-active" aria-current="page">Psychology</a><a href="sociology.html" >Sociology</a></nav><div class="side-label">EXPLORE</div>
       <nav class="side-nav" aria-label="Main navigation">
         <a class="nav-link active" href="#opportunities"><span class="nav-icon">◫</span> All roles <span class="nav-count" id="side-count">…</span></a><a class="nav-link" href="#broader-internships"><span class="nav-icon">↗</span> Broader management <span class="nav-count" id="broader-nav-count">…</span></a>
@@ -43,12 +43,12 @@
       <header class="topbar"><div class="breadcrumb"><b>Independent project</b><span class="breadcrumb-separator">·</span><span class="account-note">No account needed</span></div><div class="topbar-right"><span class="season-pill"><i></i> SUMMER 2027</span><a class="icon-button" href="https://github.com/rmunozcuevas/psychology-sociology-internship-finder" target="_blank" rel="noopener noreferrer" aria-label="Contribute on GitHub" title="Suggest a source or contribute">GitHub ↗</a></div></header>
       <div class="page-wrap" id="opportunities">
         <section class="welcome-row">
-          <div><div class="eyebrow"><span>✳</span> INDEPENDENT PROJECT · OPEN TO EVERYONE</div><h1>Find work that <em>matters.</em></h1><p class="welcome-copy">A thoughtful place to find psychology internships—and the adjacent experiences that help you grow. No sign-in required.</p><p class="independent-note">Built for undergraduates, wherever you study.</p></div>
-          <div class="brand-art" aria-hidden="true"><img src="brand-icon.svg" alt="" width="88" height="88" /><strong>ninerpath</strong><span>find your next direction.</span></div>
+          <div><div class="eyebrow"><span>✳</span> INDEPENDENT PROJECT · OPEN TO EVERYONE</div><h1>Find work that <em>matters.</em></h1><p class="welcome-copy">A thoughtful place to find psychology internships—and the adjacent experiences that help you grow. No sign-in required.</p><p class="independent-note">Charlotte-inspired. Open to undergraduates everywhere.</p></div>
+          <div class="brand-art" aria-hidden="true"><img src="brand-icon.svg?v=20261107-path49-1" alt="" width="88" height="88" /><strong>path49</strong><span>find your next direction.</span></div>
         </section>
         <form class="search-panel" id="search-form" role="search" aria-label="Search internships"><div class="search-field"><span>⌕</span><input id="search-input" list="city-search-options" type="search" placeholder="Role, organization, skill, or city" aria-label="Search by role organization skill or location" /><kbd>⌘ K</kbd></div><div class="search-divider"></div><label class="location-field"><span>⌖</span><input id="location-input" list="city-search-options" type="text" placeholder="City, state, or remote" aria-label="Filter by location" /></label><button id="search-button" type="submit" class="search-button">Find roles <span>↗</span></button></form>
         <div class="search-summary hidden" id="search-summary" role="status" aria-live="polite"></div>
-        <section class="city-directory" id="city-directory" aria-labelledby="city-directory-title"><div class="city-directory-heading"><h2 id="city-directory-title">Start with a city</h2><span>Try NYC, LA, SF, or Washington, DC in either search box</span></div><datalist id="city-search-options"></datalist><div class="city-count-explainer" id="city-count-explainer"></div><div class="popular-city-searches" id="popular-city-searches"></div><details class="more-cities"><summary>Browse all city searches ⌄</summary><div id="all-city-searches" class="all-city-searches"></div></details><p id="city-coverage-label">City counts load with the current feed.</p></section>
+        <section class="city-directory" id="city-directory" aria-labelledby="city-directory-title"><div class="city-directory-heading"><h2 id="city-directory-title">Start with a city</h2><span>Try NYC, LA, SF, or Washington, DC in either search box</span></div><datalist id="city-search-options"></datalist><div class="city-count-explainer" id="city-count-explainer"></div><label class="metro-switch"><input type="checkbox" id="metro-search" checked /> Include nearby metro locations</label><details class="metro-places"><summary>See included nearby places</summary><p>Curated nearby-place groups, not a commute radius or official boundary. Cities without a listed group stay city-only. Check the actual worksite on each posting.</p><div id="metro-place-list"></div></details><div class="popular-city-searches" id="popular-city-searches"></div><details class="more-cities"><summary>Browse all city searches ⌄</summary><div id="all-city-searches" class="all-city-searches"></div></details><details class="posted-location-browser"><summary>Browse every posted location — account for the full catalogue ⌄</summary><label>Search all source locations<input id="posted-location-query" type="search" placeholder="City, suburb, state, region or country" /></label><p id="posted-location-summary"></p><div id="posted-location-list"></div><div id="posted-location-pages"></div></details><p id="city-coverage-label">City counts load with the current feed.</p></section>
         <section class="summary-row"><div class="section-heading"><div><h2>Made for your path</h2><p id="catalog-summary" aria-live="polite">Loading catalogue totals…</p></div><button class="text-button" id="clear-filters">Reset filters <span>↗</span></button></div>
           <div class="stats-grid"><article class="stat-card"><div class="stat-icon lilac">✳</div><div><strong id="psych-stat">…</strong><span id="psych-stat-label">internships &amp; student placements</span></div><span class="stat-trend">FIRST IN LINE</span></article><article class="stat-card"><div class="stat-icon peach">↗</div><div><strong id="adjacent-stat">…</strong><span id="adjacent-stat-label">entry-level experience roles</span></div><span class="stat-trend warm">MORE WAYS IN</span></article><article class="stat-card"><div class="stat-icon mint">♡</div><div><strong id="saved-stat">0</strong><span>saved for later</span></div><span class="stat-trend green">YOUR SHORTLIST</span></article></div>
         </section>
@@ -118,6 +118,6 @@
   </div>
   <div class="toast" id="toast" role="status"></div>
   <script src="config.js?v=20261105-database-1"></script>
-  <script type="module" src="app.js?v=20261107-count-clarity-2"></script>
+  <script type="module" src="app.js?v=20261107-path49-metro-1"></script>
 </body>
 </html>
