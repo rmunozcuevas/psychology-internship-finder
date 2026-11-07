@@ -1,7 +1,7 @@
 import { opportunityKind, careerPath } from './eligibility.mjs';
 import { assessRole, skillEvidence, resumeFacts } from './resume-fit.mjs';
 import { listingStatus, studentEligibilityNotes } from './listing-quality.mjs';
-import { CITY_AREAS, findCitySearch, cityCoverage, TRACKER_STATUSES, STATE_NAMES, matchesAdvanced, relevance, trackerCSV, updateApplication, alertCandidates, sourcePostedDate, workMode, payType } from './student-tools.mjs';
+import { CITY_AREAS, findCitySearch, cityCoverage, TRACKER_STATUSES, STATE_NAMES, matchesAdvanced, relevance, trackerCSV, updateApplication, alertCandidates, sourcePostedDate, workMode, payType } from './student-tools.mjs?v=20261107-count-clarity-1';
 const isSociology=document.body?.dataset?.discipline==='sociology';
 const PROFILE=isSociology?{primaryType:'sociology',rulesUrl:'./sociology-rules.json',feedUrl:'./sociology-opportunities.json',focusedPrefix:'Sociology research, policy & community'}:{primaryType:'psychology',rulesUrl:'./opportunity-rules.json',feedUrl:'./opportunities.json',focusedPrefix:'Clinical, research & HR/I/O'};
 function readLocal(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return value&&typeof value==='object'?value:fallback;}catch{return fallback}}
@@ -73,10 +73,12 @@ function renderCitySearch(){
  if(!liveFeedLoaded||cityCacheFeed===liveRoles)return;cityCacheFeed=liveRoles;
  const cities=cityCoverage(liveRoles),byId=new Map(cities.map(city=>[city.id,city]));
  $('#city-search-options').innerHTML=cities.map(city=>`<option value="${esc(city.label)}">${city.internships} internships · ${city.experience} entry-level</option>`).join('');
- const card=city=>`<button type="button" class="city-search-button" data-search-city="${esc(city.id)}"><span>${esc(city.name)}<small>${esc(city.state)}</small></span><b>${city.internships}</b><small>${city.internships===1?'internship':'internships'} · ${city.experience} experience</small></button>`;
+ const card=city=>`<button type="button" class="city-search-button" data-search-city="${esc(city.id)}"><span>${esc(city.name)}<small>${esc(city.state)}</small></span><b><span>${city.internships}</span><small>${city.internships===1?'internship':'internships'}</small></b><small>+ ${city.experience} entry-level ${city.experience===1?'role':'roles'}</small></button>`;
  $('#popular-city-searches').innerHTML=['charlotte','seattle','new-york','washington-dc','chicago','los-angeles','boston','san-francisco'].map(id=>card(byId.get(id))).join('');
  $('#all-city-searches').innerHTML=cities.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(card).join('');
- $('#city-coverage-label').textContent=`${cities.length} city searches · counts include both internship sections, before your filters. A multi-location role can appear under more than one city. Zero means no current matches in this feed.`;
+ const active=liveRoles.filter(role=>listingStatus(role).state!=='closed'),interns=active.filter(role=>role.opportunityKind==='internship').length,entry=active.filter(role=>role.opportunityKind==='entry-level').length;
+ $('#city-count-explainer').innerHTML=`<strong>Whole catalogue, all locations: ${active.length.toLocaleString()} roles</strong><span>${interns.toLocaleString()} internships + ${entry.toLocaleString()} entry-level roles. Each city card shows that city’s internships, with entry-level roles listed separately.</span>`;
+ $('#city-coverage-label').textContent=`${cities.length} featured city searches; the catalogue also includes other cities, towns and locations outside this picker. City counts include focused and broader management internships before filters. A multi-location role counts once per matching city. Zero means no matches in the current feed.`;
 }
 $('#city-directory').addEventListener('click',e=>{const button=e.target.closest('[data-search-city]');if(!button)return;const city=CITY_AREAS.find(value=>value.id===button.dataset.searchCity);if(!city)return;
  if(findCitySearch(state.query)){state.query='';$('#search-input').value='';}
@@ -175,7 +177,7 @@ function render() {
   $('#side-count').title = `${catalogue.length} total listings: ${internshipCount} internships/student placements and ${entryCount} entry-level roles. The list uses your selected filters.`;
   $('#side-count').setAttribute('aria-label', `${catalogue.length} total listings in the catalogue`);
   const viewLabel = state.kind === 'internship' ? 'internships/student placements' : state.kind === 'entry-level' ? 'entry-level experience' : 'internships and entry-level experience';
-  $('#catalog-summary').textContent = liveFeedError ? 'Catalogue unavailable. Please try again later.' : !liveFeedLoaded ? 'Loading catalogue totals…' : `${focusedInternships} focused internships · ${broadInternships} broader management internships · ${entryCount} entry-level roles. ${communityInternships} internship candidates need employer review.${feedCoverage ? ` Daily scan: ${feedCoverage.healthy} working sources; ${feedCoverage.failed} unavailable.` : ''}`;
+  $('#catalog-summary').textContent = liveFeedError ? 'Catalogue unavailable. Please try again later.' : !liveFeedLoaded ? 'Loading catalogue totals…' : `Across all locations: ${internshipCount} internships (${focusedInternships} focused + ${broadInternships} broader management) and ${entryCount} entry-level roles. ${communityInternships} internship candidates need employer review.${feedCoverage ? ` Daily scan: ${feedCoverage.healthy} working sources; ${feedCoverage.failed} unavailable.` : ''}`;
   $('#psych-stat-label').textContent = 'internships across both sections';
   $('#adjacent-stat-label').textContent = 'entry-level experience roles';
   const base = liveFeedLoaded ? liveRoles.filter(r=>r.careerPath!=='Broader management / leadership').filter(r=>state.kind==='all'||r.opportunityKind===state.kind).filter(r=>state.path==='all'||(r.careerPath||careerPath(r.title,eligibilityRules))===state.path).filter(r=>state.season==='all'||r.season===state.season).filter(r=>matchesAdvanced(r,state)) : [];

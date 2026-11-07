@@ -143,6 +143,8 @@ test('Seattle searches show both sections and reveal the matching entry-level ro
  // Typing Seattle into the main keyword field must find every Seattle-location role too.
  vm.runInContext("state.location='';state.query='Seattle';render()",context);
  for(const role of active)assert.ok(vm.runInContext('filteredRoles().some(r=>r.id===wantedId)',Object.assign(context,{wantedId:role.id}))||role.careerPath==='Broader management / leadership');
+ assert.match(element('#city-count-explainer').innerHTML,/4 roles/);
+ assert.match(element('#city-count-explainer').innerHTML,/3 internships \+ 1 entry-level/);
  assert.match(element('#city-search-options').innerHTML,/Seattle, WA/);
  assert.match(element('#popular-city-searches').innerHTML,/data-search-city="seattle"/);
  vm.runInContext("state.region='NC'",context);
@@ -150,4 +152,15 @@ test('Seattle searches show both sections and reveal the matching entry-level ro
  assert.equal(vm.runInContext('state.location',context),'Seattle, WA');
  assert.equal(vm.runInContext('state.query',context),'');
  assert.equal(vm.runInContext('state.region',context),'');
+});
+
+test('the psychology root redirects to index.html without losing search or section links or looping',()=>{
+ const source=fs.readFileSync('index.html','utf8').match(/<script id="psychology-entry">([\s\S]*?)<\/script>/)[1];
+ for(const href of ['https://example.org/project/','https://example.org/project/?city=Seattle#profile','https://example.org/project/index.html#tracker']){
+  const parsed=new URL(href),targets=[];
+  vm.runInNewContext(source,{URL,location:{href,pathname:parsed.pathname,search:parsed.search,hash:parsed.hash,replace(value){targets.push(value)}}});
+  if(parsed.pathname.endsWith('/'))assert.equal(targets[0],new URL('index.html'+parsed.search+parsed.hash,href).href);
+  else assert.equal(targets.length,0);
+ }
+ assert.doesNotMatch(fs.readFileSync('sociology.html','utf8'),/id="psychology-entry"/);
 });

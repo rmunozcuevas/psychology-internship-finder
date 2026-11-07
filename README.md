@@ -38,7 +38,7 @@ The scan recorded **2,557 working employer sources** and **112 unavailable sourc
 
 ## Browse and run locally
 
-The public site is [on GitHub Pages](https://rmunozcuevas.github.io/psychology-sociology-internship-finder/). No account is needed to browse or save roles. Search titles, organizations, skills and locations; filter career path, season and opportunity type. Focused and broader sections use the same search/location/season criteria and have their own page controls.
+The psychology site uses [one canonical entry point](https://rmunozcuevas.github.io/psychology-sociology-internship-finder/index.html). The root URL redirects to it, preserving query strings and section links, so `/` and `/index.html` cannot diverge into separate interfaces. No account is needed to browse or save roles. Search titles, organizations, skills and locations; filter career path, season and opportunity type. Focused and broader sections use the same search/location/season criteria and have their own page controls.
 
 There is no build step. Serve the repository over HTTP because the frontend uses JavaScript modules:
 

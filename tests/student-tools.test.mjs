@@ -113,3 +113,14 @@ test('major-city aliases work in either field and city counts do not inflate mul
  assert.equal(counts.find(c=>c.id==='seattle').experience,1);
  assert.equal(counts.find(c=>c.id==='atlanta').internships,0);
 });
+
+test('city search recognizes ATS location formats without confusing nearby cities or street names',async()=>{
+ const {matchesLocation}=await import('../student-tools.mjs');
+ for(const [location,query] of [['Massachusetts-Boston','Boston'],['Hybrid - Denver','Denver'],['United States - Ohio - Columbus','Columbus OH'],['US - Cambridge Kendall SQ - MA','Cambridge MA'],['AAO Milwaukee - 750 W Virginia St','Milwaukee']])assert.ok(matchesLocation(location,query),location);
+ assert.ok(!matchesLocation('Columbus, GA','Columbus OH'));
+ assert.ok(!matchesLocation('US - GA - Columbus','Columbus OH'));
+ assert.ok(!matchesLocation('US - NC - Seattle','Seattle WA'));
+ assert.ok(!matchesLocation('South San Francisco, CA','San Francisco'));
+ assert.ok(!matchesLocation('US - MA - Boston - 200 Cambridge Street','Cambridge MA'));
+ assert.ok(!matchesLocation('Cambridge, United Kingdom','Cambridge MA'));
+});

@@ -39,12 +39,15 @@ export function findCitySearch(value){return cityLookup.get(cityKey(value))||nul
 export function matchesCity(location,city){
  const aliases=[city.name,...city.aliases].map(cityKey);
  return String(location||'').split(/;|\||\s\/\s/).some(part=>{
-  const cityPart=cityKey(part.split(',')[0].replace(/\((?:remote|hybrid|on.?site)[^)]*\)/gi,''));
-  const named=aliases.some(alias=>cityPart===alias||cityPart.startsWith(alias+' '+norm(STATE_NAMES[city.state]))||cityPart.startsWith(alias+' ')&&/^(?:area|metropolitan area|region|[a-z]{2}(?: |$))/.test(cityPart.slice(alias.length+1)));
+  if(/\b(?:United Kingdom|Canada|China|India|Germany|France|Netherlands|Singapore|Australia|Ireland|Switzerland|Poland|Spain|Mexico|Brazil|Argentina|Israel|Japan|Taiwan|Hong Kong|South Korea|South Africa)\b/i.test(part))return false;
+  // State-first and workplace-prefixed ATS formats are common. A street address
+  // is not a city, and a state name in a street name is not state evidence.
+  const geo=part.replace(/\b\d+.*$/,'');
+  const candidates=geo.split(/\s*[-–—]\s*/).map(piece=>piece.split(',')[0].replace(/^(?:remote|hybrid|on.?site|AAO|office|location|campus|US|USA|United States)\s*[: ]+/i,'').replace(/\((?:remote|hybrid|on.?site)[^)]*\)/gi,''));
+  const named=candidates.some(piece=>{const text=cityKey(piece);return aliases.some(alias=>text===alias||text.startsWith(alias+' '+norm(STATE_NAMES[city.state]))||text.startsWith(alias+' ')&&/^(?:area|metropolitan area|region|kendall|office|campus|[a-z]{2}(?: |$))/.test(text.slice(alias.length+1)));});
   if(!named)return false;
-  if(matchesState(part,city.state))return true;
-  // Missing state data may match a unique named city, but never override a stated different state.
-  const stated=Object.entries(STATE_NAMES).some(([code])=>matchesState(part,code));
+  if(matchesState(geo,city.state))return true;
+  const stated=Object.entries(STATE_NAMES).some(([code])=>matchesState(geo,code));
   return !stated&&!['portland-or','washington-dc','kansas-city'].includes(city.id);
  });
 }
@@ -57,7 +60,7 @@ export function cityCoverage(roles,now=Date.now()){
 }
 export function matchesState(location,state){
  if(!state)return true;const name=STATE_NAMES[state];if(!name)return false;
- const text=String(location||'').replace(/\bWashington\s*,?\s*(?:DC|D\.C\.|District of Columbia)\b/gi,'District of Columbia');
+ const text=String(location||'').replace(/[-–—]/g,' ').replace(/\bWashington\s*,?\s*(?:DC|D\.C\.|District of Columbia)\b/gi,'District of Columbia');
  return norm(text).includes(norm(name))||new RegExp(`(?:^|[,;/\\s])${state}(?:$|[,;/\\s])`).test(text);
 }
 const stateCodesByName=new Map(Object.entries(STATE_NAMES).map(([code,name])=>[name.toLowerCase(),code]));
