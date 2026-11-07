@@ -30,3 +30,5 @@ body{background:#fff;-webkit-font-smoothing:antialiased}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
 html{scroll-padding-top:160px}@media(max-width:700px){html{scroll-padding-top:145px}}
+
+.app-shell .season-pill,.app-shell .topbar .icon-button{white-space:nowrap}@media(max-width:500px){.app-shell .topbar .account-note,.app-shell .topbar .breadcrumb-separator{display:none}.app-shell .topbar-right{flex-shrink:0}.app-shell .topbar .breadcrumb{white-space:nowrap}}
